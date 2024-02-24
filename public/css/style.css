@@ -18,3 +18,13 @@ font-family: 'Courier New', Courier, monospace;
 .navbar{
     background-color: #40A2E3;
 }
+
+.c-item{
+height: 550px;
+}
+
+.c-img{
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
