@@ -14,7 +14,11 @@
   </head>
   <body>
    @include('partials.navbar')
-      <div class="container mt-4">
+<div class="carousel ">
+    @yield('carousel')
+</div>
+
+      <div class="container mt-5">
         @yield('container')
       </div>
     @include('partials.footer')
