@@ -2,6 +2,7 @@
 
 use App\Models\Katalog;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KatalogController;
 
 /*
@@ -32,5 +33,8 @@ Route::get('/about', function () {
 
 
 Route::get('/katalog', [KatalogController::class, 'index']);
+
 // halaman single post
 Route::get('katalog/{slug}', [KatalogController::class, 'show']);
+
+Route::get('/', [HomeController::class, 'index']);
