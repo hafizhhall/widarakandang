@@ -13,15 +13,66 @@ font-family: 'Courier New', Courier, monospace;
 }
 
 .navbar{
-    background-color: #40A2E3;
+    background-color: #6e2cf3;
 }
 
 .c-item{
-height: 550px;
+height: 600px;
 }
 
 .c-img{
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.6);
+    filter: brightness(0.5);
+}
+body {
+    font-family: sans-serif;
+  }
+
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  main {
+    padding: 2rem;
+  }
+
+  .card {
+    border: none;
+  }
+
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .card-title {
+    font-weight: bold;
+  }
+
+  .card-text {
+    font-size: 0.8rem;
+  }
+
+  .btn-primary {
+    background-color: #333;
+    border-color: #333;
+  }
+
+  .text-center {
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .row-cols-md-2 {
+      column-count: 2;
+    }
+  }
+
+footer{
+    background-color: #392467;
+    ;
 }
