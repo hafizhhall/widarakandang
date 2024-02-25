@@ -41,7 +41,7 @@
         <!-- Grid column -->
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
           <!-- Content -->
-          <h6 class="text-uppercase fw-bold mb-4 col-md-2">
+          <h6 class="text-uppercase fw-bold mb-4">
             <i class="fas fa-gem me-3"></i><img src="/img/logoHitam.png" alt="" width="200" class="mr-2">
           </h6>
           <p>
@@ -53,7 +53,7 @@
         <!-- Grid column -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
           <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4 col-md-6">
+          <h6 class="text-uppercase fw-bold mb-4 ">
             PRODUK
           </h6>
           <p>
@@ -74,7 +74,7 @@
         <!-- Grid column -->
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
           <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4 col-md-2">SOSIAL MEDIA</h6>
+          <h6 class="text-uppercase fw-bold mb-4">SOSIAL MEDIA</h6>
           <p>
             <a href="#!" class="text-reset">Instagram</a>
           </p>
@@ -93,8 +93,8 @@
         <!-- Grid column -->
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4 col-md-2">Contact</h6>
-          <p><i class="fas fa-home me-3"></i>Jl. Hibrida No.10, Muja Muju, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55165</p>
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3" style="text-align: justify"></i>Jl. Hibrida No.10, Muja Muju, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55165</p>
           <p><i class="fas fa-phone me-3"></i>+62 8960-5007-001</p>
           <p><i class="fas fa-print me-3"></i>+62 899-5063-877</p>
         </div>
