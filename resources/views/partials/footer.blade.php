@@ -43,7 +43,7 @@
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">SOSIAL MEDIA</h6>
           <p>
-            <a href="#!" class="text-reset">Instagram</a>
+            <a href="https://www.instagram.com/widarakandang/" class="text-reset" target="_blank">Instagram</a>
           </p>
           <p>
             <a href="#!" class="text-reset">Facebook</a>
