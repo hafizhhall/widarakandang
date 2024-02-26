@@ -47,16 +47,16 @@
 @section('container')
 @include('partials.navnews')
 <div class="row row-cols-md-3 row-cols-3">
-    @foreach ($artikel as $artikels)
+    @foreach ($informasi as $info)
     <div class="col mb-4">
       <div class="card">
-        <img src="/img/{{ $artikels["gambar"] }}" class="card-img-top" alt="...">
+        <img src="/img/lab.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{ $artikels["judul"] }}</h5>
-          <p class="card-text">{{ $artikels["isi"] }}</p>
+          <h5 class="card-title">{{ $info["judul"] }}</h5>
+          <p class="card-text">{{ $info["isi"] }}</p>
           <div class="d-flex justify-content-between align-items-center">
             <p class="tgl"><small class="text-muted">15 November 2023</small></p>
-            <a href="dartikel/{{ $artikels["slug"] }}" class="btn btn-primary">Selengkapnya</a>
+            <a href="#" class="btn btn-primary">Selengkapnya</a>
           </div>
         </div>
       </div>

@@ -36,3 +36,21 @@ for(const short of shortTitle){
         short.textContent = shortText + '...';
 }
 }
+
+// Spinner
+const spinner = document.querySelector('.spinner-border');
+
+const navLinks = document.querySelectorAll('.nav-link');
+
+for (const navLink of navLinks) {
+  navLink.addEventListener('click', () => {
+    spinner.style.display = 'block';
+  });
+}
+
+// close
+window.addEventListener('load', () => {
+    spinner.style.display = 'none';
+
+  });
+
