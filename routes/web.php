@@ -3,7 +3,9 @@
 use App\Models\Katalog;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\PrestasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +40,19 @@ Route::get('/katalog', [KatalogController::class, 'index']);
 Route::get('katalog/{slug}', [KatalogController::class, 'show']);
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('dartikel/{slug}', [HomeController::class, 'show']);
+
+
+Route::get('/informasi', [InformasiController::class, 'index']);
+Route::get('/informasi', function () {
+    return view('informasi', [
+        "title" => "Informasi"
+    ]);
+});
+
+Route::get('/artikels/prestasi', [PrestasiController::class, 'index']);
+Route::get('/artikels/prestasi', function(){
+    return view('artikels.prestasi', [
+        "title" => "Prestasi"
+    ]);
+});

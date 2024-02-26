@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 use App\Models\Artikel;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index(){
-        return view('home',[
-            "title" => "Artikel",
+        return view('home', [
+
+            "title" => "Home",
             "artikel" => Artikel::all()
         ]);
     }
 
     public function show($slug){
-        return view('home',[
+        return view('/dartikel',[
             "title" => "Single Post",
             "artikel" => Artikel::find($slug)
         ]);
