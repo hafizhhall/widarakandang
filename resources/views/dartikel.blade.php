@@ -4,11 +4,11 @@
 <article>
     <div class="row">
       <div class="col-md-6">
-        <img src="/img/{{ $artikel['gambar'] }}" class="img-fluid" alt="Kebakaran Pasar Beringharjo">
+        <img src="/img/{{ $artikel->gambar }}" class="img-fluid" alt="Kebakaran Pasar Beringharjo">
       </div>
       <div class="col-md-6">
-        <h1>{{ $artikel['judul'] }}</h1>
-        <p style="text-align: justify" class="mt-4">{{ $artikel['isi'] }}</p>
+        <h1>{{ $artikel->title }}</h1>
+        <p style="text-align: justify" class="mt-4">{{ $artikel->body }}</p>
         <div class="d-flex flex-row justify-content-end">
           <i class="fa fa-calendar me-2"></i>
           <span style="opacity: 50%">12 Desember 2023</span>
@@ -21,9 +21,6 @@
       </div>
     </div>
   </article>
-
-
-
 <br>
 <br>
 <br>
