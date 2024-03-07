@@ -52,8 +52,8 @@
       <div class="card">
         <img src="/img/lab.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{ $info["judul"] }}</h5>
-          <p class="card-text">{{ $info["isi"] }}</p>
+          <h5 class="card-title">{{ $info["title"] }}</h5>
+          <p class="card-text">{{ $info["body"] }}</p>
           <div class="d-flex justify-content-between align-items-center">
             <p class="tgl"><small class="text-muted">15 November 2023</small></p>
             <a href="#" class="btn btn-primary">Selengkapnya</a>
