@@ -255,3 +255,37 @@ img {
       padding-inline: 2.5rem;
     }
   }
+
+  /* service */
+:root{
+    --pr-color : #6e2cf3;
+}
+
+.button-primary {
+    width: 133px;
+    height: 40px;
+    background-color: whitesmoke;
+    color: var(--pr-color);
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+}
+.button-secondary {
+    width: 133px;
+    height: 40px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.button-service{
+    width: 238px;
+    height: 63px;
+    background-color: #6e2cf3;
+    border: none;
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+}

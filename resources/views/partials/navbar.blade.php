@@ -1,37 +1,27 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <img src="/img/logo.png" alt="" width="150" class="mr-3">
+      <a href="#" class="navbar-brand">
+        <img src="/img/logo.png" alt="" width="150" class="d-inline-block align-text-top me-3">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ">
-          <li class="nav-item">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item mx-2">
             <a class="nav-link {{ ($title === "Home") ? 'active': '' }}" href="/">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item mx-2">
             <a class="nav-link  {{ ($title === "Katalog") ? 'active': '' }}" href="/katalog">Katalog</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item mx-2">
             <a class="nav-link {{ ($title === "About") ? 'active': '' }}" href="/about">About</a>
           </li>
         </ul>
-        <div class="spinner-border text-primary" role="status" style="display: none;">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-      </div>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item nv-hoverArea">
-                <a href="" class="nav-link active" style=""><b>Masuk</b></a>
-            </li>
-            <li class="nav-item">
-                <b class="nav-link active">|</b>
-            </li>
-            <li class="nav-item nv-hoverArea">
-                <a href="" class="nav-link active"><b>Daftar</b></a>
-            </li>
-        </ul>
+        <div>
+            <button class="button-secondary">Daftar</button>
+            <button class="button-primary">Masuk</button>
+        </div>
       </div>
     </div>
   </nav>
