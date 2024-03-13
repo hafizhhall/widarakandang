@@ -39,60 +39,36 @@
     <a href="#">Lihat Lebih Banyak</a>
   </div>
 {{-- Service --}}
-<section class="mt-5">
+<section id="service">
     <div class="container">
         <div class="row">
-            <div class="col text-center mb-0">
-               <h1 class="display-3 font-weight-bolder">Pelayanan yang Tersedia</h1>
-        <p class="lead">Anggrek Widarakandang Memiliki Beberapa Produk Layanan Seperti Berikut</p>
+            <div class="col-9">
+                <h2>
+                    Flower Arrangement
+                </h2>
             </div>
-          </div>
-    </div>
-<div class="service ">
-    <div class="card__container">
-        <article class="card__article">
-            <img src="/img/bersama.jpg" alt="image" class="card__img">
-            <div class="card__data">
-                <span class="card__description">Poto Anggrek INI</span>
-                    <h2 class="card_title">Sewa Anggrek</h2>
-                    <a href="" class="card__button">Read More</a>
-                </span>
+            <div class="col-3">
+                <button class="button-service">Lihat Semua..
+                    <img src="/img/arrow.png" alt="">
+                </button>
             </div>
-        </article>
-
-        <article class="card__article">
-            <img src="/img/bersama.jpg" alt="image" class="card__img">
-            <div class="card__data">
-                <span class="card__description">Poto Anggrek INI</span>
-                    <h2 class="card_title">Pot Arrangment</h2>
-                    <a href="" class="card__button">Read More</a>
-                </span>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-fitur">
+                        <img src="/img/3.jpg" alt="">
+                        <div class="overlay">
+                            <div>
+                                <h5>Nanam Anggrek</h5>
+                                <span>Pelayanan Nanam angrek</span>
+                                <button>Lihat Layanan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </article>
-
-        <article class="card__article">
-            <img src="/img/bersama.jpg" alt="image" class="card__img">
-            <div class="card__data">
-                <span class="card__description">Poto Anggrek INI</span>
-                    <h2 class="card_title">Anggrek Nutrition</h2>
-                    <a href="" class="card__button">Read More</a>
-                </span>
-            </div>
-        </article>
-    </div>
-</div>
-</section>
-<section>
-    <div class="service">
-        <div class="card__container"><article class="card__article">
-            <img src="/img/bersama.jpg" alt="image" class="card__img">
-            <div class="card__data">
-                <span class="card__description">Poto Anggrek INI</span>
-                    <h2 class="card_title">Sewa Anggrek</h2>
-                    <a href="" class="card__button">Read More</a>
-                </span>
-            </div>
-        </article></div>
+        </div>
     </div>
 </section>
 @endsection
