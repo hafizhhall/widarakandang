@@ -1,23 +1,16 @@
-body{
-    background-color: #161616;
-}
-
 
 .cpy{
     color: white;
 }
 
 
-.h1.h2.h3.h4{
-font-family: 'Courier New', Courier, monospace;
-}
 
 .navbar{
     background-color: #6e2cf3;
 }
 
 .c-item{
-height: 600px;
+height: 660px;
 }
 
 .c-img{
@@ -25,9 +18,6 @@ height: 600px;
     object-fit: cover;
     filter: brightness(0.5);
 }
-body {
-    font-family: sans-serif;
-  }
 
   header {
     background-color: #333;
@@ -38,10 +28,6 @@ body {
 
   main {
     padding: 2rem;
-  }
-
-  .card {
-    border: none;
   }
 
   .card-img-top {
@@ -106,155 +92,6 @@ img {
     padding-block: 5rem;
 }
 
-.card__container {
-    display: grid;
-    row-gap: 3.5rem;
-  }
-
-  .card__article {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .card__img {
-    width: 328px;
-    border-radius: 1.5rem;
-  }
-
-  .card__data {
-    width: 280px;
-    background-color: var(--container-color);
-    padding: 1.5rem 2rem;
-    box-shadow: 0 8px 24px hsla(0, 0%, 0%, .15);
-    border-radius: 1rem;
-    position: absolute;
-    bottom: -9rem;
-    left: 0;
-    right: 0;
-    margin-inline: auto;
-    opacity: 0;
-    transition: opacity 1s 1s;
-  }
-
-  .card__description {
-    display: block;
-    font-size: var(--small-font-size);
-    margin-bottom: .25rem;
-  }
-
-  .card__title {
-    font-size: var(--h2-font-size);
-    font-weight: 500;
-    color: var(--title-color);
-    margin-bottom: .75rem;
-  }
-
-  .card__button {
-    text-decoration: none;
-    font-size: var(--small-font-size);
-    font-weight: 500;
-    color: var(--first-color);
-  }
-
-  .card__button:hover {
-    text-decoration: underline;
-  }
-
-  /* Naming animations in hover */
-  .card__article:hover .card__data {
-    animation: show-data 1s forwards;
-    opacity: 1;
-    transition: opacity .3s;
-  }
-
-  .card__article:hover {
-    animation: remove-overflow 2s forwards;
-  }
-
-  .card__article:not(:hover) {
-    animation: show-overflow 2s forwards;
-  }
-
-  .card__article:not(:hover) .card__data {
-    animation: remove-data 1s forwards;
-  }
-
-  /* Card animation */
-  @keyframes show-data {
-    50% {
-      transform: translateY(-10rem);
-    }
-    100% {
-      transform: translateY(-7rem);
-    }
-  }
-
-  @keyframes remove-overflow {
-    to {
-      overflow: initial;
-    }
-  }
-
-  @keyframes remove-data {
-    0% {
-      transform: translateY(-7rem);
-    }
-    50% {
-      transform: translateY(-10rem);
-    }
-    100% {
-      transform: translateY(.5rem);
-    }
-  }
-
-  @keyframes show-overflow {
-    0% {
-      overflow: initial;
-      pointer-events: none;
-    }
-    50% {
-      overflow: hidden;
-    }
-  }
-
-  /*=============== BREAKPOINTS ===============*/
-  /* For small devices */
-  @media screen and (max-width: 340px) {
-    .service {
-      margin-inline: 0rem;
-    }
-
-    .card__data {
-      width: 250px;
-      padding: 1rem;
-    }
-  }
-
-  /* For medium devices */
-  @media screen and (min-width: 768px) {
-    .card__container {
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 1.5rem;
-    }
-  }
-
-  /* For large devices */
-  @media screen and (min-width: 1120px) {
-    .service {
-      height: 40vh;
-    }
-
-    .card__container {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .card__img {
-      width: 348px;
-    }
-    .card__data {
-      width: 316px;
-      padding-inline: 2.5rem;
-    }
-  }
 
   /* service */
 :root{
@@ -269,6 +106,7 @@ img {
     border: none;
     font-size: 16px;
     font-weight: 700;
+    border-radius: 5px;
 }
 .button-secondary {
     width: 133px;
@@ -277,7 +115,7 @@ img {
     color: white;
     border: none;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 400l;
 }
 
 .button-service{
@@ -289,3 +127,5 @@ img {
     font-weight: 500;
     color: white;
 }
+
+

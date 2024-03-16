@@ -17,56 +17,44 @@
 
 {{-- konten --}}
 @section('container')
+<div class="row mb-4">
+    <div class="blog col-12 text-center">
+        <h2>Blog Widarakandang</h2>
+    </div>
+</div>
 @include('partials.navnews')
-<div class="row row-cols-md-3 row-cols-3">
+<link rel="stylesheet" href="/css/home.css">
+<div class="row row-cols-md-3 row-cols-2">
     @foreach ($artikel as $artikels)
     <div class="col mb-4">
-      <div class="card">
+        <a href="dartikel/{{ $artikels->id }}" class="no-underline">
+      <div class="card p-2">
         <img src="/img/{{ $artikels["gambar"] }}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{ $artikels->title }}</h5>
+          <h4 class="card-title">{{ $artikels->title }}</h4>
           <p class="card-text">{{ $artikels->minibody }}</p>
           <div class="d-flex justify-content-between align-items-center">
-            <p class="tgl"><small class="text-muted">15 November 2023</small></p>
-            <a href="dartikel/{{ $artikels->id }}" class="btn btn-primary">Selengkapnya</a>
+            <p class="tgl"><small class="text-muted">{{ $artikels->published_at }}</small></p>
           </div>
         </div>
       </div>
+    </a>
     </div>
     @endforeach
   </div>
   <div class="text-center">
     <a href="#">Lihat Lebih Banyak</a>
   </div>
+{{-- new kegiatan --}}
+
 {{-- Service --}}
-<section id="service">
+<section class="layanan">
     <div class="container">
         <div class="row">
-            <div class="col-9">
+            <div class="col-12">
                 <h2>
-                    Flower Arrangement
+                    Layanan Kami
                 </h2>
-            </div>
-            <div class="col-3">
-                <button class="button-service">Lihat Semua..
-                    <img src="/img/arrow.png" alt="">
-                </button>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card-fitur">
-                        <img src="/img/3.jpg" alt="">
-                        <div class="overlay">
-                            <div>
-                                <h5>Nanam Anggrek</h5>
-                                <span>Pelayanan Nanam angrek</span>
-                                <button>Lihat Layanan</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
