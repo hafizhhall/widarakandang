@@ -1,0 +1,48 @@
+:root{
+    --pr-color : #6e2cf3;
+}
+body{
+    background-color: #F3F3F3;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+a {
+    color: #000;
+}
+
+/* section kegiatan */
+.card{
+    height: auto;
+    border: none;
+}
+
+.card-body h4{
+    color: black;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.8rem;
+}
+
+.card:hover{
+    background: linear-gradient(170deg, var(--pr-color), #6e2cf3, #000);
+    box-shadow: 0 10px 20px rgba(0,0,0,.25);
+    transition: all ease-in-out .3s;
+}
+
+.card:hover .card-body h4{
+    color: #fff;
+    transition: all ease-in-out .3s;
+}
+
+.card:hover .card-body p{
+    color: #fff;
+    transition: all ease-in-out .3s;
+}
+
+.blog h2{
+    color: #6e2cf3;
+}
+
+/* layanan */

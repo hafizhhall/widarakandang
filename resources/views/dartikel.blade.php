@@ -11,7 +11,7 @@
         <p style="text-align: justify" class="mt-4">{{ $artikel->body }}</p>
         <div class="d-flex flex-row justify-content-end">
           <i class="fa fa-calendar me-2"></i>
-          <span style="opacity: 50%">12 Desember 2023</span>
+          <span style="opacity: 50%">{{ $artikel->published_at }}</span>
         </div>
       </div>
     </div>

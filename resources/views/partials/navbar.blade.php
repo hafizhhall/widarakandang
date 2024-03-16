@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark position-sticky">
+<link rel="stylesheet" href="/css/responsive.css">
     <div class="container">
       <a href="#" class="navbar-brand">
         <img src="/img/logo.png" alt="" width="150" class="d-inline-block align-text-top me-3">
@@ -15,7 +16,10 @@
             <a class="nav-link  {{ ($title === "Katalog") ? 'active': '' }}" href="/katalog">Katalog</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link {{ ($title === "About") ? 'active': '' }}" href="/about">About</a>
+            <a class="nav-link {{ ($title === "About") ? 'active': '' }}" href="/about">Layanan</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link {{ ($title === "About") ? 'active': '' }}" href="/about">Tentang</a>
           </li>
         </ul>
         <div>
