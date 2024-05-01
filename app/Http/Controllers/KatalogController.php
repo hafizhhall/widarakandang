@@ -14,10 +14,10 @@ class KatalogController extends Controller
         ]);
     }
 
-    public function show($slug){
+    public function show(Katalog $katalog){
         return view('katalogs',[
             "title" => "Single Post",
-            "katalog" => Katalog::find($slug)
+            "katalog" => $katalog
         ]);
     }
 }

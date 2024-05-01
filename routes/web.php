@@ -37,22 +37,11 @@ Route::get('/about', function () {
 Route::get('/katalog', [KatalogController::class, 'index']);
 
 // halaman single post
-Route::get('katalog/{slug}', [KatalogController::class, 'show']);
+Route::get('katalog/{katalog:slug}', [KatalogController::class, 'show']);
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('dartikel/{slug}', [HomeController::class, 'show']);
+// halaman single post kegiatan artikel
+Route::get('dartikel/{dartikel:slug}', [HomeController::class, 'show']);
 
-
-Route::get('/informasi', [InformasiController::class, 'index']);
-Route::get('/informasi', function () {
-    return view('informasi', [
-        "title" => "Informasi"
-    ]);
-});
-
-Route::get('/artikels/prestasi', [PrestasiController::class, 'index']);
-Route::get('/artikels/prestasi', function(){
-    return view('artikels.prestasi', [
-        "title" => "Prestasi"
-    ]);
-});
+// Kategori
+Route::get('/{kategori:slug}', [HomeController::class, 'artikel_kategori'])->name('artikel.kategori');
