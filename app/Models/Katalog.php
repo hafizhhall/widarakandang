@@ -17,7 +17,9 @@ class Katalog extends Model
     //     'body'];
     protected $guarded = ['id'];
 
-    public function kategorianggrek(){
-        return $this->belongsTo(kategorianggrek::class);
+
+    Public function jenis(){
+        return $this->belongsTo(Jenis::class);
     }
+
 }

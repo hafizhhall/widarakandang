@@ -8,7 +8,7 @@
         <h2>
             <a href="/katalog/{{ $katalogs->slug }}">{{ $katalogs->title }}</a>
         </h2>
-        {{-- <h5>{{ $katalogs->jenis }}</h5> --}}
+        <h5>{{ $katalogs->jenis->name }}</h5>
         <h6>{{ $katalogs->harga }}</h6>
         <p>{{ $katalogs->excerpt }}</p>
     </article>
@@ -36,11 +36,11 @@
             <div class="card">
                 <img src="/img/2.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">TIRAMISU CAKE</h5>
+                    <h4 class="card-title">TIRAMISU CAKE</h4>
                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
                             dignissimos accusantium amet similique velit iste.</p>
                 </div>
-                <div class="mb-5 d-flex justify-content-around">
+                <div class="mb-2 d-flex justify-content-around card-body">
                     <h3>Rp190.000</h3>
                     <button class="btn btn-primary">Buy Now</button>
                 </div>

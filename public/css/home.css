@@ -36,6 +36,10 @@ a {
     transition: all ease-in-out .3s;
 }
 
+.card:hover .card-body h3{
+    color: #fff;
+    transition: all ease-in-out .3s;
+}
 .card:hover .card-body p{
     color: #fff;
     transition: all ease-in-out .3s;
