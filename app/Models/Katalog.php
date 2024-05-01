@@ -9,10 +9,15 @@ class Katalog extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'jenis',
-        'harga',
-        'excerpt',
-        'body'];
+    // protected $fillable = [
+    //     'title',
+    //     'jenis',
+    //     'harga',
+    //     'excerpt',
+    //     'body'];
+    protected $guarded = ['id'];
+
+    public function kategorianggrek(){
+        return $this->belongsTo(kategorianggrek::class);
+    }
 }

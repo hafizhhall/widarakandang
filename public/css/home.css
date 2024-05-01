@@ -45,4 +45,12 @@ a {
     color: #6e2cf3;
 }
 
-/* layanan */
+a {
+    font-weight: normal;
+  }
+
+  a:hover {
+    font-weight: bold;
+  }
+
+/* katalog anggrek */

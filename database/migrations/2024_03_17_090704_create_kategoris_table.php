@@ -11,26 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('artikels', function (Blueprint $table) {
+        Schema::create('kategoris', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_id');
-            $table->foreignId('user_id');
-            $table->string('title');
+            $table->string('nama')->unique();
             $table->string('slug')->unique();
-            $table->string('gambar');
-            $table->text('minibody');
-            $table->text('body');
-            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('artikels');
+        Schema::dropIfExists('kategoris');
     }
 };

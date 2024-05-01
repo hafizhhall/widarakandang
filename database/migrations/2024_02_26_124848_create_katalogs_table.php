@@ -14,11 +14,17 @@ return new class extends Migration
     {
         Schema::create('katalogs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('jenis_id');
             $table->string('title');
-            $table->string('jenis');
+            $table->string('slug')->unique();
+            $table->string('ukuran');
+            $table->string('berbungga');
+            $table->string('suhu');
+            $table->unsignedInteger('jumlah');
             $table->unsignedInteger('harga');
             $table->text('excerpt');
             $table->text('body');
+            $table->string('gambar');
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
