@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Jenis;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Katalog extends Model
 {
@@ -17,6 +18,11 @@ class Katalog extends Model
     //     'body'];
     protected $guarded = ['id'];
 
+    public function scopeFilter($query, array $filters) {
+        if(isset($filters['search']) ?  $filters['search'] : false) {
+            return $query->where('title', 'like', '%' . $filters['search'] . '%');
+        }
+    }
 
     Public function jenis(){
         return $this->belongsTo(Jenis::class);
