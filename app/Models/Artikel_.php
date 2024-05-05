@@ -54,7 +54,7 @@ class Artikel
 
     public static function all()
     {
-        return collect(self::$artikel);
+        // return collect(self::$artikel);
     }
 
     public static function find($slug)

@@ -9,7 +9,8 @@ class HomeController extends Controller
     public function index(){
         return view('home', [
             "title" => "Home",
-            "artikel" => Artikel::all(),
+            // "artikel" => Artikel::all(),
+            "artikel" => Artikel::latest()->paginate(9)->withQueryString(),
             "kategori" => Kategori::all()
         ]);
     }
@@ -24,7 +25,7 @@ class HomeController extends Controller
     public function artikel_kategori(Kategori $kategori){
         return view('home', [
             "title" => "Home",
-            "artikel" => $kategori->Artikel()->get(),
+            "artikel" => $kategori->Artikel()->paginate(),
             "kategori" => Kategori::all()
         ]);
         // $artikelall = $kategori->Artikel()->get();

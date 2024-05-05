@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('ukuran');
             $table->string('berbungga');
             $table->string('suhu');
+            $table->string('warna');
             $table->unsignedInteger('jumlah');
             $table->unsignedInteger('harga');
             $table->text('excerpt');
             $table->text('body');
+            $table->text('perawatan');
             $table->string('gambar');
             $table->timestamp('published_at')->nullable();
             $table->timestamps();

@@ -9,7 +9,7 @@
       <div class="col-md-6">
         <p style="opacity: 40%"><a href="/#blog" style="text-decoration: none">Home</a> / {{ $artikel->kategori->nama }}</p>
         <h1>{{ $artikel->title }}</h1>
-        <p style="opacity: 50%" class="text-info">By. Hafizh Athallah</p>
+        <p style="opacity: 50%" class="text-info">{{ $artikel->user->name }}</p>
         <p style="text-align: justify" class="mt-4">{!! $artikel->body !!}</p>
         <div class="d-flex flex-row justify-content-end">
           <i class="fa fa-calendar me-2"></i>

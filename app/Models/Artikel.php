@@ -23,6 +23,10 @@ class Artikel extends Model
         return $this->belongsTo(Kategori::class);
     }
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     public function getTanggalAttribute(){
         return Carbon::parse($this->published_at)->format('Y-m-d');
     }

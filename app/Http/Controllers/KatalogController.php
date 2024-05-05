@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Katalog;
+use App\Models\Jenis;
 class KatalogController extends Controller
 {
-    //
+
     public function index(){
         return view('katalog', [
             "title" => "Katalog",
-            "katalog_anggrek" => Katalog::all()
+            "katalog_anggrek" => Katalog::latest()->filter(request(['search']))->paginate(9)->withQueryString(),
+            "jenis" => Jenis::all()
         ]);
     }
 
@@ -18,6 +19,14 @@ class KatalogController extends Controller
         return view('katalogs',[
             "title" => "Single Post",
             "katalog" => $katalog
+        ]);
+    }
+
+    public function katalog_filter(Jenis $jenis){
+        return view ('katalog',[
+            "title" => "Katalog",
+            "katalog_anggrek" => $jenis->Katalog()->get(),
+            "jenis" => Jenis::all()
         ]);
     }
 }
