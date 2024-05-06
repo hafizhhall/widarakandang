@@ -22,9 +22,9 @@
             <a class="nav-link {{ ($title === "About") ? 'active': '' }}" href="/about">Tentang</a>
           </li>
         </ul>
+        <div><a href="/daftar" class="nav-link"><button class="button-secondary">Daftar</button></a></div>
         <div>
-            <button class="button-secondary">Daftar</button>
-            <button class="button-primary">Masuk</button>
+            <a href="/login" class="nav-link {{ ($title === "login") ? 'active': '' }}"><button class="button-primary">Masuk</button></a>
         </div>
       </div>
     </div>

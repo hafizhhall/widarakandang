@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\AboutController;
+use App\Models\Jenis;
 use App\Models\Katalog;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\KatalogController;
-use App\Http\Controllers\PrestasiController;
-use App\Models\Jenis;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +35,9 @@ use App\Models\Jenis;
 //     ]);
 // });
 // halaman tentang
+Route::get('/register',[RegisterController::class, 'index']);
+Route::post('/register',[RegisterController::class, 'store']);
+Route::get('/login',[LoginController::class, 'index']);
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('about/', [AboutController::class,'index']);
@@ -62,3 +65,5 @@ Route::get('/jenis/{jenis:slug}',function(Jenis $jenis){
         'jenis' => $jenis->name
     ]);
 });
+
+
