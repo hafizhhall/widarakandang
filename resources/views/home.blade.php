@@ -9,7 +9,6 @@
             <p class="mt-5 fs-3 text-uppercase">Selamat Datang di</p>
             <h1 class="display-1 fw-border text-capitalize"><b>ANGGREK WIDARAKANDANG</b></h1>
             <a href="/katalog" class="no-underline"><button class="btn btn-primary px-4 py-2 fs-5 mt-5">Lihat Anggrek</button></a>
-
         </div>
       </div>
     </div>
@@ -41,7 +40,7 @@
     <div class="col mb-4">
         <a href="dartikel/{{ $artikels->slug }}" class="no-underline">
       <div class="card p-2">
-        <img src="/img/{{ $artikels["gambar"] }}" class="card-img-top" alt="...">
+        <img src="{{ asset('storage/' . $artikels->gambar) }}" class="card-img-top" alt="...">
         <div class="card-body">
           <h4 class="card-title">{{ $artikels->title }}</h4>
           <p class="card-text">{{ $artikels->minibody }}</p>

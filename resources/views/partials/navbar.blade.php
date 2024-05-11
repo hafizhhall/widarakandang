@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark position-sticky">
+<nav class="navbar navbar-expand-lg navbar-dark">
 <link rel="stylesheet" href="/css/responsive.css">
     <div class="container">
       <a href="#" class="navbar-brand">
@@ -22,10 +22,31 @@
             <a class="nav-link {{ ($title === "About") ? 'active': '' }}" href="/about">Tentang</a>
           </li>
         </ul>
-        <div><a href="/daftar" class="nav-link"><button class="button-secondary">Daftar</button></a></div>
-        <div>
+
+        @auth
+        <ul class="navbar-nav">
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Hi, {{ auth()->user()->name }}</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <form action="/logout" method="post">
+                    @csrf
+                    <button type="submit" class="dropdown-item">
+                        <i class="material-symbols-outlined">Logout</i>
+                    </button>
+                </form>
+                </li>
+            </ul>
+          </li>
+        </ul>
+            @else
+            <div><a href="/daftar" class="nav-link"><button class="button-secondary">Daftar</button></a></div>
+            <div>
             <a href="/login" class="nav-link {{ ($title === "login") ? 'active': '' }}"><button class="button-primary">Masuk</button></a>
-        </div>
+            </div>
+        @endauth
       </div>
     </div>
   </nav>

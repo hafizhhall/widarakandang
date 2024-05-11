@@ -4,7 +4,7 @@
 <article>
     <div class="row">
       <div class="col-md-6">
-        <img src="/img/{{ $artikel->gambar }}" class="img-fluid" alt="Kebakaran Pasar Beringharjo">
+        <img src="{{ asset('storage/' . $artikel->gambar) }}" class="img-fluid" alt="Kebakaran Pasar Beringharjo">
       </div>
       <div class="col-md-6">
         <p style="opacity: 40%"><a href="/#blog" style="text-decoration: none">Home</a> / {{ $artikel->kategori->nama }}</p>
