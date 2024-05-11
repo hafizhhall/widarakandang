@@ -6,10 +6,12 @@ use Carbon\Carbon;
 use App\Models\Kategori;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Cviebrock\EloquentSluggable\Sluggable;
+
 
 class Artikel extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
     // protected $fillable = [
     //     'title',
@@ -30,5 +32,16 @@ class Artikel extends Model
     public function getTanggalAttribute(){
         return Carbon::parse($this->published_at)->format('Y-m-d');
     }
-
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 }

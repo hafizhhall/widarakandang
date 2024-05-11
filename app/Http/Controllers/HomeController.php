@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function artikel_kategori(Kategori $kategori){
         return view('home', [
             "title" => "Home",
-            "artikel" => $kategori->Artikel()->paginate(),
+            "artikel" => $kategori->Artikel()->paginate(9),
             "kategori" => Kategori::all()
         ]);
         // $artikelall = $kategori->Artikel()->get();

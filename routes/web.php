@@ -5,9 +5,13 @@ use App\Models\Katalog;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\DashboardArtikelController;
+use App\Http\Controllers\DashboardKategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\RegisterController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,24 +24,23 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('home', [
-//         "title" => "Home"
-//     ]);
-// });
 
-// Route::get('/about', function () {
-//     return view('about', [
-//         "title" => "About",
-//         "name" => "Hafizh Athallah Widianto",
-//         "email" => "banyuadem@gmail.com",
-//         "image" => "pis.jpg"
-//     ]);
-// });
 // halaman tentang
-Route::get('/register',[RegisterController::class, 'index']);
+Route::get('/dashboard/artikel/checkSlug',[DashboardArtikelController::class, 'checkSlug'])->middleware('auth');
+Route::resource('/dashboard/artikel', DashboardArtikelController::class)->middleware('auth');
+Route::post('/logout',[LoginController::class, 'logout']);
+Route::get('/dashboard/kategori/checkSlug', [DashboardKategoriController::class, 'checkSlug'])->middleware('auth');
+Route::resource('/dashboard/kategori', DashboardKategoriController::class)->middleware('auth');
+Route::get('/dashboard/kategori', [DashboardKategoriController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', function(){
+    return view ('dashboard.index');
+})->middleware('auth');
+Route::get('/register',[RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register',[RegisterController::class, 'store']);
-Route::get('/login',[LoginController::class, 'index']);
+Route::post('/login',[LoginController::class, 'authenticate']);
+Route::get('/login',[LoginController::class, 'index'])->name('login')->middleware('guest');
+
+
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('about/', [AboutController::class,'index']);

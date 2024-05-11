@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('gambar');
             $table->text('minibody');
             $table->text('body');
+            $table->string('statusBunga')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
