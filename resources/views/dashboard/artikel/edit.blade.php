@@ -7,7 +7,7 @@
   </div>
 
   <div class="col-lg-8 my-5">
-      <form method="post" action="/dashboard/artikel/{{ $artikel->slug }}">
+      <form method="post" action="/dashboard/artikel/{{ $artikel->slug }}" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="mb-3">
@@ -31,17 +31,6 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label for="gambar" class="form-label">Gambar</label>
-            <input type="text" class="form-control @error('gambar')
-                is-invalid
-            @enderror" id="gambar" name="gambar" required value="{{ old('gambar', $artikel->gambar) }}">
-            @error('gambar')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-          </div>
-        <div class="mb-3">
             <label for="kategori" class="form-label">Kategori</label>
             <select class="form-select" name="kategori_id">
                 <option selected>Pilih kategori</option>
@@ -54,6 +43,25 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="mb-3">
+            <label for="gambar" class="form-label">Masukan gambar</label>
+            <input type="hidden" name="oldGambar" value="{{ $artikel->gambar }}">
+            @if($artikel->gambar)
+            <img src="{{ asset('storage/' . $artikel->gambar) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block" alt="">
+            @else
+            <img class="img-preview img-fluid mb-3 col-sm-5" alt="">
+            @endif
+            <input class="form-control @error('gambar')
+                is-invalid
+            @enderror" type="file" id="gambar" name="gambar" onchange="previewGambar()">
+            @error('gambar')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
         <div class="mb-3">
             <label for="body" class="form-label">Body</label>
             @error('body')
@@ -79,5 +87,19 @@
     document.addEventListener('trix-file-accept', function(e){
         e.preventDefault();
     })
+
+    function previewGambar(){
+        const gambar = document.querySelector('#gambar');
+        const imgPreview = document.querySelector('.img-preview');
+
+        imgPreview.style.display = 'block';
+
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(gambar.files[0]);
+
+        oFReader.onload = function(oFREvent){
+            imgPreview.src = oFREvent.target.result;
+        }
+    };
   </script>
 @endsection

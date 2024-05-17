@@ -37,9 +37,10 @@
         </div>
         <div class="mb-3">
             <label for="gambar" class="form-label">Masukan gambar</label>
+            <img class="img-preview img-fluid mb-3 col-sm-5" alt="">
             <input class="form-control @error('gambar')
                 is-invalid
-            @enderror" type="file" id="gambar" name="gambar">
+            @enderror" type="file" id="gambar" name="gambar" onchange="previewGambar()">
             @error('gambar')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -70,6 +71,19 @@
 
     document.addEventListener('trix-file-accept', function(e){
         e.preventDefault();
-    })
+    });
+    function previewGambar(){
+        const gambar = document.querySelector('#gambar');
+        const imgPreview = document.querySelector('.img-preview');
+
+        imgPreview.style.display = 'block';
+
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(gambar.files[0]);
+
+        oFReader.onload = function(oFREvent){
+            imgPreview.src = oFREvent.target.result;
+        }
+    };
 </script>
 @endsection

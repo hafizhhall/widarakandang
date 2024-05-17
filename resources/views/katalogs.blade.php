@@ -12,7 +12,7 @@
         </div>
         <div class="row mt-5">
             <div class="col-5 offset-1">
-                <img src="/img/{{ $katalog->gambar }}" class="img-fluid" alt="">
+                <img src="{{ asset('storage/' . $katalog->gambar) }}" class="img-fluid" alt="">
                 <div class="row mt-2 owl-carousel owl-theme">
                     <div class="item"><img src="/img/sangobi.jpg" class="img-fluid" alt=""></div>
                     <div class="item"><img src="/img/sangobi.jpg" class="img-fluid" alt=""></div>
@@ -20,9 +20,9 @@
                     <div class="item"><img src="/img/sangobi.jpg" class="img-fluid" alt=""></div>
                     <div class="item"><img src="/img/sangobi.jpg" class="img-fluid" alt=""></div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-0 p-4">
                     <h5 style="opacity: 50%">Tips Perawatan:</h5>
-                    <p style="size: 12px">{{ $katalog->perawatan }}</p>
+                    <p style="size: 12px">{!! $katalog->perawatan !!}</p>
                 </div>
             </div>
             <div class="col-6">
@@ -50,10 +50,10 @@
                             <div class="col-4">
                                 <div class="row">
                                     <div class="col">
-                                        <p style="text-align: center; opacity: 50%;">Berbungga</p>
+                                        <p style="text-align: center; opacity: 50%;">Berbunga</p>
                                     </div>
                                     <div class="">
-                                        <h5 style="text-align: center">{{ $katalog->berbungga }}</h5>
+                                        <h5 style="text-align: center">{{ $katalog->berbunga }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -96,10 +96,10 @@
                             <div class="col-4 border-end">
                                 <div class="row">
                                     <div class="col">
-                                        <p style="text-align: center; opacity: 50%;">Warna</p>
+                                        <p style="text-align: center; opacity: 50%;">Statur Mekar</p>
                                     </div>
                                     <div class="">
-                                        <h6 style="text-align: center">{{ $katalog->warna }}</h6>
+                                        <h6 style="text-align: center">{{ $katalog->status }}</h6>
                                     </div>
                                 </div>
                             </div>

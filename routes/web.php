@@ -5,11 +5,15 @@ use App\Models\Katalog;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\DashboardArtikelController;
-use App\Http\Controllers\DashboardKategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardJenisController;
+use App\Http\Controllers\DashboardArtikelController;
+use App\Http\Controllers\DashboardKatalogController;
+use App\Http\Controllers\DashboardKategoriController;
+use App\Http\Controllers\DashboardSupplierController;
 
 
 
@@ -24,17 +28,32 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-
-// halaman tentang
-Route::get('/dashboard/artikel/checkSlug',[DashboardArtikelController::class, 'checkSlug'])->middleware('auth');
+// controller dashboard supplier
+Route::resource('/dashboard/supplier', DashboardSupplierController::class)->middleware('auth');
+Route::get('/dashboard/supplier/checkSlug', [DashboardSupplierController::class, 'checkSlug'])->middleware('auth');
+// Controller dashboard jenis
+Route::get('/dashboard/jenis/{jenis}/edit', [DashboardJenisController::class, 'edit'])->name('jenis.edit');
+Route::put('/dashboard/jenis/{jenis}', [DashboardJenisController::class, 'update'])->name('jenis.update');
+Route::get('/dashboard/jenis/checkSlug', [DashboardJenisController::class, 'checkSlug'])->middleware('auth');
+Route::get('/dashboard/jenis', [DashboardJenisController::class, 'index'])->name('jenis.index');
+Route::get('/dashboard/jenis/create', [DashboardJenisController::class, 'create'])->name('jenis.create');
+Route::post('/dashboard/jenis/create', [DashboardJenisController::class, 'store'])->name('jenis.store');
+Route::delete('/dashboard/jenis/{jenis}', [DashboardJenisController::class, 'destroy'])->name('jenis.destroy');
+// controller dashboard katalog
+Route::get('/dashboard/katalog/checkSlug', [DashboardKatalogController::class, 'checkSlug'])->middleware('auth');
+Route::resource('/dashboard/katalog', DashboardKatalogController::class)->middleware('auth');
+// Route::get('/dashboard/katalog', [DashboardKatalogController::class, 'index'])->middleware('auth');
+Route::get('/dashboard/artikel/checkSlug', [DashboardArtikelController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/artikel', DashboardArtikelController::class)->middleware('auth');
 Route::post('/logout',[LoginController::class, 'logout']);
+// kategori blog post dashboard
 Route::get('/dashboard/kategori/checkSlug', [DashboardKategoriController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/kategori', DashboardKategoriController::class)->middleware('auth');
-Route::get('/dashboard/kategori', [DashboardKategoriController::class, 'index'])->middleware('auth');
-Route::get('/dashboard', function(){
-    return view ('dashboard.index');
-})->middleware('auth');
+// Route::get('/dashboard/kategori', [DashboardKategoriController::class, 'index'])->middleware('auth');
+// Route::get('/dashboard', function(){
+//     return view ('dashboard.index');
+// })->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/register',[RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register',[RegisterController::class, 'store']);
 Route::post('/login',[LoginController::class, 'authenticate']);

@@ -14,7 +14,7 @@ class DashboardKategoriController extends Controller
     public function index()
     {
         return view('dashboard.kategori.index',[
-            'kategori' => Kategori::all()
+            'kategoris' => Kategori::all()
         ]);
     }
 
@@ -53,7 +53,9 @@ class DashboardKategoriController extends Controller
      */
     public function edit(Kategori $kategori)
     {
-        //
+        return view('dashboard.kategori.edit',[
+            'kategori' => $kategori
+        ]);
     }
 
     /**
@@ -61,7 +63,20 @@ class DashboardKategoriController extends Controller
      */
     public function update(Request $request, Kategori $kategori)
     {
-        //
+        $rules = [
+            'nama' => 'required|max:100'
+        ];
+
+        if($request->slug != $kategori->slug){
+            $rules['slug'] = 'required|unique:kategoris';
+        }
+        $validasiData = $request->validate($rules);
+
+
+        Kategori::where('id', $kategori->id)
+                    ->update($validasiData);
+        return redirect('/dashboard/kategori')->with('success', 'Kategori berhasil diubah');
+
     }
 
     /**
@@ -69,7 +84,12 @@ class DashboardKategoriController extends Controller
      */
     public function destroy(Kategori $kategori)
     {
-        Kategori::destroy($kategori->id);
+
+        // Kategori::findOrFail($kategori->id);
+        if($kategori->artikel()->count() > 0){
+            return redirect('dashboard/kategori')->with('error', 'Kategori tidak bisa dihapus karena masih memiliki artikel terkait.');
+        }
+        $kategori->delete();
         return redirect('/dashboard/kategori')->with('success', 'Sudah terhapus!!!');
     }
 
