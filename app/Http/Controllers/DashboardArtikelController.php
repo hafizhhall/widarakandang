@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardArtikelController extends Controller
 {
@@ -83,7 +84,7 @@ class DashboardArtikelController extends Controller
             'title' => 'required|max:100',
             'kategori_id' => 'required',
             'body' => 'required',
-            'gambar' => 'required'
+            'gambar' => 'image|file|max:5024',
         ];
 
         if($request->slug != $artikel->slug){
@@ -91,6 +92,13 @@ class DashboardArtikelController extends Controller
         }
 
         $validasiData = $request->validate($rules);
+
+        if($request->file('gambar')){
+            if($request->oldGambar){
+                Storage::delete($request->oldGambar);
+            }
+            $validasiData['gambar'] = $request->file('gambar')->store('artikel-gambar');
+        }
 
         $validasiData['user_id'] = auth()->user()->id;
         $validasiData['minibody'] = Str::limit(strip_tags($request->body), 200);
@@ -105,6 +113,9 @@ class DashboardArtikelController extends Controller
      */
     public function destroy(Artikel $artikel)
     {
+        if($artikel->gambar){
+            Storage::delete($artikel->gambar);
+        }
         Artikel::destroy($artikel->id);
         return redirect('/dashboard/artikel')->with('success', 'Sudah terhapus!!!');
     }

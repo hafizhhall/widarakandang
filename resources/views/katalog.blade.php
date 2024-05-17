@@ -40,8 +40,8 @@
         <div class="col mb-4">
             <a href="/katalog/{{ $k->slug }}" class="no-underline">
             <div class="card">
-                <div class="position-absolute px-3 py-2 text-white" style="background-color: rgba(0, 0, 0, 0.7)">{{ $k->jenis->name }}</div>
-                <img src="/img/{{ $k["gambar"] }}" class="card-img-top" alt="...">
+                <div class="position-absolute px-3 py-2 text-white" style="background-color: rgba(0, 0, 0, 0.7)">{{ $k->status }}</div>
+                <img src="{{ asset('storage/' . $k->gambar) }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h4 class="card-title">{{ $k->title }}</h4>
                     <p class="card-text">{{ $k->excerpt }}</p>

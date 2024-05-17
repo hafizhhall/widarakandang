@@ -7,12 +7,12 @@
   </div>
 
   <div class="col-lg-8 my-5">
-      <form method="post" action="/dashboard/kategori">
+      <form method="post" action="{{ route('jenis.store') }}">
         @csrf
         <div class="mb-3">
-          <label for="nama" class="form-label">Kategori</label>
-          <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" required autofocus value="{{ old('nama') }}">
-            @error('nama')
+          <label for="name" class="form-label">Kategori</label>
+          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" required autofocus value="{{ old('name') }}">
+            @error('name')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -26,11 +26,11 @@
     </form>
   </div>
   <script>
-    const kategori = document.querySelector('#nama');
+    const jenis = document.querySelector('#name');
     const slug = document.querySelector('#slug');
 
-    kategori.addEventListener('change', function(){
-        fetch('/dashboard/kategori/checkSlug?nama=' + kategori.value)
+    jenis.addEventListener('change', function(){
+        fetch('/dashboard/jenis/checkSlug?name=' + jenis.value)
             .then(response => response.json())
             .then(data => slug.value = data.slug)
     });

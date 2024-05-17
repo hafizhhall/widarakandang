@@ -23,7 +23,7 @@
         <div class="col mb-4">
             <a href="/katalog/{{ $k->slug }}" class="no-underline">
             <div class="card">
-                <img src="/img/{{ $k["gambar"] }}" class="card-img-top" alt="...">
+                <img src="{{ asset('storage/' . $k->gambar) }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h4 class="card-title">{{ $k->title }}</h4>
                     <p class="card-text">{{ $k->excerpt }}</p>
