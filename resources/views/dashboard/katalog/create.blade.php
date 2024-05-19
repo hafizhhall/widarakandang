@@ -34,23 +34,20 @@
                       @enderror
                   </div>
             </div>
-            <div class="col">
-                <div class="mb-3">
-                    <label for="jumlah" class="form-label rupiah">Jumlah anggrek</label>
-                    <input type="number" min="1" class="form-control @error('jumlah') is-invalid @enderror" id="jumlah" name="jumlah" required autofocus value="{{ old('jumlah') }}">
-                      @error('jumlah')
-                          <div class="invalid-feedback">
-                              {{ $message }}
-                          </div>
-                      @enderror
-                  </div>
-            </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="mb-3">
                     <label for="ukuran" class="form-label">Ukuran anggrek</label>
-                    <input type="text" class="form-control  @error('ukuran') is-invalid @enderror" id="ukuran" name="ukuran" required autofocus value="{{ old('ukuran') }}">
+                    <select class="form-select" aria-label="Default select example" name="ukuran">
+                        <option selected>Pilih ukuran anggrek</option>
+                        <option value="Seedling">Seedling</option>
+                        <option value="Remaja">Remaja</option>
+                        <option value="Pra-remaja">Pra-remaja</option>
+                        <option value="Dewasa">Dewasa</option>
+                        <option value="Pra-dewasa">Pra-dewasa</option>
+                      </select>
+                    {{-- <input type="text" class="form-control  @error('ukuran') is-invalid @enderror" id="ukuran" name="ukuran" required autofocus value="{{ old('ukuran') }}"> --}}
                       @error('ukuran')
                           <div class="invalid-feedback">
                               {{ $message }}
@@ -61,7 +58,13 @@
             <div class="col">
                 <div class="mb-3">
                     <label for="suhu" class="form-label">Suhu</label>
-                    <input type="text" class="form-control  @error('suhu') is-invalid @enderror" id="suhu" name="suhu" required autofocus value="{{ old('suhu') }}">
+                    <select class="form-select" aria-label="Default select example" name="suhu">
+                        <option selected>Pilih suhu</option>
+                        <option value="Hangat">Hangat</option>
+                        <option value="Sejuk">Sejuk</option>
+                        <option value="Sinar langsung">Sinar langsung</option>
+                      </select>
+                    {{-- <input type="text" class="form-control  @error('suhu') is-invalid @enderror" id="suhu" name="suhu" required autofocus value="{{ old('suhu') }}"> --}}
                       @error('suhu')
                           <div class="invalid-feedback">
                               {{ $message }}
@@ -74,7 +77,12 @@
             <div class="col">
                 <div class="mb-3">
                     <label for="status" class="form-label">Status Bunga Anggrek</label>
-                    <input type="text" class="form-control  @error('warna') is-invalid @enderror" id="status" name="status" required autofocus value="{{ old('status') }}">
+                    <select class="form-select" aria-label="Default select example" name="status">
+                        <option selected>Pilih status bunga</option>
+                        <option value="Berbunga">Berbunga</option>
+                        <option value="Tidak berbunga">Tidak berbunga</option>
+                        <option value="Akan berbunga">Akan berbunga</option>
+                      </select>
                       @error('status')
                           <div class="invalid-feedback">
                               {{ $message }}
@@ -85,7 +93,22 @@
             <div class="col">
                 <div class="mb-3">
                     <label for="berbunga" class="form-label">Waktu berbunga</label>
-                    <input type="text" class="form-control  @error('berbunga') is-invalid @enderror" id="berbunga" name="berbunga" required autofocus value="{{ old('berbunga') }}">
+                    <select class="form-select" aria-label="Default select example" name="berbunga">
+                        <option selected>Pilih bulan</option>
+                        <option value="Januari">Januari</option>
+                        <option value="Febuari">Febuari</option>
+                        <option value="Maret">Maret</option>
+                        <option value="Apirl">Apirl</option>
+                        <option value="Mei">Mei</option>
+                        <option value="Juni">Juni</option>
+                        <option value="Juli">Juli</option>
+                        <option value="Agustus">Agustus</option>
+                        <option value="November">November</option>
+                        <option value="September">September</option>
+                        <option value="Oktober">Oktober</option>
+                        <option value="Desember">Desember</option>
+                      </select>
+                    {{-- <input type="text" class="form-control  @error('berbunga') is-invalid @enderror" id="berbunga" name="berbunga" required autofocus value="{{ old('berbunga') }}"> --}}
                       @error('berbunga')
                           <div class="invalid-feedback">
                               {{ $message }}
@@ -106,27 +129,6 @@
                     @endif
                 @endforeach
             </select>
-        </div>
-        <div class="col">
-            <div class="mb-3">
-                <label for="supplier" class="form-label">Supplier id</label>
-                <select class="form-select" name="supplier_id">
-                    <option selected style="opacity: 50%">Pilih jenis anggrek!</option>
-                    @foreach ($suppliers as $supplier)
-                        @if(old('supplier_id') == $supplier->id)
-                            <option value="{{ $supplier->id }}" selected>{{ $supplier->perusahaan }}</option>
-                        @else
-                            <option value="{{ $supplier->id }}">{{ $supplier->perusahaan }}</option>
-                        @endif
-                    @endforeach
-                </select>
-                {{-- <input type="number" class="form-control  @error('supplier_id') is-invalid @enderror" id="supplier_id" name="supplier_id" required autofocus value="{{ old('supplier_id') }}">
-                  @error('supplier_id')
-                      <div class="invalid-feedback">
-                          {{ $message }}
-                      </div>
-                  @enderror --}}
-              </div>
         </div>
         <div class="mb-3">
             <label for="gambar" class="form-label">Masukan gambar</label>
@@ -187,5 +189,6 @@
             imgPreview.src = oFREvent.target.result;
         }
     };
+
 </script>
 @endsection

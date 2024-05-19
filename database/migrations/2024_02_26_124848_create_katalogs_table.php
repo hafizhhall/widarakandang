@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::create('katalogs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('jenis_id');
-            $table->foreignId('supplier_id');
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('ukuran');
