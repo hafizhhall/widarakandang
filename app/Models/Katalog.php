@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Jenis;
-use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -31,9 +30,7 @@ class Katalog extends Model
     Public function jenis(){
         return $this->belongsTo(Jenis::class);
     }
-    Public function Supplier(){
-        return $this->belongsTo(Supplier::class);
-    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

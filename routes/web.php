@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardEntryController;
 use App\Http\Controllers\DashboardJenisController;
 use App\Http\Controllers\DashboardArtikelController;
 use App\Http\Controllers\DashboardKatalogController;
@@ -27,7 +28,8 @@ use App\Http\Controllers\DashboardSupplierController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// dashboar barang masuk
+Route::resource('/dashboard/entry', DashboardEntryController::class)->middleware('auth');
 // controller dashboard supplier
 Route::resource('/dashboard/supplier', DashboardSupplierController::class)->middleware('auth');
 Route::get('/dashboard/supplier/checkSlug', [DashboardSupplierController::class, 'checkSlug'])->middleware('auth');

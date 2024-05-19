@@ -28,8 +28,7 @@ class DashboardKatalogController extends Controller
     public function create()
     {
         return view('dashboard.katalog.create', [
-            'categories' => Jenis::all(),
-            'suppliers' => Supplier::all()
+            'categories' => Jenis::all()
         ]);
     }
 
@@ -41,12 +40,11 @@ class DashboardKatalogController extends Controller
         $validasiData = $request->validate([
             'title' => 'required|max:100',
             'jenis_id' => 'required',
-            'supplier_id' =>'required',
             'ukuran' => 'required',
             'berbunga' => 'required',
             'suhu' => 'required',
             'status' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'nullable',
             'harga' => 'required',
             'body' =>'required',
             'perawatan' => 'required',
@@ -55,6 +53,10 @@ class DashboardKatalogController extends Controller
 
         if($request->file('gambar')){
             $validasiData['gambar'] = $request->file('gambar')->store('katalog-gambar');
+        }
+
+        if (empty($validasiData['jumlah'])) {
+            $validasiData['jumlah'] = 0;
         }
 
         $validasiData['excerpt'] = Str::limit(strip_tags($request->body), 200);
@@ -80,7 +82,6 @@ class DashboardKatalogController extends Controller
         return view('dashboard.katalog.edit', [
             'katalog' => $katalog,
             'categories' => Jenis::all(),
-            'suppliers' => Supplier::all()
         ]);
     }
 
@@ -96,7 +97,7 @@ class DashboardKatalogController extends Controller
             'berbunga' => 'required',
             'suhu' => 'required',
             'status' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'nullable',
             'harga' => 'required',
             'body' =>'required',
             'perawatan' => 'required',
@@ -106,6 +107,7 @@ class DashboardKatalogController extends Controller
         if($request->slug != $katalog->slug){
             $rules['slug'] = 'required|unique:katalogs';
         }
+
 
         $validasiData = $request->validate($rules);
 

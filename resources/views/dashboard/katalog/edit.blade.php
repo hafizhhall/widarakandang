@@ -42,7 +42,7 @@
                       @enderror
                   </div>
             </div>
-            <div class="col">
+            {{-- <div class="col">
                 <div class="mb-3">
                     <label for="jumlah" class="form-label rupiah">Jumlah anggrek</label>
                     <input type="number" min="1" class="form-control @error('jumlah') is-invalid @enderror" id="jumlah" name="jumlah" required autofocus value="{{ old('jumlah', $katalog->jumlah) }}">
@@ -52,7 +52,7 @@
                           </div>
                       @enderror
                   </div>
-            </div>
+            </div> --}}
         </div>
         <div class="row">
             <div class="col">

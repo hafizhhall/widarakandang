@@ -63,5 +63,6 @@ class DatabaseSeeder extends Seeder
             'phone' => '0899889899',
             'note' => 'Supplier ini sangat baik dan suka datang jam 3 sore setiap hari selasa pagi'
         ]);
+
     }
 }
