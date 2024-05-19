@@ -11,6 +11,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardEntryController;
 use App\Http\Controllers\DashboardJenisController;
+use App\Http\Controllers\DashboardOutputController;
 use App\Http\Controllers\DashboardArtikelController;
 use App\Http\Controllers\DashboardKatalogController;
 use App\Http\Controllers\DashboardKategoriController;
@@ -28,6 +29,8 @@ use App\Http\Controllers\DashboardSupplierController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// dashboard barang keluar
+Route::resource('/dashboard/output', DashboardOutputController::class)->middleware('auth');
 // dashboar barang masuk
 Route::resource('/dashboard/entry', DashboardEntryController::class)->middleware('auth');
 // controller dashboard supplier
