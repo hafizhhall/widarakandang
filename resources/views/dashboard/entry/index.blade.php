@@ -9,9 +9,31 @@
         {{ session('success') }}
       </div>
   @endif
+  @if (session()->has('error'))
+      <div class="alert alert-danger" role="alert" id="success-alert">
+        {{ session('error') }}
+      </div>
+  @endif
   <h2>List barang</h2>
   <div class="table-responsive small">
-    <a href="/dashboard/entry/create" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i> Tambah Barang Masuk</a>
+    <form action="/dashboard/entry/filter" method="get">
+        <div class="row mb-4">
+            <div class="col-md-5 d-flex align-items-end">
+                <a href="/dashboard/entry/create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Tambah Barang Masuk</a>
+            </div>
+            <div class="col-md-3">
+                <label for="">Start Date: </label>
+                <input type="date" class="form-control" name="start_date">
+            </div>
+            <div class="col-md-3">
+                <label for="">End Date: </label>
+                <input type="date" class="form-control" name="end_date">
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+    </form>
     <table class="table table-striped table-sm">
       <thead>
         <tr>
@@ -31,7 +53,7 @@
           <td>{{ $entry->katalog->title }}</td>
           <td>{{ $entry->supplier->perusahaan }}</td>
           <td>{{ $entry->user->name }}</td>
-          <td>{{ $entry->quantity }}</td>
+          <td>{{ number_format($entry->quantity,0,',','.') }}</td>
           <td>{{ $entry->date }}</td>
           <td>
             <a href="/dashboard/entry/{{ $entry->id }}/edit" class="badge bg-warning">

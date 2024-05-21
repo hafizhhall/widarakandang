@@ -3,15 +3,15 @@
 
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Barang Masuk</h1>
+    <h1 class="h2">Barang Keluar</h1>
   </div>
 
   <div class="col-lg-8 my-5">
-      <form method="POST" action="/dashboard/entry">
+      <form method="POST" action="/dashboard/output">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label rupiah">Nama Anggrek</label>
-            <select class="form-select" name="katalog_id" required>
+            <select class="form-select" name="katalog_id">
                 <option selected style="opacity: 50%">Pilih Anggrek</option>
                 @foreach ($katalogs as $katalog)
                     @if(old('katalog_id') == $katalog->id)
@@ -23,30 +23,15 @@
             </select>
         </div>
         <div class="col">
-            <div class="mb-3">
-                <label for="perusahaan" class="form-label rupiah">Supplier</label>
-                <select class="form-select" name="supplier_id" required>
-                    <option selected style="opacity: 50%">Pilih supplier</option>
-                    @foreach ($suppliers as $supplier)
-                        @if(old('supplier_id') == $supplier->id)
-                            <option value="{{ $supplier->id }}" selected>{{ $supplier->perusahaan }}</option>
-                        @else
-                            <option value="{{ $supplier->id }}">{{ $supplier->perusahaan }}</option>
-                        @endif
-                    @endforeach
-                </select>
-            </div>
-        </div>
-            <div class="col">
                 <div class="mb-3">
                     <label for="quantity" class="form-label rupiah">Jumlah anggrek</label>
                     <input type="number" min="1" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" required autofocus value="{{ old('quantity') }}">
-                      @error('quantity')
-                          <div class="invalid-feedback">
-                              {{ $message }}
-                          </div>
-                      @enderror
-                  </div>
+                    @error('quantity')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
             <div class="mt-3">
                 <label class="text-sm text-gray-600" for="date">Tanggal</label>

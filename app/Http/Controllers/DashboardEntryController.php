@@ -63,15 +63,17 @@ class DashboardEntryController extends Controller
             'quantity' => $request->quantity
         ]);
 
-        $sumIncomeQuantity = Entry::where('katalog_id', $request->katalog_id)->sum('quantity');
+        // $sumIncomeQuantity = Entry::where('katalog_id', $request->katalog_id)->sum('quantity');
         // $sumOutcomeQuantity = Entry::where('type', 'outcome')->where('product_id', $request->product_id)->sum('quantity');
         $product = Katalog::findOrFail($request->katalog_id);
         $quantityUpdated = $product->update([
-            'jumlah' => $sumIncomeQuantity
+            'jumlah' => $product->jumlah + $request->quantity
         ]);
 
         if ($created && $quantityUpdated) {
-            return redirect('/dashboard/entry')->with('message', 'data berhasil ditambahkan');
+            return redirect('/dashboard/entry')->with('success', 'data berhasil ditambahkan');
+        }else{
+            return redirect('/dashboard/entry')->with('error', 'Gagal menambahkan data');
         }
     }
 
@@ -134,4 +136,6 @@ class DashboardEntryController extends Controller
     {
         //
     }
+
+
 }

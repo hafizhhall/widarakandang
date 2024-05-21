@@ -32,9 +32,10 @@ use App\Http\Controllers\DashboardSupplierController;
 // dashboard barang keluar
 Route::resource('/dashboard/output', DashboardOutputController::class)->middleware('auth');
 // dashboar barang masuk
-Route::resource('/dashboard/entry', DashboardEntryController::class)->middleware('auth');
+Route::get('/dashboard/entry/filter', [DashboardEntryController::class, 'filter'])->middleware('auth');
+Route::resource('/dashboard/entry', DashboardEntryController::class)->middleware('auth')->except('show');
 // controller dashboard supplier
-Route::resource('/dashboard/supplier', DashboardSupplierController::class)->middleware('auth');
+Route::resource('/dashboard/supplier', DashboardSupplierController::class)->middleware('auth')->except('show');
 Route::get('/dashboard/supplier/checkSlug', [DashboardSupplierController::class, 'checkSlug'])->middleware('auth');
 // Controller dashboard jenis
 Route::get('/dashboard/jenis/{jenis}/edit', [DashboardJenisController::class, 'edit'])->name('jenis.edit');
@@ -58,7 +59,7 @@ Route::resource('/dashboard/kategori', DashboardKategoriController::class)->midd
 // Route::get('/dashboard', function(){
 //     return view ('dashboard.index');
 // })->middleware('auth');
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/register',[RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register',[RegisterController::class, 'store']);
 Route::post('/login',[LoginController::class, 'authenticate']);
