@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedInteger('harga');
             $table->text('excerpt');
             $table->text('body');
-            $table->text('perawatan');
+            $table->text('perawatan')->nullable();
             $table->string('gambar');
             $table->timestamp('published_at')->nullable();
             $table->timestamps();

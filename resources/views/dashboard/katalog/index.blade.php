@@ -30,7 +30,7 @@
           <td>{{ $katalog->title }}</td>
           <td>{{ $katalog->jenis->name }}</td>
           <td>Rp{{ number_format($katalog->harga,0,',','.') }}</td>
-          <td>{{ $katalog->jumlah }}</td>
+          <td>{{ number_format($katalog->jumlah,0,',','.') }}</td>
           <td>
             <a href="/dashboard/katalog/{{ $katalog->slug }}" class="badge bg-info">
                 <i class="bi bi-eye"></i>

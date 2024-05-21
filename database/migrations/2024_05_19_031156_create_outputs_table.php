@@ -15,15 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('katalog_id');
             $table->foreignId('user_id');
-            $table->foreignId('supplier_id');
             $table->integer('quantity');
             $table->date('date');
+            $table->integer('sub_keluar');
             $table->integer('harga_keluar');
             $table->timestamps();
 
             $table->foreign('katalog_id')->references('id')->on('katalogs')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

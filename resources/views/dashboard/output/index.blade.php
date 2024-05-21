@@ -9,32 +9,38 @@
         {{ session('success') }}
       </div>
   @endif
+  @if (session()->has('error'))
+      <div class="alert alert-danger" role="alert" id="success-alert">
+        {{ session('error') }}
+      </div>
+  @endif
+
   <h2>List barang</h2>
   <div class="table-responsive small">
-    <a href="/dashboard/entry/create" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i> Tambah Barang Keluar</a>
+    <a href="/dashboard/output/create" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i> Tambah Barang Keluar</a>
     <table class="table table-striped table-sm">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Anggrek</th>
-          <th scope="col">Supplier</th>
-          <th scope="col">User</th>
           <th scope="col">Quantity</th>
+          <th scope="col">Sub total</th>
+          <th scope="col">Harga total</th>
           <th scope="col">Tanggal</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        @foreach ($produkMasuk as $entry)
+        @foreach ($produkKeluar as $out)
         <tr>
           <td>{{ $loop->iteration }}</td>
-          <td>{{ $entry->katalog->title }}</td>
-          <td>{{ $entry->supplier->perusahaan }}</td>
-          <td>{{ $entry->user->name }}</td>
-          <td>{{ $entry->quantity }}</td>
-          <td>{{ $entry->date }}</td>
+          <td>{{ $out->katalog->title }}</td>
+          <td>{{ number_format($out->quantity,0,',','.') }}</td>
+          <td>{{ number_format($out->sub_keluar,0,',','.') }}</td>
+          <td>Rp{{ number_format($out->harga_keluar,0,',','.') }}</td>
+          <td>{{ $out->date }}</td>
           <td>
-            <a href="/dashboard/entry/{{ $entry->id }}/edit" class="badge bg-warning">
+            <a href="/dashboard/out/{{ $out->id }}/edit" class="badge bg-warning">
               <i class="bi bi-pencil-square"></i>
             </a>
           </td>
