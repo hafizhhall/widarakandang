@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Http\Request;
 
 class DashboardKategoriController extends Controller
@@ -13,6 +14,13 @@ class DashboardKategoriController extends Controller
      */
     public function index()
     {
+        // if(auth()->guest()){
+        //     abort(403);
+        // }
+
+        // if(auth()->user()->name !== 'banyu adem'){
+        //     abort(403);
+        // }
         return view('dashboard.kategori.index',[
             'kategoris' => Kategori::all()
         ]);
