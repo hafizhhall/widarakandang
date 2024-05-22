@@ -21,8 +21,12 @@ class LoginController extends Controller
         ]);
 
         if(Auth::attempt($credentials)){
+            if(Auth::user()->role == 'admin' || Auth::user()->role == 'pemilik'){
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
+            }
+            $request->session()->regenerate();
+            return redirect()->intended('/');
         }
         return back()->with('loginError', 'Masuk gagal');
     }
