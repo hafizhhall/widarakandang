@@ -16,17 +16,34 @@ class DashboardEntryController extends Controller
      */
     public function index()
     {
-        $produkMasuk = Entry::with([
-            'katalog' => function($query){
-                $query->select('id', 'title');
-            },
-            'supplier' => function($query){
-                $query->select('id', 'perusahaan');
-            },
-            'user' => function($query){
-                $query->select('id', 'name');
-            }
-        ])->where('user_id', auth()->user()->id)->get();
+        $userRole = auth()->user()->role;
+        if($userRole === 'admin') {
+            $produkMasuk = Entry::with([
+                'katalog' => function($query){
+                    $query->select('id', 'title');
+                },
+                'supplier' => function($query){
+                    $query->select('id', 'perusahaan');
+                },
+                'user' => function($query){
+                    $query->select('id', 'name');
+                }
+            ])->where('user_id', auth()->user()->id)->get();
+        }else if($userRole === 'pemilik'){
+            $produkMasuk = Entry::with([
+                'katalog' => function($query){
+                    $query->select('id', 'title');
+                },
+                'supplier' => function($query){
+                    $query->select('id', 'perusahaan');
+                },
+                'user' => function($query){
+                    $query->select('id', 'name');
+                }
+            ])->get();
+        }else{
+            return redirect()->back()->with('error', 'You are not authorized to access this page.');
+        }
         return view('dashboard.entry.index', [
             'produkMasuk' => $produkMasuk
         ]);

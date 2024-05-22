@@ -24,6 +24,7 @@
         </ul>
 
         @auth
+        @can('pengelola')
         <ul class="navbar-nav">
         <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Hi, {{ auth()->user()->name }}</a>
@@ -41,6 +42,29 @@
             </ul>
           </li>
         </ul>
+        @endcan
+        @can('pelanggan')
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                {{-- <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Hi, {{ auth()->user()->name }}</a> --}}
+                <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                     Hi, {{ auth()->user()->name }}
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/user">Edit Profil</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <form action="/logout" method="post">
+                        @csrf
+                        <button type="submit" class="dropdown-item">
+                            <i class="material-symbols-outlined">Logout</i>
+                        </button>
+                    </form>
+                    </li>
+                </ul>
+              </li>
+            </ul>
+        @endcan
             @else
             <div><a href="/daftar" class="nav-link"><button class="button-secondary">Daftar</button></a></div>
             <div>

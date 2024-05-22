@@ -25,7 +25,13 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         Gate::define('admin', function(User $user){
-            return $user->level === 'admin';
+            return $user->role === 'admin';
+        });
+        Gate::define('pengelola', function(User $user){
+            return $user->role === 'admin' || $user->role === 'pemilik';
+        });
+        Gate::define('pelanggan', function(User $user){
+            return $user->role === 'pelanggan';
         });
     }
 }
