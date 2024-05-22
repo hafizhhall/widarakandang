@@ -54,7 +54,7 @@ Route::resource('/dashboard/artikel', DashboardArtikelController::class)->middle
 Route::post('/logout',[LoginController::class, 'logout']);
 // kategori blog post dashboard
 Route::get('/dashboard/kategori/checkSlug', [DashboardKategoriController::class, 'checkSlug'])->middleware('auth');
-Route::resource('/dashboard/kategori', DashboardKategoriController::class)->middleware('auth');
+Route::resource('/dashboard/kategori', DashboardKategoriController::class)->except('show')->middleware('admin');
 // Route::get('/dashboard/kategori', [DashboardKategoriController::class, 'index'])->middleware('auth');
 // Route::get('/dashboard', function(){
 //     return view ('dashboard.index');

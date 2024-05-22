@@ -7,7 +7,7 @@
       <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="/dashboard">
+            <a class="nav-link  {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="/dashboard">
               <svg class="bi"><use xlink:href="#house-fill"/></svg>
               Dashboard
             </a>
@@ -21,7 +21,7 @@
           </h6>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="/dashboard/katalog">
+            <a class="nav-link {{ Request::is('dashboard/katalog*') ? 'active' : '' }}" href="/dashboard/katalog">
                 <i class="bi bi-flower2"></i>
               Katalog
             </a>
@@ -35,7 +35,7 @@
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2" href="/dashboard/jenis">
                 <i class="bi bi-box"></i>
-              Kategori
+              Kategori Anggrek
             </a>
           </li>
           <li class="nav-item">
@@ -58,24 +58,26 @@
             <svg class="bi"><use xlink:href="#plus-circle"/></svg>
           </a>
         </h6>
-        <ul class="nav flex-column mb-auto">
+        <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2" href="/dashboard/artikel">
               <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
               Blog Post
             </a>
         </li>
+        @can('admin')
         <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2" href="/dashboard/kategori">
                 <i class="bi bi-tags"></i>
-                Kategori
+                Kategori Artikel
             </a>
           </li>
+        @endcan
         </ul>
 
         <hr class="my-3">
 
-        <ul class="nav flex-column mb-auto">
+        <ul class="nav flex-column">
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2" href="/">
                 <i class="bi bi-house"></i>
