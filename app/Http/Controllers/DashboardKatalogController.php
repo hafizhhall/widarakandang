@@ -18,7 +18,8 @@ class DashboardKatalogController extends Controller
     public function index()
     {
         return view('dashboard.katalog.index',[
-            'katalogs' => Katalog::all()
+            'katalogs' => Katalog::all(),
+            'title' => 'katalog'
         ]);
     }
 

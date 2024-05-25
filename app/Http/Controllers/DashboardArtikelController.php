@@ -88,7 +88,7 @@ class DashboardArtikelController extends Controller
         ];
 
         if($request->slug != $artikel->slug){
-            $rules['slug'] = 'required|unique:artikel';
+            $rules['slug'] = 'required|unique:artikels';
         }
 
         $validasiData = $request->validate($rules);

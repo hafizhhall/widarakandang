@@ -1,20 +1,46 @@
-<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">Anggrek Widarakandang</a>
-
-    <ul class="navbar-nav flex-row d-md-none">
-      <li class="nav-item text-nowrap">
-        <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">
-          <svg class="bi"><use xlink:href="#search"/></svg>
-        </button>
-      </li>
-      <li class="nav-item text-nowrap">
-        <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-          <svg class="bi"><use xlink:href="#list"/></svg>
-        </button>
-      </li>
-    </ul>
-
-    <div id="navbarSearch" class="navbar-search w-100 collapse">
-      <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+<header class="header-navbar fixed">
+    <div class="header-wrapper">
+        <div class="header-left">
+            <div class="sidebar-toggle action-toggle"><i class="fas fa-bars"></i></div>
+        </div>
+        <div class="header-content">
+            <div class="theme-switch-icon"></div>
+            <div class="dropdown dropdown-menu-end">
+                <a href="#" class="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="label">
+                        <span></span>
+                        <div>{{ auth()->user()->name }}</div>
+                    </div>
+                    <img class="img-user" src="{{ asset('') }}assets/images/avatar1.png" alt="user"srcset="">
+                </a>
+                <ul class="dropdown-menu">
+                    <!-- <li class="menu-header">
+                        <a class="dropdown-item" href="#">Notifikasi</a>
+                    </li> -->
+                    <li class="menu-content ps-menu">
+                        <a href="#">
+                            <div class="description">
+                                <i class="ti-user"></i> Profile
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="description">
+                                <i class="ti-settings"></i> Setting
+                            </div>
+                        </a>
+                        <form action="/logout" method="post">
+                            @csrf
+                        <a href="#">
+                            <div class="description">
+                                <button type="submit" style="border: none; background: none">
+                                <i class="ti-power-off"></i> Logout
+                                </button>
+                            </div>
+                        </a>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </header>
+</header>
