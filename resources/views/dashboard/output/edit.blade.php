@@ -5,19 +5,20 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Tambah barang masuk
+                        Tambah barang keluar
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="/dashboard/entry">
+                        <form method="post" action="{{ route('output.update', $output->id) }}">
+                            @method('put')
                             @csrf
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="title" class="form-label rupiah">Nama Anggrek</label>
-                                        <select class="form-select" name="katalog_id" required>
+                                        <select class="form-select" name="katalog_id">
                                             <option selected style="opacity: 50%">Pilih Anggrek</option>
                                             @foreach ($katalogs as $katalog)
-                                                @if (old('katalog_id') == $katalog->id)
+                                                @if (old('katalog_id', $output->katalog_id) == $katalog->id)
                                                     <option value="{{ $katalog->id }}" selected>{{ $katalog->title }}
                                                     </option>
                                                 @else
@@ -29,26 +30,10 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="perusahaan" class="form-label rupiah">Supplier</label>
-                                        <select class="form-select" name="supplier_id" required>
-                                            <option selected style="opacity: 50%">Pilih supplier</option>
-                                            @foreach ($suppliers as $supplier)
-                                                @if (old('supplier_id') == $supplier->id)
-                                                    <option value="{{ $supplier->id }}" selected>{{ $supplier->perusahaan }}
-                                                    </option>
-                                                @else
-                                                    <option value="{{ $supplier->id }}">{{ $supplier->perusahaan }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
                                         <label for="quantity" class="form-label rupiah">Jumlah anggrek</label>
                                         <input type="number" min="1"
                                             class="form-control @error('quantity') is-invalid @enderror" id="quantity"
-                                            name="quantity" required autofocus value="{{ old('quantity') }}">
+                                            name="quantity" required autofocus value="{{ old('quantity', $output->quantity) }}">
                                         @error('quantity')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -62,7 +47,7 @@
                                         <div class="@error('date')  border-red-400  @enderror border-2 p-1">
                                             <input type="date" name="date"
                                                 class="text-sm text-black w-full h-full focus:outline-none" id="date"
-                                                type="text">
+                                                type="text" value="{{ old('date', $output->date) }}">
                                         </div>
                                         @error('date')
                                             <p class="italic text-red-500 text-sm mt-1">{{ $message }}</p>

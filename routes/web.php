@@ -47,7 +47,7 @@ Route::get('/dashboard/jenis/create', [DashboardJenisController::class, 'create'
 Route::post('/dashboard/jenis/create', [DashboardJenisController::class, 'store'])->name('jenis.store');
 Route::delete('/dashboard/jenis/{jenis}', [DashboardJenisController::class, 'destroy'])->name('jenis.destroy');
 // controller dashboard katalog
-Route::get('/dashboard/katalog/checkSlug', [DashboardKatalogController::class, 'checkSlug'])->middleware('auth');
+Route::get('/dashboard/katalog/checkSlug', [DashboardKatalogController::class, 'checkSlug'])->middleware('aksesPetugas');
 Route::resource('/dashboard/katalog', DashboardKatalogController::class)->middleware('aksesPetugas');
 // Route::get('/dashboard/katalog', [DashboardKatalogController::class, 'index'])->middleware('auth');
 Route::get('/dashboard/artikel/checkSlug', [DashboardArtikelController::class, 'checkSlug'])->middleware('auth');

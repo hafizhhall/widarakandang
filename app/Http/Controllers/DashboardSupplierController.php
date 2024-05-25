@@ -94,9 +94,9 @@ class DashboardSupplierController extends Controller
     {
         // Supplier::destroy($supplier->id);
         // return redirect('dashboard/supplier')->with('success', 'Sudah terhapus!!!');
-        if($supplier->katalog()->count() > 0){
-            return redirect('dashboard/supplier')->with('error', 'Kategori tidak bisa dihapus karena masih memiliki katalog terkait.');
-        }
+        // if($supplier->katalog()->count() > 0){
+        //     return redirect('dashboard/supplier')->with('error', 'Kategori tidak bisa dihapus karena masih memiliki katalog terkait.');
+        // }
 
         $supplier->delete();
         return redirect('/dashboard/supplier')->with('success', 'Sudah terhapus!!!');

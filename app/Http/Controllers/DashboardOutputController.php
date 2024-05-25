@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Entry;
+
 use App\Models\Katalog;
-use App\Models\Supplier;
 use App\Models\Output;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -92,7 +91,10 @@ class DashboardOutputController extends Controller
      */
     public function edit(Output $output)
     {
-        //
+        return view('dashboard.output.edit', [
+            'katalogs' => Katalog::select('id','title')->get(),
+            'output' => $output
+        ]);
     }
 
     /**
@@ -100,7 +102,26 @@ class DashboardOutputController extends Controller
      */
     public function update(Request $request, Output $output)
     {
-        //
+        $output = Output::findOrFail($output->id);
+        $katalog = Katalog::findOrfail($output->katalog_id);
+        $rules = [
+            'katalog_id' => ['required'],
+            'quantity' => ['required'],
+            'date' => ['required']
+        ];
+
+        $validData = $request->validate($rules);
+
+        $updateEntryQuantity = $validData['quantity'];
+        $currentKatalogJumlah = $katalog->jumlah;
+        $updateKatalogJumlah = $currentKatalogJumlah + ($updateEntryQuantity - $output->quantity);
+
+        DB::transaction(function() use ($output, $validData, $updateKatalogJumlah, $katalog){
+            $output->update($validData);
+
+            $katalog->update(['jumlah' => $updateKatalogJumlah]);
+        });
+        return redirect('/dashboard/output')->with('success', 'Data berhasil diubah');
     }
 
     /**

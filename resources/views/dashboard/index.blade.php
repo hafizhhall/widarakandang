@@ -1,30 +1,28 @@
 @extends('dashboard.layouts.main')
+@push('css')
+<link rel="stylesheet" href="{{ asset('') }}vendor/chart.js/Chart.min.css">
+<link href="{{ asset('') }}vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+<link href="{{ asset('') }}vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{ asset('') }}/vendor/izitoast/css/iziToast.min.css">
+@endpush
 
-@section('container')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Selamat bekerja, {{ auth()->user()->name }}</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-      <div class="btn-group me-2">
-        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-      </div>
-      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-        <svg class="bi"><use xlink:href="#calendar3"/></svg>
-        This week
-      </button>
-    </div>
-  </div>
-  <h2>Summary</h2>
-  <div class="table-responsive small">
+@section('content')
+<div class="main-content">
     <div class="row">
         <div class="col-sm-3 mb-3 mb-sm-0">
             <div class="card">
-              <div class="card-body">
+            <div class="card-body">
                 <h3 class="card-title">Total Anggrek</h3>
                 <h5 class="card-text">{{ $jumlah }}</h5>
-              </div>
             </div>
-          </div>
-      </div>
+            </div>
+        </div>
     </div>
-  @endsection
+</div>
+@endsection
+
+@push('js')
+<script src="{{ asset('') }}vendor/chart.js/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="{{ asset('') }}assets/js/pages/index.min.js"></script>
+@endpush

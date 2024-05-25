@@ -1,45 +1,59 @@
 @extends('dashboard.layouts.main')
-
-@section('container')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Ubah kategori</h1>
-  </div>
-
-  <div class="col-lg-8 my-5">
-      <form method="post" action="/dashboard/kategori/{{ $kategori->slug }}">
-        @method('put')
-        @csrf
-        <div class="mb-3">
-          <label for="nama" class="form-label">Kategori</label>
-          <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" required autofocus value="{{ old('nama', $kategori->nama) }}">
-            @error('nama')
-                <div class="invalid-feedback">
-                    {{ $message }}
+@section('content')
+    <div class="main-content">
+        <div class="content-wrapper">
+            <div class="card">
+                <div class="card-header">
+                    Ubah Kategori Artikel
                 </div>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="slug" class="form-label">Slug</label>
-            <input type="text" class="form-control @error('slug')
-                is-invalid
-            @enderror" id="slug" name="slug" required value="{{ old('slug', $kategori->slug) }}">
-            @error('slug')
-                <div class="invalid-feedback">
-                    {{ $message }}
+                <div class="card-body">
+                    <form method="post" action="/dashboard/kategori/{{ $kategori->slug }}">
+                        @method('put')
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="nama" class="form-label">Kategori</label>
+                                    <input type="text" class="form-control @error('nama') is-invalid @enderror"
+                                        id="nama" name="nama" required autofocus
+                                        value="{{ old('nama', $kategori->nama) }}">
+                                    @error('nama')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="slug" class="form-label">Slug</label>
+                                    <input type="text"
+                                        class="form-control @error('slug')
+                                    is-invalid
+                                @enderror"
+                                        id="slug" name="slug" required value="{{ old('slug', $kategori->slug) }}">
+                                    @error('slug')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send-plus-fill"></i> Kirim</button>
+                    </form>
                 </div>
-            @enderror
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary"><i class="bi bi-send-plus-fill"></i> Kirim</button>
-    </form>
-  </div>
-  <script>
-    const kategori = document.querySelector('#nama');
-    const slug = document.querySelector('#slug');
+    </div>
+    <script>
+        const kategori = document.querySelector('#nama');
+        const slug = document.querySelector('#slug');
 
-    kategori.addEventListener('change', function(){
-        fetch('/dashboard/kategori/checkSlug?nama=' + nama.value)
-            .then(response => response.json())
-            .then(data => slug.value = data.slug)
-    });
-  </script>
+        kategori.addEventListener('change', function() {
+            fetch('/dashboard/kategori/checkSlug?nama=' + nama.value)
+                .then(response => response.json())
+                .then(data => slug.value = data.slug)
+        });
+    </script>
 @endsection
