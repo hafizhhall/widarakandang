@@ -63,32 +63,16 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous">
     </script>
-    <script src="/js/dashboard.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-                    $(document).ready(function() {
-                        $(document).on('click', '#delete', function(e) {
-                            e.preventDefault();
-                            var form = $(this).closest('form'); // Mengambil form terdekat
-                            swal({
-                                title: "Are you sure?",
-                                text: "Once deleted, you will not be able to recover this imaginary file!",
-                                icon: "warning",
-                                buttons: true,
-                                dangerMode: true,
-                            }).then((willDelete) => {
-                                if (willDelete) {
-                                    form.submit(); // Mengirim form jika user mengonfirmasi
-                                    swal("Poof! Your imaginary file has been deleted!", {
-                                        icon: "success",
-                                    });
-                                } else {
-                                    swal("Your imaginary file is safe!");
-                                }
-                            });
-                        });
-                    });
+    <script src="{{ asset('') }}vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('') }}vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('') }}vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset('') }}vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('') }}vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+    <script src="{{ asset('') }}assets/js/pages/datatables.min.js"></script>
+        <!-- ======= -->
+        <script src="{{ asset('') }}assets/js/main.min.js"></script>
+    <script>
+        DataTable.init()
     </script>
 </body>
 

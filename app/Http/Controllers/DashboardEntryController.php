@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportEntry;
 use App\Models\Entry;
 use App\Models\Katalog;
 use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardEntryController extends Controller
 {
@@ -153,6 +155,19 @@ class DashboardEntryController extends Controller
     {
         //
     }
+    function export_excel(Request $request){
+        // Ambil data tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
+        // Pastikan tanggal diisi
+        if (!$startDate || !$endDate) {
+            return back()->withErrors(['msg' => 'Start date and end date are required']);
+        }
+        return Excel::download(new ExportEntry($startDate, $endDate), "DataMasuk.xlsx");
+    }
+    // function export_pdf(){
+    //     return Excel::download(new ExportEntry, "DataMasuk.pdf");
+    // }
 
 }
