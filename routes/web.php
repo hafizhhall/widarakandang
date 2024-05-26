@@ -28,6 +28,9 @@ use App\Http\Controllers\UserSettingController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// export excel
+Route::get('/dashboard/entry/excel', [DashboardEntryController::class, 'export_excel']);
+Route::get('/dashboard/entry/pdf', [DashboardEntryController::class, 'export_pdf']);
 // user dashboard controller
 Route::resource('/user', UserSettingController::class)->middleware('auth');
 // dashboard barang keluar
