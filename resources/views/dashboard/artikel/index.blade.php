@@ -4,6 +4,7 @@
     <link href="{{ asset('') }}vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <link href="{{ asset('') }}vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('') }}/vendor/izitoast/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 @endpush
 @section('content')
     <div class="main-content">
@@ -19,6 +20,7 @@
                                 Tambah artikel</a>
                         </div>
                         <div class="card-body">
+                            @include('sweetalert::alert')
                             <p class="form-text mb-2">Datatables also provide responsive table</p>
                             <table id="example2" class="table dt-responsive display">
                                 <thead>
@@ -47,8 +49,8 @@
                                                     class="d-inline">
                                                     @method('delete')
                                                     @csrf
-                                                    <button class="badge bg-danger border-0"
-                                                        onclick="return confirm('Yaqqiienn Dexckk???')">
+                                                    <button class="badge bg-danger border-0" data-confirm-delete="true"
+                                                        id="swall-question">
                                                         <i class="ti-trash"></i>
                                                     </button>
                                                 </form>
@@ -57,6 +59,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{-- <div class="row">
+                                {{ $artikels->links() }}
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -77,6 +82,29 @@
                 }
             }, 5000);
         });
+
+        // alert
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('button[data-confirm-delete]').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = button.closest('form');
+                    Swal.fire({
+                        title: 'Hapus Artikel!',
+                        text: "Apakah anda yakin akan menghapusnya?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, hapus!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
     </script>
 @endsection
 @push('js')
@@ -86,4 +114,5 @@
     <script src="{{ asset('') }}vendor/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="{{ asset('') }}vendor/izitoast/js/iziToast.min.js"></script>
     <script src="{{ asset('') }}assets/js/pages/alert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush

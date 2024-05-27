@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+
+use function Laravel\Prompts\confirm;
 
 class DashboardArtikelController extends Controller
 {
@@ -16,6 +19,9 @@ class DashboardArtikelController extends Controller
      */
     public function index()
     {
+        // $title = 'Delete User!';
+        // $text = "Are you sure you want to delete?";
+        // confirmDelete($title, $text);
         return view('dashboard.artikel.index',[
             'artikels' => Artikel::where('user_id', auth()->user()->id)->get()
         ]);
@@ -49,7 +55,7 @@ class DashboardArtikelController extends Controller
 
         $validasiData['user_id'] = auth()->user()->id;
         $validasiData['minibody'] = Str::limit(strip_tags($request->body), 200);
-
+        Alert::toast('Berhasil tambah data', 'success');
         Artikel::create($validasiData);
         return redirect('/dashboard/artikel')->with('success', 'Artikel berhasil ditambahkan');
     }
@@ -116,9 +122,11 @@ class DashboardArtikelController extends Controller
         if($artikel->gambar){
             Storage::delete($artikel->gambar);
         }
+
         Artikel::destroy($artikel->id);
         return redirect('/dashboard/artikel')->with('success', 'Sudah terhapus!!!');
     }
+
     public function checkSlug(Request $request){
         $slug = SlugService::createSlug(Artikel::class, 'slug', $request->title);
         return response()->json(['slug' => $slug]);
