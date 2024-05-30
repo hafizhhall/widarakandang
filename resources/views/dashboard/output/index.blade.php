@@ -22,41 +22,26 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="/dashboard/output/create" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i> Tambah
-                        Barang Keluar</a>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a href="/dashboard/output/create" class="btn btn-primary mb-3"><i class="bi bi-plus-lg"></i>
+                                Barang Keluar</a>
+                        </div>
+                        <div class="col-md-5 offset-5">
+                            <form action="{{ url('dashboard/output/excel') }}" method="GET">
+                                <div class="input-group mb-0">
+                                    <input class="form-control" type="date" id="start_date" name="start_date">
+                                    <span class="bg-primary text-light px-3 justify-content-center align-items-center d-flex">to</span>
+                                    <input class="form-control" type="date" id="end_date" name="end_date" required>
+                                    <button type="submit" class="btn btn-success">Export</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <p class="form-text mb-2">Kelola data supplier</p>
-                    <table class="table dt-responsive display" id="example2">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Anggrek</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Sub total</th>
-                                <th scope="col">Harga total</th>
-                                <th scope="col">Tanggal</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($produkKeluar as $out)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $out->katalog->title }}</td>
-                                    <td>{{ number_format($out->quantity, 0, ',', '.') }}</td>
-                                    <td>{{ number_format($out->sub_keluar, 0, ',', '.') }}</td>
-                                    <td>Rp{{ number_format($out->harga_keluar, 0, ',', '.') }}</td>
-                                    <td>{{ $out->date }}</td>
-                                    <td>
-                                        <a href="/dashboard/output/{{ $out->id }}/edit" class="badge bg-warning">
-                                            <i class="ti-pencil-alt"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @include('dashboard.output.table')
                 </div>
             </div>
         </div>

@@ -16,7 +16,11 @@ class UserSettingController extends Controller
             "title" => "user"
         ]);
     }
-
+    public function chartShow(){
+        return view('user.chart',[
+            'title' => "chart"
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */

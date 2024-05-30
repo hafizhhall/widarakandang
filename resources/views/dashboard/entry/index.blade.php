@@ -8,16 +8,6 @@
 @endpush
 @section('content')
     <div class="main-content">
-        @if (session()->has('success'))
-            <div class="alert alert-success" role="alert" id="success-alert">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session()->has('error'))
-            <div class="alert alert-danger" role="alert" id="success-alert">
-                {{ session('error') }}
-            </div>
-        @endif
         <div class="content-wrapper">
             <div class="col-md-12">
                 <div class="card">
@@ -31,17 +21,17 @@
                             <div class="col-md-5 offset-5">
                                 <form action="{{ url('dashboard/entry/excel') }}" method="GET">
                                     <div class="input-group mb-0">
-                                        <label for="start_date"></label>
                                         <input class="form-control" type="date" id="start_date" name="start_date">
-                                        <label for="end_date"></label>
+                                        <span class="bg-primary text-light px-3 justify-content-center align-items-center d-flex">to</span>
                                         <input class="form-control" type="date" id="end_date" name="end_date" required>
                                         <button type="submit" class="btn btn-success">Export</button>
                                     </div>
+                                </form>
                             </div>
-                            </form>
                         </div>
                     </div>
                     <div class="card-body">
+                        @include('sweetalert::alert')
                         <p class="form-text mb-2">Kelola data supplier</p>
                         @include('dashboard.entry.table')
                     </div>
@@ -69,5 +59,14 @@
 @push('js')
     <script src="{{ asset('') }}vendor/jquery/jquery.min.js"></script>
     <script src="{{ asset('') }}vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script src="{{ asset('') }}vendor/jquery/jquery.min.js"></script>
+    <script>
+        $('.date').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: 'dd-mm-yyyy'
+        }).on('changeDate', function (e) {
+            console.log(e.target.value);
+        });
+
+    </script>
 @endpush

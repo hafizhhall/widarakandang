@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DashboardEntryController extends Controller
 {
@@ -47,7 +48,8 @@ class DashboardEntryController extends Controller
             return redirect()->back()->with('error', 'You are not authorized to access this page.');
         }
         return view('dashboard.entry.index', [
-            'produkMasuk' => $produkMasuk
+            'produkMasuk' => $produkMasuk,
+            'title' => 'entry'
         ]);
     }
 
@@ -88,7 +90,7 @@ class DashboardEntryController extends Controller
         $quantityUpdated = $product->update([
             'jumlah' => $product->jumlah + $request->quantity
         ]);
-
+        Alert::toast('Berhasil tambah data', 'success');
         if ($created && $quantityUpdated) {
             return redirect('/dashboard/entry')->with('success', 'data berhasil ditambahkan');
         }else{

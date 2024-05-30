@@ -15,6 +15,7 @@ use App\Http\Controllers\DashboardOutputController;
 use App\Http\Controllers\DashboardArtikelController;
 use App\Http\Controllers\DashboardKatalogController;
 use App\Http\Controllers\DashboardKategoriController;
+use App\Http\Controllers\DashboardRoleController;
 use App\Http\Controllers\DashboardSupplierController;
 use App\Http\Controllers\UserSettingController;
 
@@ -28,11 +29,15 @@ use App\Http\Controllers\UserSettingController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Role Dashboard
+Route::resource('/dashboard/role', DashboardRoleController::class);
 // export excel
-Route::get('/dashboard/entry/excel', [DashboardEntryController::class, 'export_excel']);
+Route::get('/dashboard/output/excel', [DashboardOutputController::class, 'export_excel'])->middleware('can:read output');
+Route::get('/dashboard/entry/excel', [DashboardEntryController::class, 'export_excel'])->middleware('can:read entry');
 Route::get('/dashboard/entry/pdf', [DashboardEntryController::class, 'export_pdf']);
 // user dashboard controller
 Route::resource('/user', UserSettingController::class)->middleware('auth');
+Route::get('/chart', [UserSettingController::class, 'chartShow'])->middleware('auth');
 // dashboard barang keluar
 Route::resource('/dashboard/output', DashboardOutputController::class)->middleware('aksesPetugas');
 // dashboar barang masuk
@@ -69,25 +74,25 @@ Route::post('/register',[RegisterController::class, 'store']);
 Route::post('/login',[LoginController::class, 'authenticate']);
 Route::get('/login',[LoginController::class, 'index'])->name('login')->middleware('guest');
 
-
+Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('about/', [AboutController::class,'index']);
+Route::get('/blog', [AboutController::class,'index']);
 
-Route::get('katalog/', [KatalogController::class, 'index']);
+Route::get('/katalog', [KatalogController::class, 'index']);
 
 // halaman single post
-Route::get('katalog/{katalog:slug}', [KatalogController::class, 'show']);
+Route::get('/katalog/{katalog:slug}', [KatalogController::class, 'show']);
 // Route::get('/katalog/{jenis:slug}', [KatalogController::class, 'jenis_anggrek'])->name('jenis.katalog');
 
 // halaman single post kegiatan artikel
-Route::get('dartikel/{dartikel:slug}', [HomeController::class, 'show']);
+Route::get('/dartikel/{dartikel:slug}', [HomeController::class, 'show']);
 
 // Kategori
-Route::get('/{kategori:slug}', [HomeController::class, 'artikel_kategori'])->name('artikel.kategori');
+Route::get('/blog/{kategori:slug}', [AboutController::class, 'artikel_kategori'])->name('artikel.kategori');
 
 // Jenis anggrek
-Route::get('katalog/{jenis:slug}', [KatalogController::class, 'index'])->name('jenis.katalog');
+Route::get('/katalog/{jenis:slug}', [KatalogController::class, 'index'])->name('jenis.katalog');
 // Route::get('katalog/{jenis:slug}', [KatalogController::class, 'show']);
 
 Route::get('/jenis/{jenis:slug}',function(Jenis $jenis){

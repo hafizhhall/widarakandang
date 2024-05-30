@@ -12,7 +12,7 @@ class DashboardController extends Controller
         $totalJumlahAnggrek = Katalog::sum('jumlah');
         return view('dashboard.index', [
             'jumlah' => $totalJumlahAnggrek,
-            'title' => 'dashboard'
+            'title' => 'home'
         ]);
     }
 

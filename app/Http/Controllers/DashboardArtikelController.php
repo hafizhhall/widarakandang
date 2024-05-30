@@ -23,7 +23,8 @@ class DashboardArtikelController extends Controller
         // $text = "Are you sure you want to delete?";
         // confirmDelete($title, $text);
         return view('dashboard.artikel.index',[
-            'artikels' => Artikel::where('user_id', auth()->user()->id)->get()
+            'artikels' => Artikel::where('user_id', auth()->user()->id)->get(),
+            'title' => 'artikel'
         ]);
     }
 
@@ -43,7 +44,7 @@ class DashboardArtikelController extends Controller
     public function store(Request $request)
     {
         $validasiData = $request->validate([
-            'title' => 'required|max:100',
+            'title' => 'required|max:200',
             'kategori_id' => 'required',
             'gambar' => 'image|file|max:5024',
             'body' => 'required'
