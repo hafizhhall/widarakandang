@@ -14,7 +14,8 @@ class DashboardJenisController extends Controller
     public function index()
     {
         return view('dashboard.jenis.index', [
-            'jenis' => Jenis::all()
+            'jenis' => Jenis::all(),
+            'title' => 'jenis'
         ]);
     }
 

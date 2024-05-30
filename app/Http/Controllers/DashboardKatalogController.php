@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Katalog;
 use App\Models\Jenis;
+use App\Models\Photo;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
@@ -61,6 +62,8 @@ class DashboardKatalogController extends Controller
         }
 
         $validasiData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+
+
         Katalog::create($validasiData);
         return redirect('/dashboard/katalog')->with('success','Katalog berhasil ditambahkan');
     }

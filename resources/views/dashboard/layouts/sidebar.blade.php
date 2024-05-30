@@ -17,7 +17,7 @@
     </div>
     <div class="sidebar-content">
         <ul>
-            <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
+            <li class="">
                 <a href="/dashboard" class="link">
                     <i class="ti-home"></i>
                     <span>Dashboard</span>
@@ -26,6 +26,7 @@
             <li class="menu-category">
                 <span class="text-uppercase">Data Master Anggrek</span>
             </li>
+            @can('read katalog')
             <li class="">
                 <a href="#" class="main-menu has-dropdown">
                     <i class="ti-desktop"></i>
@@ -37,7 +38,8 @@
                     <li><a href="/dashboard/supplier" class="link"><span>Supplier</span></a></li>
                 </ul>
             </li>
-            <li>
+            @endcan
+            <li class="">
                 <a href="#" class="main-menu has-dropdown">
                     <i class="ti-truck"></i>
                     <span>Supply</span>
@@ -65,17 +67,17 @@
                     <li><a href="/dashboard/supplier" class="link"><span>Supplier</span></a></li>
                 </ul>
             </li>
-            <li class="menu-category">
+            <li class="menu-category ">
                 <span class="text-uppercase">Blog Master</span>
             </li>
-            <li>
+            <li class="">
                 <a href="/dashboard/artikel" class="link">
                     <i class="ti-agenda"></i>
-                    <span>Artiekl</span>
+                    <span>Artikel</span>
                 </a>
             </li>
             @can('admin')
-            <li>
+            <li class="">
                 <a href="/dashboard/kategori" class="link">
                     <i class="ti-archive"></i>
                     <span>Kategori Artikel</span>
@@ -86,12 +88,15 @@
             <li class="menu-category">
                 <span class="text-uppercase">Kelola Akun</span>
             </li>
+            @can('read role')
             <li>
-                <a href="charts.html" class="link">
+                <a href="/dashboard/role" class="link">
                     <i class="ti-bar-chart"></i>
-                    <span>Charts</span>
+                    <span>Roles</span>
                 </a>
             </li>
+            @endcan
+
             <li>
                 <a href="fullcalendar.html" class="link">
                     <i class="ti-calendar"></i>

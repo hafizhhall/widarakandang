@@ -1,154 +1,231 @@
 @extends('layouts.main')
 
-@section('carousel')
-<div id="hero-carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active c-item">
-        <img src="/img/1.jpg" class="d-block w-100 c-img" alt="Slide1">
-        <div class="carousel-caption top-0 mt-5 d-none d-md-block ">
-            <p class="mt-5 fs-3 text-uppercase">Selamat Datang di</p>
-            <h1 class="display-1 fw-border text-capitalize"><b>ANGGREK WIDARAKANDANG</b></h1>
-            <a href="/katalog" class="no-underline"><button class="btn btn-primary px-4 py-2 fs-5 mt-5">Lihat Anggrek</button></a>
+@section('content')
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="w-100" src="/modal/img/newcrsl.jpg" alt="Image">
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <div class="row justify-content-start">
+                                <div class="col-lg-7">
+                                    <h1 class="display-2 mb-5 animated slideInDown">Temukan Anggrek Terbaik Hanya di
+                                        Widarakandang</h1>
+                                    <a href="/katalog" class="btn btn-primary rounded-pill py-sm-3 px-sm-5">Katalog</a>
+                                    <a href="#layanan"
+                                        class="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Pelayanan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="carousel-item">
+                <img class="w-100" src="/modal/img/carousel-2.jpg" alt="Image">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-lg-7">
+                                <h1 class="display-2 mb-5 animated slideInDown">Natural Food Is Always Healthy</h1>
+                                <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5">Products</a>
+                                <a href="" class="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Services</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-      </div>
     </div>
-</div>
-@endsection
+    <!-- Carousel End -->
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="about-img position-relative overflow-hidden p-5 pe-0">
+                        <img class="img-fluid w-100" src="modal/img/about.jpg">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <h1 class="display-5 mb-4">Anggrek Terbaik dan Banyak Mengantongi Prestasi</h1>
+                    <p class="mb-4">Kebun Anggrek Widarakandang adalah sebuah destinasi wisata agro yang terletak di
+                        daerah Umbulharjo. Kebun ini menawarkan keindahan berbagai jenis anggrek yang dirawat dengan cermat,
+                        menjadikannya tempat yang ideal bagi para pecinta tanaman dan fotografi</p>
+                    <p><i class="fa fa-check text-primary me-3"></i>Jual beli anggrek</p>
+                    <p><i class="fa fa-check text-primary me-3"></i>Sewa tanaman Anggrek</p>
+                    <p><i class="fa fa-check text-primary me-3"></i>Nutrisi tanaman anggrek</p>
+                    <p><i class="fa fa-check text-primary me-3"></i>Budidaya anggrek</p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Feature End -->
+    <!-- Product Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-0 gx-5 align-items-end">
+                <div class="col-lg-6">
+                    <div class="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s"
+                        style="max-width: 500px;">
+                        <h1 class="display-5 mb-3">Katalog Kami</h1>
+                        <p>Berikut merupakan produk-produk unggulan dari Anggrek Widarakandang</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
+                    <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                        @foreach ($jenis as $j)
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary border-2 active" data-bs-toggle="pill"
+                                    href="/jenis/{{ $j->slug }}">{{ $j->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        @foreach ($katalog_anggrek as $k)
+                            <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="product-item">
+                                    <div class="position-relative bg-light overflow-hidden card">
+                                        <img class="card-img-top" src="{{ asset('storage/' . $k->gambar) }}" alt="">
+                                        <div
+                                            class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            {{ $k->status }}</div>
+                                    </div>
+                                    <div class="text-center p-4">
+                                        <a class="d-block h5 mb-2"
+                                            href="/katalog/{{ $k->slug }}">{{ $k->title }}</a>
+                                        <span class="text-primary me-1">Rp{{ number_format($k->harga, 0, ',', '.') }}</span>
 
-{{-- konten --}}
-@section('container')
-<div class="row mb-4" id="blog">
-    <div class="blog col-12 text-center">
-        <h1 class="text-center fw-bold display-3">Blog <span class="text-primary">Widarakandang</span></h1>
-    </div>
-</div>
-<div class="navnews mb-4">
-    <ul class="nav nav-tabs">
-        @foreach ($kategori as $k)
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ route('artikel.kategori', $k->slug ) }}#blog">{{ $k->nama }}</a>
-        </li>
-        @endforeach
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/#blog">Semua</a>
-        </li>
-    </ul>
-</div>
-<link rel="stylesheet" href="/css/home.css">
-<div class="row row-cols-md-3 row-cols-2">
-    @foreach ($artikel as $artikels)
-    <div class="col mb-4">
-        <a href="dartikel/{{ $artikels->slug }}" class="no-underline">
-      <div class="card p-2">
-        <img src="{{ asset('storage/' . $artikels->gambar) }}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h4 class="card-title">{{ $artikels->title }}</h4>
-          <p class="card-text">{{ $artikels->minibody }}</p>
-          <div class="row">
-            <div class="col-6">
-                <span class="material-symbols-outlined">calendar_month</span>
-            </div>
-            <div class="col-6">
-                <p class="tgl" style="text-align: right"><small class="text-muted">{{ $artikels->tanggal }}</small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-    </div>
-    @endforeach
-</div>
-  {{-- next page --}}
-  <div class="row">
-    {{ $artikel->links() }}
-  </div>
-{{-- new kegiatan --}}
-
-{{-- Service --}}
-<div class="container-fluid my-5">
-    <h1 class="text-center fw-bold display-3">Layanan <span class="text-primary">Kami</span></h1>
-    <div class="row">
-        <div class="owl-carousel owl-theme">
-            {{-- @foreach ($jenis as $j) --}}
-            <div class="item mt-4 mb-2">
-                <div class="card border-0">
-                    <img src="/img/pot.jpg" alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h4>Flower Arrangement</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>jdhweifhefewuieuicdsfieig efeuib ciusjdkskf </p>
+                                    </div>
+                                    <div class="d-flex border-top">
+                                        <small class="w-50 text-center border-end py-2">
+                                            <a class="text-body" href=""><i
+                                                    class="fa fa-eye text-primary me-2"></i>Detail</a>
+                                        </small>
+                                        <small class="w-50 text-center py-2">
+                                            <a class="text-body" href=""><i
+                                                    class="fa fa-shopping-bag text-primary me-2"></i>Beli</a>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                        <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="item mt-4">
-                <div class="card border-0">
-                    <img src="/img/pot.jpg" alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h4>Gift</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>jdhweifhefewuieuicdsfieig efeuib ciusjdkskf </p>
-                    </div>
-                </div>
-            </div>
-            <div class="item mt-4">
-                <div class="card border-0">
-                    <img src="/img/bersama.jpg" alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h4>Pot Plant</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>jdhweifhefewuieuicdsfieig efeuib ciusjdkskf </p>
-                    </div>
-                </div>
-            </div>
-            <div class="item mt-4">
-                <div class="card border-0">
-                    <img src="/img/lab.jpg" alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h4>Rental</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>jdhweifhefewuieuicdsfieig efeuib ciusjdkskf </p>
-                    </div>
-                </div>
-            </div>
-            <div class="item mt-4">
-                <div class="card border-0">
-                    <img src="/img/3.jpg" alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h4>Nutrition</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>jdhweifhefewuieuicdsfieig efeuib ciusjdkskf </p>
-                    </div>
-                </div>
-            </div>
-            <div class="item mt-4">
-                <div class="card border-0">
-                    <img src="/img/2.jpg" alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h4>Education</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>jdhweifhefewuieuicdsfieig efeuib ciusjdkskf </p>
-                    </div>
-                </div>
-            </div>
-            <div class="item mt-4">
-                <div class="card border-0">
-                    <img src="/img/1.jpg" alt="" class="card-img-top">
-                    <div class="card-body">
-                        <h4>Training</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>jdhweifhefewuieuicdsfieig efeuib ciusjdkskf </p>
-                    </div>
-                </div>
-            </div>
-            {{-- @endforeach --}}
         </div>
     </div>
-</div>
+    <!-- Product End -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
+                style="max-width: 500px;">
+                <h1 class="display-5 mb-3">Blog Widarakandang</h1>
+                <p>Seluruh Kegiatan, Prestasi, dan Agenda WK</p>
+            </div>
+            <div class="row g-4">
+                @foreach ($artikel as $artikels)
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <img class="img-fluid" src="{{ asset('storage/' . $artikels->gambar) }}" alt="">
+                        <div class="bg-light p-4">
+                            <a class="d-block h5 lh-base mb-4"
+                                href="dartikel/{{ $artikels->slug }}">{{ $artikels->title }}</a>
+                            <div class="text-muted border-top pt-4">
+                                <small class="me-3"><i class="fa fa-user text-primary me-2"></i>Admin</small>
+                                <small class="me-3"><i
+                                        class="fa fa-calendar text-primary me-2"></i>{{ $artikels->tanggal }}</small>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                <a class="btn btn-primary rounded-pill py-3 px-5" href="/blog">Read More</a>
+            </div>
+        </div>
+    </div>
+    <!-- Blog End -->
+    <div class="container-fluid bg-light bg-icon py-6 mb-5" id="layanan">
+        <div class="container">
+            <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
+                style="max-width: 500px;">
+                <h1 class="display-5 mb-3">Layanan Widarakandang</h1>
+                <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+            </div>
+            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                <div class="testimonial-item position-relative bg-white p-2 mt-4">
+                    <i class="fas fa-seedling fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                    <div class=" text-center h-100 p-4 p-xl-5">
+                        <h4 class="mb-3">Budidaya Anggrek</h4>
+                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero
+                            dolor duo.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item position-relative bg-white p-2 mt-4">
+                    <i class="fas fa-hands-helping fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                    <div class=" text-center h-100 p-4 p-xl-5">
+                        <h4 class="mb-3">Sewa Anggrek</h4>
+                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero
+                            dolor duo.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item position-relative bg-white p-2 mt-4">
+                    <i class="fab fa-pagelines fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                    <div class=" text-center h-100 p-4 p-xl-5">
+                        <h4 class="mb-3">Flower Arrangement</h4>
+                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero
+                            dolor duo.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item position-relative bg-white p-2 mt-4">
+                    <i class="fas fa-gift fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                    <div class=" text-center h-100 p-4 p-xl-5">
+                        <h4 class="mb-3">Gift</h4>
+                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero
+                            dolor duo.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item position-relative bg-white p-2 mt-4">
+                    <i class="fab fa-nutritionix fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                    <div class=" text-center h-100 p-4 p-xl-5">
+                        <h4 class="mb-3">Nutrisi Anggrek</h4>
+                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero
+                            dolor duo.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item position-relative bg-white p-2 mt-4">
+                    <i class="fas fa-chalkboard-teacher fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                    <div class=" text-center h-100 p-4 p-xl-5">
+                        <h4 class="mb-3">Edukasi Anggrek</h4>
+                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero
+                            dolor duo.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item position-relative bg-white p-2 mt-4">
+                    <i class="fas fa-microscope fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                    <div class=" text-center h-100 p-4 p-xl-5">
+                        <h4 class="mb-3">Pelatihan</h4>
+                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero
+                            dolor duo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

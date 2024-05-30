@@ -1,55 +1,55 @@
-
 @extends('layouts.main')
 
-@section('container')
-<link rel="stylesheet" href="/css/home.css">
-    {{-- @foreach ($katalog_anggrek as $katalogs)
-    <article class="mb-5">
-        <h2>
-            <a href="/katalog/{{ $katalogs->slug }}">{{ $katalogs->title }}</a>
-        </h2>
-        <h5>{{ $katalogs->jenis->name }}</h5>
-        <h6>{{ $katalogs->harga }}</h6>
-        <p>{{ $katalogs->excerpt }}</p>
-    </article>
-    @endforeach --}}
-{{-- Simulasi Card --}}
-<div class="container-fluid my-5">
-    <h1 class="text-center fw-bold display-1">Anggrek <span class="text-primary">{{ $jenis }}</span></h1>
-</div>
-{{-- card --}}
-<div class="row row-cols-md-3 row-cols-2 mt-5">
-    @foreach ($katalog as $k)
-        <div class="col mb-4">
-            <a href="/katalog/{{ $k->slug }}" class="no-underline">
-            <div class="card">
-                <img src="{{ asset('storage/' . $k->gambar) }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h4 class="card-title">{{ $k->title }}</h4>
-                    <p class="card-text">{{ $k->excerpt }}</p>
+@section('content')
+    <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <h1 class="display-3 mb-3 animated slideInDown">Anggrek <span class="text-primary">{{ $jenis }}</span></h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a class="text-body" href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-body" href="/katalog">Katalog</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    {{-- card --}}
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        @foreach ($katalog as $k)
+                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="product-item">
+                                <div class="position-relative bg-light overflow-hidden">
+                                    <img class="img-fluid w-100" src="{{ asset('storage/' . $k->gambar) }}" alt="">
+                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">{{ $k->status }}</div>
+                                </div>
+                                <div class="text-center p-4">
+                                    <a class="d-block h5 mb-2" href="">{{ $k->title }}</a>
+                                    <span class="text-primary me-1">Rp{{ number_format($k->harga,0,',','.') }}</span>
+                                </div>
+                                <div class="d-flex border-top">
+                                    <small class="w-50 text-center border-end py-2">
+                                        <a class="text-body" href="/katalog/{{ $k->slug }}"><i class="fa fa-eye text-primary me-2"></i>Detail</a>
+                                    </small>
+                                    <small class="w-50 text-center py-2">
+                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Beli</a>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="mb-2 d-flex justify-content-around card-body">
-                    <h3>Rp{{ number_format($k->harga,0,',','.') }}</h3>
-                    <button class="btn btn-primary px-5">Beli</button>
-                </div>
-            </a>
+            </div>
+            <div class="row justify-content-start mt-3">
+                <p class="d-inline-flex gap-1">
+                    <a href="/katalog" class="btn btn-primary" role="button"><i class="fa fa-angle-left"></i> Kembali</a>
+                </p>
             </div>
         </div>
-        @endforeach
-</div>
-<div class="row justify-content-start">
-    {{-- <div class="col-1">
-        <button type="button" class="btn btn-primary ">
-
-        </button>
     </div>
-    <div class="col-1">
-        <button type="button" class="btn btn-primary">Kembali</button>
-    </div> --}}
-    <p class="d-inline-flex gap-1">
-        <a href="/katalog" class="btn btn-primary material-symbols-outlined" role="button">arrow_back</a>
-        <a href="/katalog" class="btn btn-primary" role="button" >kembali</a>
-      </p>
-</div>
 @endsection
 

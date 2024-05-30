@@ -22,7 +22,8 @@ class DashboardKategoriController extends Controller
         //     abort(403);
         // }
         return view('dashboard.kategori.index',[
-            'kategoris' => Kategori::all()
+            'kategoris' => Kategori::all(),
+            'title' => 'kategori'
         ]);
     }
 

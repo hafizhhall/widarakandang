@@ -7,11 +7,11 @@ use App\Models\Kategori;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Cviebrock\EloquentSluggable\Sluggable;
-
+use Yogameleniawan\SearchSortEloquent\Traits\Searchable;
 
 class Artikel extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, Searchable;
 
     // protected $fillable = [
     //     'title',

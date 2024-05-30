@@ -17,18 +17,6 @@ class ExportEntry implements FromView
     protected $startDate;
     protected $endDate;
 
-    public function headings(): array{
-        return[
-            '#',
-            'Anggrek',
-            'Supplier',
-            'User',
-            'Quantity',
-            'Date',
-            'Action'
-        ];
-    }
-
     public function __construct($startDate, $endDate)
     {
         $this->startDate = $startDate;

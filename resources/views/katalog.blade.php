@@ -1,64 +1,85 @@
 
 @extends('layouts.main')
 
-@section('container')
-<link rel="stylesheet" href="/css/home.css">
-
-{{-- Simulasi Card --}}
-<div class="container-fluid my-5">
-    <h1 class="text-center fw-bold display-1">Katalog <span class="text-primary">Anggrek</span></h1>
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-12">
-            <form action="/katalog">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Cari anggrek..." name="search" value="{{ request('search') }}">
-                    <button class="btn btn-primary" type="submit" id="">Cari</button>
-                  </div>
-            </form>
-        </div>
+@section('content')
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <h1 class="display-3 mb-3 animated slideInDown">Anggrek</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a class="text-body" href="/">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-body" href="/katalog">Katalog</a></li>
+            </ol>
+        </nav>
     </div>
-    <div class="row mt-0" id="katalog">
-        <div class="owl-carousel owl-theme">
-            @foreach ($jenis as $j)
-            <div class="item mt-4">
-                <div class="card">
-                    <div class="card-body">
-                        {{-- <a class="nav-link active" aria-current="page" href="{{ route('jenis.katalog', $j->slug ) }}#katalog"><h4>{{ $j->name }}</h4></a> --}}
-                        <a class="nav-link active" href="/jenis/{{ $j->slug }}"><h4>{{ $j->name }}</h4></a>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Product Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-0 gx-5 align-items-end">
+            <div class="col-lg-6">
+                <div class="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                    <h1 class="display-5 mb-3">Katalog Anggrek</h1>
+                    <p>Anggrek Widarakandang Anggrek Sangat Berkualitas Tinggi</p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
+                <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                    @foreach ($jenis as $j)
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary border-2"href="/jenis/{{ $j->slug }}">{{ $j->name }}</a>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <div class="row g-0 gx-5 align-items-end">
+            <div class="col-lg-3 form-select-lg">
+                <form action="/katalog" id="searchForm">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Cari anggrek..." name="search" id="searchInput" value="{{ request('search') }}">
+                        <button class="btn btn-primary" type="submit" id="searchButton">Cari</button>
                     </div>
+                </form>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade show p-0 active">
+                <div class="row g-4" id="searchResults">
+                    @include('partials.result', ['katalog_anggrek => $katalog_anggrek'])
                 </div>
             </div>
-            @endforeach
         </div>
     </div>
 </div>
-{{-- pencarian --}}
+<!-- Product End -->
+<script>
+    $('#searchForm').on('submit', function(event) {
+    event.preventDefault(); // Mencegah reload halaman
 
-{{-- card --}}
-<div class="row row-cols-md-3 row-cols-2 mt-0">
-    @foreach ($katalog_anggrek as $k)
-        <div class="col mb-4">
-            <a href="/katalog/{{ $k->slug }}" class="no-underline">
-            <div class="card">
-                <div class="position-absolute px-3 py-2 text-white" style="background-color: rgba(0, 0, 0, 0.7)">{{ $k->status }}</div>
-                <img src="{{ asset('storage/' . $k->gambar) }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h4 class="card-title">{{ $k->title }}</h4>
-                    <p class="card-text">{{ $k->excerpt }}</p>
-                </div>
-                <div class="mb-2 d-flex justify-content-around card-body">
-                    <h3>Rp{{ number_format($k->harga,0,',','.') }}</h3>
-                    <button class="btn btn-primary px-5">Beli</button>
-                </div>
-            </a>
-            </div>
-        </div>
-        @endforeach
-</div>
-<div class="row">
-    <div class="col-md-12">
-        {{ $katalog_anggrek->links() }}
-    </div>
-</div>
+    var searchQuery = $('#searchInput').val();
+
+    $.ajax({
+        url: '/katalog',
+        type: 'GET',
+        data: { search: searchQuery },
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        success: function(data) {
+            $('#searchResults').html(data);
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error: ' + error);
+        }
+    });
+});
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 @endsection
 

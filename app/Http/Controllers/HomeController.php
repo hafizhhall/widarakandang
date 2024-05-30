@@ -1,34 +1,42 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Artikel;
+use App\Models\Jenis;
+use App\Models\Katalog;
 use App\Models\Kategori;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('home', [
             "title" => "Home",
             // "artikel" => Artikel::all(),
-            "artikel" => Artikel::latest()->paginate(9)->withQueryString(),
-            "kategori" => Kategori::all()
+            "artikel" => Artikel::latest()->take(6)->get(),
+            "kategori" => Kategori::all(),
+            "katalog_anggrek" => Katalog::all(),
+            "jenis" => Jenis::all()
         ]);
     }
 
-    public function show(Artikel $dartikel){
-        return view('/dartikel',[
+    public function show(Artikel $dartikel)
+    {
+        return view('/dartikel', [
             "title" => "Single Post",
             "artikel" => $dartikel
         ]);
-}
+    }
 
-    public function artikel_kategori(Kategori $kategori){
-        return view('home', [
-            "title" => "Home",
-            "artikel" => $kategori->Artikel()->paginate(9),
-            "kategori" => Kategori::all()
-        ]);
-        // $artikelall = $kategori->Artikel()->get();
-        // return $artikelall;
+    public function search(Request $request)
+    {
+        $request = Artikel::search(
+            keyword: $request->keyword,
+            columns: ["id", "title"]
+        )->get();
+
+        return view('home', $request);
     }
 }
