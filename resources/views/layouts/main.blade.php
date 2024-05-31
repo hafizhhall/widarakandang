@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Foody - Organic Food Website Template</title>
+    <title>Widarakandang | WK</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -66,6 +66,8 @@
 
     <!-- Template Javascript -->
     <script src="/modal/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    @stack('js')
 </body>
 
 </html>

@@ -2,26 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class UserSettingController extends Controller
+class UserCartController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('user.index', [
-            "title" => "user"
-        ]);
+        $charts = Cart::where('user_id', Auth::user()->id)->get();
+        return view('user.chart.index', compact('charts'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        Cart::create([
+            'user_id' => Auth::user()->id,
+            'katalog_id' => $request->katalog_id,
+            'qty' => 1
+
+        ]);
+        return redirect('/chart');
     }
 
     /**
@@ -35,7 +42,7 @@ class UserSettingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Cart $cart)
     {
         //
     }
@@ -43,7 +50,7 @@ class UserSettingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(Cart $cart)
     {
         //
     }
@@ -51,7 +58,7 @@ class UserSettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Cart $cart)
     {
         //
     }
@@ -59,7 +66,7 @@ class UserSettingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Cart $cart)
     {
         //
     }

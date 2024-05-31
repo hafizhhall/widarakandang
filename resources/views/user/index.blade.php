@@ -15,8 +15,29 @@
 
     <div class="container-xxl py-5">
         <div class="container">
-
+            <div class="row">
+                <div class="col-lg-10 m-auto">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="dashboard-menu">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action active"
+                                        aria-current="true">
+                                        <i class="fas fa-tachometer-alt me-3"></i>Dashboard
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                                    <a class="list-group-item list-group-item-action disabled" aria-disabled="true">A
+                                        disabled link item</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
-
