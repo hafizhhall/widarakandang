@@ -1,8 +1,8 @@
 /********** Template CSS **********/
 :root {
-    --primary: #3CB815;
-    --secondary: #F65005;
-    --light: #F7F8FC;
+    --primary: #3cb815;
+    --secondary: #f65005;
+    --light: #f7f8fc;
     --dark: #111111;
 }
 
@@ -29,33 +29,31 @@
     background-size: contain;
 }
 
-
 /*** Spinner ***/
 #spinner {
     opacity: 0;
     visibility: hidden;
-    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
     z-index: 99999;
 }
 
 #spinner.show {
-    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0s;
     visibility: visible;
     opacity: 1;
 }
 
-
 /*** Button ***/
 .btn {
     font-weight: 500;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .btn.btn-primary,
 .btn.btn-secondary,
 .btn.btn-outline-primary:hover,
 .btn.btn-outline-secondary:hover {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .btn-square {
@@ -83,15 +81,14 @@
     font-weight: normal;
 }
 
-
 /*** Navbar ***/
 .fixed-top {
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .top-bar {
     height: 45px;
-    border-bottom: 1px solid rgba(0, 0, 0, .07);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
 
 .navbar .dropdown-toggle::after {
@@ -118,8 +115,8 @@
 @media (max-width: 991.98px) {
     .navbar .navbar-nav {
         margin-top: 10px;
-        border-top: 1px solid rgba(0, 0, 0, .07);
-        background: #FFFFFF;
+        border-top: 1px solid rgba(0, 0, 0, 0.07);
+        background: #ffffff;
     }
 
     .navbar .navbar-nav .nav-link {
@@ -134,18 +131,17 @@
         top: 100%;
         transform: rotateX(-75deg);
         transform-origin: 0% 0%;
-        transition: .5s;
+        transition: 0.5s;
         opacity: 0;
     }
 
     .navbar .nav-item:hover .dropdown-menu {
         transform: rotateX(0deg);
         visibility: visible;
-        transition: .5s;
+        transition: 0.5s;
         opacity: 1;
     }
 }
-
 
 /*** Header ***/
 .carousel-caption {
@@ -202,10 +198,9 @@
     background-size: cover;
 }
 
-.breadcrumb-item+.breadcrumb-item::before {
+.breadcrumb-item + .breadcrumb-item::before {
     color: #999999;
 }
-
 
 /*** Section Header ***/
 .section-header {
@@ -241,8 +236,6 @@
     transform: translateX(0);
 }
 
-
-
 /*** About ***/
 .about-img img {
     position: relative;
@@ -256,16 +249,40 @@
     left: -50%;
     width: 100%;
     height: 100%;
-    background-image: -webkit-repeating-radial-gradient(#FFFFFF, #EEEEEE 5px, transparent 5px, transparent 10px);
-    background-image: -moz-repeating-radial-gradient(#FFFFFF, #EEEEEE 5px, transparent 5px, transparent 10px);
-    background-image: -ms-repeating-radial-gradient(#FFFFFF, #EEEEEE 5px, transparent 5px, transparent 10px);
-    background-image: -o-repeating-radial-gradient(#FFFFFF, #EEEEEE 5px, transparent 5px, transparent 10px);
-    background-image: repeating-radial-gradient(#FFFFFF, #EEEEEE 5px, transparent 5px, transparent 10px);
+    background-image: -webkit-repeating-radial-gradient(
+        #ffffff,
+        #eeeeee 5px,
+        transparent 5px,
+        transparent 10px
+    );
+    background-image: -moz-repeating-radial-gradient(
+        #ffffff,
+        #eeeeee 5px,
+        transparent 5px,
+        transparent 10px
+    );
+    background-image: -ms-repeating-radial-gradient(
+        #ffffff,
+        #eeeeee 5px,
+        transparent 5px,
+        transparent 10px
+    );
+    background-image: -o-repeating-radial-gradient(
+        #ffffff,
+        #eeeeee 5px,
+        transparent 5px,
+        transparent 10px
+    );
+    background-image: repeating-radial-gradient(
+        #ffffff,
+        #eeeeee 5px,
+        transparent 5px,
+        transparent 10px
+    );
     background-size: 20px 20px;
     transform: skew(20deg);
     z-index: 1;
 }
-
 
 /*** Product ***/
 .nav-pills .nav-item .btn {
@@ -274,15 +291,15 @@
 
 .nav-pills .nav-item .btn:hover,
 .nav-pills .nav-item .btn.active {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .product-item {
-    box-shadow: 0 0 45px rgba(0, 0, 0, .07);
+    box-shadow: 0 0 45px rgba(0, 0, 0, 0.07);
 }
 
 .product-item img {
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .product-item:hover img {
@@ -293,7 +310,6 @@
     color: var(--primary) !important;
 }
 
-
 /*** Testimonial ***/
 .testimonial-carousel .owl-item .testimonial-item img {
     width: 60px;
@@ -302,7 +318,7 @@
 
 .testimonial-carousel .owl-item .testimonial-item,
 .testimonial-carousel .owl-item .testimonial-item * {
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .testimonial-carousel .owl-item.center .testimonial-item {
@@ -310,7 +326,7 @@
 }
 
 .testimonial-carousel .owl-item.center .testimonial-item * {
-    color: #FFFFFF !important;
+    color: #ffffff !important;
 }
 
 .testimonial-carousel .owl-item.center .testimonial-item i {
@@ -335,15 +351,14 @@
     border: 2px solid var(--primary);
     border-radius: 50px;
     font-size: 18px;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .testimonial-carousel .owl-nav .owl-prev:hover,
 .testimonial-carousel .owl-nav .owl-next:hover {
-    color: #FFFFFF;
+    color: #ffffff;
     background: var(--primary);
 }
-
 
 /*** Footer ***/
 .footer {
@@ -358,7 +373,7 @@
     color: #999999;
     font-weight: normal;
     text-transform: capitalize;
-    transition: .3s;
+    transition: 0.3s;
 }
 
 .footer .btn.btn-link::before {
@@ -379,7 +394,7 @@
 .footer .copyright {
     padding: 25px 0;
     font-size: 15px;
-    border-top: 1px solid rgba(256, 256, 256, .1);
+    border-top: 1px solid rgba(256, 256, 256, 0.1);
 }
 
 .footer .copyright a {
@@ -388,4 +403,44 @@
 
 .footer .copyright a:hover {
     color: var(--primary);
+}
+
+/* dashboard menu user */
+.dashboard-menu {
+    border: 1px solid #e2e9e1;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.dashboard-menu ul {
+    padding: 0;
+    margin: 0;
+}
+
+.dashboard-menu ul li {
+    position: relative;
+}
+
+.dashboard-menu ul li a {
+    font-size: 14px;
+    color: #242424;
+    padding: 15px 30px;
+}
+
+.dashboard-menu ul li a i {
+    color: #90908e;
+    font-size: 12px;
+}
+
+.dashboard-menu ul li a.active {
+    color: #fff;
+    background-color: #f15412;
+}
+
+.dashboard-menu ul li a.active i {
+    color: #fff;
+}
+
+.dashboard-menu ul li:not(:last-child) {
+    border-bottom: 1px solid #e2e9e1;
 }

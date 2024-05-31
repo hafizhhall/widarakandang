@@ -17,6 +17,9 @@ use App\Http\Controllers\DashboardKatalogController;
 use App\Http\Controllers\DashboardKategoriController;
 use App\Http\Controllers\DashboardRoleController;
 use App\Http\Controllers\DashboardSupplierController;
+use App\Http\Controllers\UserCartController;
+use App\Http\Controllers\UserChartController;
+use App\Http\Controllers\UserCheckoutController;
 use App\Http\Controllers\UserSettingController;
 
 /*
@@ -36,8 +39,14 @@ Route::get('/dashboard/output/excel', [DashboardOutputController::class, 'export
 Route::get('/dashboard/entry/excel', [DashboardEntryController::class, 'export_excel'])->middleware('can:read entry');
 Route::get('/dashboard/entry/pdf', [DashboardEntryController::class, 'export_pdf']);
 // user dashboard controller
+// Route::resource('/chart', UserCartController::class)->middleware('auth');
 Route::resource('/user', UserSettingController::class)->middleware('auth');
-Route::get('/chart', [UserSettingController::class, 'chartShow'])->middleware('auth');
+Route::get('/chart', [UserChartController::class, 'index'])->middleware('auth');
+Route::get('/', [UserChartController::class, 'nav'])->middleware('auth');
+Route::post('/chart/{id}', [UserChartController::class, 'store'])->middleware('auth');
+Route::patch('/chart/{id}', [UserChartController::class, 'update'])->middleware('auth');
+Route::delete('/chart/{id}', [UserChartController::class, 'destroy'])->middleware('auth')->name('chart.destroy');
+Route::post('/checkout', [UserCheckoutController::class, 'store']);
 // dashboard barang keluar
 Route::resource('/dashboard/output', DashboardOutputController::class)->middleware('aksesPetugas');
 // dashboar barang masuk

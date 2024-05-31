@@ -43,13 +43,22 @@
                         <li><a class="dropdown-item" href="/user">My Address</a></li>
                         <li><hr class="dropdown-divider"></li>
                         @endcan
+                        @auth
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button type="submit" class="dropdown-item bg-danger" style="border: none; background: none">
+                                <i class="ti-power-off"></i> Logout
+                            </button>
+                        </form>
+                        @else
                         <li><a class="dropdown-item" href="/login">login</a></li>
+                        @endauth
                     </ul>
                 </div>
                 @can('pelanggan')
                 <a class="btn-sm-square bg-white rounded-circle ms-3 position-relative me-4 my-auto" href="/chart">
                     <small class="fa fa-shopping-bag"></small>
-                    <span class="position-absolute bg-danger rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                    <span class="position-absolute bg-danger rounded-circle d-flex align-items-center justify-content-center text-white px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{ $charts->count() }}</span>
                 </a>
                 @endcan
             </div>

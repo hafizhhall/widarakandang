@@ -15,6 +15,10 @@
     <div class="container-xxl">
         <div class="container">
             <div class="container-fluid py-5">
+                @php
+                    $total = 0;
+                @endphp
+                @include('sweetalert::alert')
                 <div class="container py-5">
                     <div class="table-responsive">
                         <table class="table">
@@ -29,42 +33,52 @@
                               </tr>
                             </thead>
                             <tbody>
+                                @foreach ($charts as $cart)
                                 <tr>
                                     <th scope="row">
                                         <div class="d-flex align-items-center">
-                                            <img src="img/vegetable-item-2.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
+                                            <img src="{{ asset('storage/' . $cart->katalog->gambar) }}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
                                         </div>
                                     </th>
                                     <td>
-                                        <p class="mb-0 mt-4">Awesome Brocoli</p>
+                                        <p class="mb-0 mt-4">{{ $cart->katalog->title }}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 mt-4">2.99 $</p>
+                                        <p class="mb-0 mt-4">Rp{{ number_format($cart->katalog->harga, 0, ',', '.') }}</p>
                                     </td>
                                     <td>
-                                        <div class="input-group quantity mt-4" style="width: 100px;">
+                                        <div class="input-group mt-4 quantity" style="width: 150px;">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
-                                                <i class="fa fa-minus"></i>
+                                                <button class="btn btn-sm btn-minus rounded-circle bg-light border" data-item="{{ $cart->id }}">
+                                                    <i class="fa fa-minus"></i>
                                                 </button>
                                             </div>
-                                            <input type="text" class="form-control form-control-sm text-center border-0" value="1">
+                                            <input type="number" name="qty" class="form-control form-control-sm text-center border-0 quantity" data-item="{{ $cart->id }}" value="{{ $cart->qty }}">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                <button class="btn btn-sm btn-plus rounded-circle bg-light border" data-item="{{ $cart->id }}">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
                                         </div>
+
                                     </td>
                                     <td>
-                                        <p class="mb-0 mt-4">2.99 $</p>
+                                        <p class="mb-0 mt-4">Rp {{ number_format($cart->katalog->harga * $cart->qty, 0, ',', '.') }}</p>
                                     </td>
                                     <td>
-                                        <button class="btn btn-md rounded-circle bg-light border mt-4" >
-                                            <i class="fa fa-times text-danger"></i>
-                                        </button>
+                                        <form action="{{ route('chart.destroy', $cart->id) }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-md rounded-circle bg-light border mt-4" >
+                                                <i class="fa fa-times text-danger"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
+                                @php
+                                    $total += ($cart->katalog->harga * $cart->qty);
+                                @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -76,7 +90,7 @@
                                     <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
                                     <div class="d-flex justify-content-between mb-4">
                                         <h5 class="mb-0 me-4">Subtotal:</h5>
-                                        <p class="mb-0">$96.00</p>
+                                        <p class="mb-0">Rp{{ number_format($total, 0, ',', '.') }}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <h5 class="mb-0 me-4">Shipping</h5>
@@ -90,7 +104,10 @@
                                     <h5 class="mb-0 ps-4 me-4">Total</h5>
                                     <p class="mb-0 pe-4">$99.00</p>
                                 </div>
-                                <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
+                                <form action="/checkout" method="post">
+                                    @csrf
+                                    <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="submit">Beli</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -99,4 +116,56 @@
         </div>
     </div>
 @endsection
+@push('js')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const updateQuantity = function(element, newQty) {
+            const id = element.getAttribute('data-item');
+            axios.patch(`/chart/${id}`, {
+                quantity: newQty,
+                id: id
+            })
+            .then(function(response){
+                window.location.href = '/chart';
+            })
+            .catch(function(error){
+                console.log(error);
+            });
+        };
+
+        const classname = document.querySelectorAll('.quantity');
+
+        Array.from(classname).forEach(function(element){
+            element.addEventListener('change', function(){
+                updateQuantity(element, this.value);
+            });
+        });
+
+        const btnMinus = document.querySelectorAll('.btn-minus');
+        const btnPlus = document.querySelectorAll('.btn-plus');
+
+        Array.from(btnMinus).forEach(function(button) {
+            button.addEventListener('click', function() {
+                const input = button.nextElementSibling;
+                let currentQty = parseInt(input.value);
+                if (currentQty > 1) {
+                    input.value = currentQty - 1;
+                    updateQuantity(input, input.value);
+                }
+            });
+        });
+
+        Array.from(btnPlus).forEach(function(button) {
+            button.addEventListener('click', function() {
+                const input = button.previousElementSibling;
+                let currentQty = parseInt(input.value);
+                input.value = currentQty + 1;
+                updateQuantity(input, input.value);
+            });
+        });
+    });
+</script>
+@endpush
+
+
 
