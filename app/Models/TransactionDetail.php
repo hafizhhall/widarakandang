@@ -11,6 +11,7 @@ class TransactionDetail extends Model
     protected $fillable = [
         'transaction_id',
         'katalog_id',
-        'qty'
+        'qty',
+        'sub_total'
     ];
 }

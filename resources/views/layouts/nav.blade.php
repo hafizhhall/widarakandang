@@ -38,9 +38,8 @@
                         <li><hr class="dropdown-divider"></li>
                         @endcan
                         @can('pelanggan')
-                        <li><a class="dropdown-item" href="/user">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="/chart">Order</a></li>
-                        <li><a class="dropdown-item" href="/user">My Address</a></li>
+                        <li><a class="dropdown-item" href="/order">Order</a></li>
+                        <li><a class="dropdown-item" href="/user">My Account</a></li>
                         <li><hr class="dropdown-divider"></li>
                         @endcan
                         @auth
@@ -52,6 +51,7 @@
                         </form>
                         @else
                         <li><a class="dropdown-item" href="/login">login</a></li>
+                        <li><a class="dropdown-item" href="/register">Register</a></li>
                         @endauth
                     </ul>
                 </div>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('katalog_id')->unsigned();
             $table->foreign('katalog_id')->references('id')->on('katalogs');
             $table->integer('qty');
+            $table->integer('sub_total');
             $table->timestamps();
         });
     }

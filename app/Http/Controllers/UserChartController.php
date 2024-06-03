@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Katalog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -28,13 +29,14 @@ class UserChartController extends Controller
             'qty' => 1
 
         ]);
+
         Alert::toast('Berhasil tambah anggrek', 'success');
         return redirect('/chart')->with('success', 'Berhasil tambah barang');
     }
     public function update(Request $request, $id)
     {
         Cart::where('id', $id)->update([
-            'qty' => $request->quantity
+            'qty' => $request->quantity,
         ]);
         return response()->json([
             'success' => true
