@@ -27,6 +27,7 @@ return new class extends Migration
             $table->text('body');
             $table->text('perawatan')->nullable();
             $table->string('gambar');
+            $table->integer('berat')->default(250);
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });

@@ -102,10 +102,11 @@
                                 </div>
                                 <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                                     <h5 class="mb-0 ps-4 me-4">Total</h5>
-                                    <p class="mb-0 pe-4">$99.00</p>
+                                    <p class="mb-0 pe-4">Rp{{ number_format($total, 0, ',', '.') }}</p>
                                 </div>
                                 <form action="/checkout" method="post">
                                     @csrf
+                                    <input type="hidden" name="total" value="{{ $total }}">
                                     <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="submit">Beli</button>
                                 </form>
                             </div>
@@ -134,7 +135,6 @@
         };
 
         const classname = document.querySelectorAll('.quantity');
-
         Array.from(classname).forEach(function(element){
             element.addEventListener('change', function(){
                 updateQuantity(element, this.value);

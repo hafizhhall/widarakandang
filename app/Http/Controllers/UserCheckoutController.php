@@ -15,19 +15,32 @@ class UserCheckoutController extends Controller
         $this->middleware('auth');
     }
 
-    public function store()
+    public function index(){
+        $transaction = Transaction::where('user_id', Auth::user()->id)->get();
+        return view('user.order.index', compact('transaction'));
+    }
+
+    public function show(){
+        return view('user.order.detail');
+    }
+
+    public function store(Request $request)
     {
+
+        $total = intval($request->total);
         $carts = Cart::where('user_id', Auth::user()->id);
         $cartUser = $carts->get();
 
         $transaction = Transaction::create([
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'total' => $total
         ]);
 
         foreach ($cartUser as $cart){
             $transaction->detail()->create([
                 'katalog_id' => $cart->katalog_id,
-                'qty' => $cart->qty
+                'qty' => $cart->qty,
+                'sub_total' => $cart->katalog->harga * $cart->qty
             ]);
         }
         // Mail::to($carts->first()->user->email)->send(new CheckoutMail($cartUser));

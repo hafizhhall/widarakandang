@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class RegisterController extends Controller
 {
     public function index(){
@@ -23,6 +25,7 @@ class RegisterController extends Controller
 
         User::create($validatedData);
         // $request->session()->flash('success', 'Akun berhasil dibuat! silahkan login');
-        return redirect('/login')->with('success', 'Akun berhasil dibuat! silahkan login');
+        Alert::success('Success', 'Akun berhasil dibuat! silahkan login');
+        return redirect('/login');
     }
 }
