@@ -15,8 +15,7 @@
     </div>
 </div>
 <!-- Page Header End -->
-
-
+@include('sweetalert::alert')
 <!-- Product Start -->
 <div class="container-xxl py-5">
     <div class="container">

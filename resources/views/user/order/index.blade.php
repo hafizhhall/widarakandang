@@ -19,33 +19,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($transaksi as $d)
                             <tr>
-                                <td>#1357</td>
-                                <td>March 45, 2022</td>
-                                <td>Processing</td>
-                                <td>$125.00 for 2 item</td>
+                                <td>{{$loop->iteration }}</td>
+                                <td>{{ $d->created_at }}</td>
+                                <td>Belum dibayar</td>
+                                <td>{{ $d->total }}</td>
                                 <td>
-                                    <a href="/order/detail" class="btn-small d-block">View</a>
+                                    <a href="{{ route('order.detail', ['transactionId' => $d->id]) }}" class="btn-small d-block">View</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>#2468</td>
-                                <td>June 29, 2022</td>
-                                <td>Completed</td>
-                                <td>$364.00 for 5 item</td>
-                                <td>
-                                    <a href="#" class="btn-small d-block">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#2366</td>
-                                <td>August 02, 2022</td>
-                                <td>Completed</td>
-                                <td>$280.00 for 3 item</td>
-                                <td>
-                                    <a href="#" class="btn-small d-block">View</a>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

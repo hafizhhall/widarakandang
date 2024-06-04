@@ -46,14 +46,18 @@ Route::get('/user/change-password', [UserProfilController::class, 'editPassword'
 Route::post('/user/change-password', [UserProfilController::class, 'processChangePassword'])->middleware('auth');
 Route::get('/user/change-profil', [UserProfilController::class, 'ediPorfil'])->middleware('auth')->name('user.change-profil');
 Route::post('/user/change-profil', [UserProfilController::class, 'processEditProfil'])->middleware('auth');
+Route::get('/user/change-address', [UserProfilController::class, 'addAddress'])->middleware('auth')->name('user.change-address');
+Route::post('/user/change-address', [UserProfilController::class, 'processAddAddress'])->middleware('auth');
 Route::get('/chart', [UserChartController::class, 'index'])->middleware('auth');
 Route::get('/', [UserChartController::class, 'nav'])->middleware('auth');
 Route::post('/chart/{id}', [UserChartController::class, 'store'])->middleware('auth');
 Route::patch('/chart/{id}', [UserChartController::class, 'update'])->middleware('auth');
 Route::delete('/chart/{id}', [UserChartController::class, 'destroy'])->middleware('auth')->name('chart.destroy');
 Route::post('/checkout', [UserCheckoutController::class, 'store']);
-Route ::get('/order' , [UserCheckoutController::class, 'index']);
-Route ::get('/order/detail' , [UserCheckoutController::class, 'show']);
+Route::get('/order', [UserCheckoutController::class, 'index']);
+Route::get('/order/{transactionId}/detail', [UserCheckoutController::class, 'show'])->middleware('auth')->name('order.detail');
+Route::get('/order/{transactionId}/ongkir', [UserCheckoutController::class, 'tambahOngkir'])->middleware('auth')->name('order.ongkir');
+// Route::post('/order/{transactionId}/detail', [UserCheckoutController::class, 'getCourierServices']);
 // dashboard barang keluar
 Route::resource('/dashboard/output', DashboardOutputController::class)->middleware('aksesPetugas');
 // dashboar barang masuk
@@ -76,47 +80,55 @@ Route::resource('/dashboard/katalog', DashboardKatalogController::class)->middle
 // Route::get('/dashboard/katalog', [DashboardKatalogController::class, 'index'])->middleware('auth');
 Route::get('/dashboard/artikel/checkSlug', [DashboardArtikelController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/artikel', DashboardArtikelController::class)->middleware('aksesPetugas');
-Route::post('/logout',[LoginController::class, 'logout']);
+
 // kategori blog post dashboard
 Route::get('/dashboard/kategori/checkSlug', [DashboardKategoriController::class, 'checkSlug'])->middleware('aksesPetugas');
 Route::resource('/dashboard/kategori', DashboardKategoriController::class)->except('show')->middleware('aksesPetugas:admin');
-// Route::get('/dashboard/kategori', [DashboardKategoriController::class, 'index'])->middleware('auth');
-// Route::get('/dashboard', function(){
-//     return view ('dashboard.index');
-// })->middleware('auth');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aksesPetugas');
-Route::get('/register',[RegisterController::class, 'index'])->middleware('guest');
-Route::post('/register',[RegisterController::class, 'store']);
-Route::post('/login',[LoginController::class, 'authenticate']);
-Route::get('/login',[LoginController::class, 'index'])->name('login')->middleware('guest');
 
-Route::get('/search', [HomeController::class, 'search'])->name('home.search');
-Route::get('/', [HomeController::class, 'index']);
+Route::group([], function () {
+    Route::get('/search', [HomeController::class, 'search'])->name('home.search');
+    Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/blog', [AboutController::class,'index']);
+    Route::get('/blog', [AboutController::class, 'index']);
 
-Route::get('/katalog', [KatalogController::class, 'index']);
+    Route::get('/katalog', [KatalogController::class, 'index']);
 
-// halaman single post
-Route::get('/katalog/{katalog:slug}', [KatalogController::class, 'show']);
-// Route::get('/katalog/{jenis:slug}', [KatalogController::class, 'jenis_anggrek'])->name('jenis.katalog');
+    // halaman single post
+    Route::get('/katalog/{katalog:slug}', [KatalogController::class, 'show']);
+    // Route::get('/katalog/{jenis:slug}', [KatalogController::class, 'jenis_anggrek'])->name('jenis.katalog');
 
-// halaman single post kegiatan artikel
-Route::get('/dartikel/{dartikel:slug}', [HomeController::class, 'show']);
+    // halaman single post kegiatan artikel
+    Route::get('/dartikel/{dartikel:slug}', [HomeController::class, 'show']);
 
-// Kategori
-Route::get('/blog/{kategori:slug}', [AboutController::class, 'artikel_kategori'])->name('artikel.kategori');
+    // Kategori
+    Route::get('/blog/{kategori:slug}', [AboutController::class, 'artikel_kategori'])->name('artikel.kategori');
 
-// Jenis anggrek
-Route::get('/katalog/{jenis:slug}', [KatalogController::class, 'index'])->name('jenis.katalog');
-// Route::get('katalog/{jenis:slug}', [KatalogController::class, 'show']);
+    // Jenis anggrek
+    Route::get('/katalog/{jenis:slug}', [KatalogController::class, 'index'])->name('jenis.katalog');
+    // Route::get('katalog/{jenis:slug}', [KatalogController::class, 'show']);
 
-Route::get('/jenis/{jenis:slug}',function(Jenis $jenis){
-    return view('filterjenis', [
-        'title' => $jenis->name,
-        'katalog' => $jenis->katalog,
-        'jenis' => $jenis->name
-    ]);
+    Route::get('/jenis/{jenis:slug}', function (Jenis $jenis) {
+        return view('filterjenis', [
+            'title' => $jenis->name,
+            'katalog' => $jenis->katalog,
+            'jenis' => $jenis->name
+        ]);
+    });
 });
 
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+    Route::post('/register', [RegisterController::class, 'store']);
+    Route::post('/login', [LoginController::class, 'authenticate']);
+    Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+});
+Route::post('/logout', [LoginController::class, 'logout']);
 
+
+Route::middleware(['auth', 'aksesPetugas'])->prefix('dashboard')->name('dashboard')->group(function () {
+
+});
+
+Route::middleware('auth')->group(function () {
+});

@@ -14,4 +14,14 @@ class TransactionDetail extends Model
         'qty',
         'sub_total'
     ];
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+    public function katalog()
+    {
+        return $this->belongsTo(Katalog::class);
+    }
+
 }

@@ -50,6 +50,7 @@ class DashboardKatalogController extends Controller
             'harga' => 'required',
             'body' =>'required',
             'perawatan' => 'required',
+            'berat' => 'required',
             'gambar' => 'image|file'
         ]);
 
@@ -105,6 +106,7 @@ class DashboardKatalogController extends Controller
             'harga' => 'required',
             'body' =>'required',
             'perawatan' => 'required',
+            'berat' => 'required',
             'gambar' => 'image|file|max:5024'
         ];
 
