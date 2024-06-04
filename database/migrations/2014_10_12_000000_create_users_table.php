@@ -20,6 +20,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['pelanggan','admin','pemilik'])->default('pelanggan');
+            $table->string('jenis_kelamin')->nullable();
+            $table->string('pos')->nullable();
+            $table->string('city')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

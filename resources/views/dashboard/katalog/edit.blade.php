@@ -123,6 +123,19 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="berat" class="form-label">Berat anggrek</label>
+                                    <input type="number" min="1"
+                                        class="form-control @error('berat') is-invalid @enderror" id="berat" name="berat"
+                                        required autofocus value="{{ old('berat', $katalog->berat) }}">
+                                    @error('berat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">

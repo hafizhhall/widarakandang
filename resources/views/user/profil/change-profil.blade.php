@@ -9,13 +9,21 @@
             </div>
         </div>
         <form action="change-profil" method="post">
-            @include('sweetalert::alert')
+
             @csrf
             <div class="row mb-3">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <label for="name" class="form-label">Nama Lengkap</label>
                     <input type="text" name="name" class="form-control" placeholder="name@example.com"
                         value="{{ old('name', $user->name) }}">
+                </div>
+                <div class="col-md-6">
+                    <label for="jenis_kelamin" class="form-label">Jenis kelamin</label>
+                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                        <option value="" {{ old('jenis_kelamin', $user->jenis_kelamin) == '' ? 'selected' : '' }}>Jenis kelamin anda!</option>
+                        <option value="Laki-laki" {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="Perempuan" {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                    </select>
                 </div>
             </div>
             <div class="row mb-3">
