@@ -11,7 +11,8 @@ class Transaction extends Model
     protected $fillable = [
         'user_id',
         'total',
-        'ongkir'
+        'ongkir',
+        'status'
     ];
 
     public function detail()

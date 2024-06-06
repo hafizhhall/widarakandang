@@ -9,6 +9,7 @@ use App\Models\User;
 // use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 // use Illuminate\View\View as ViewView;
 use Illuminate\Support\Facades\View;
 
@@ -45,5 +46,10 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('charts', $charts);
             }
         });
+
+        // hidupkan ketika ingin menggunakan ngrok
+        // if(config('app.env') === 'local'){
+        //     URL::forceScheme('https');
+        // }
     }
 }

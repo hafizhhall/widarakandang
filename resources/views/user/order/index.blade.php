@@ -23,8 +23,8 @@
                             <tr>
                                 <td>{{$loop->iteration }}</td>
                                 <td>{{ $d->created_at }}</td>
-                                <td>Belum dibayar</td>
-                                <td>{{ $d->total }}</td>
+                                <td>{{ $d->status }}</td>
+                                <td>Rp{{ number_format($d->total, 0, ',', '.') }}</td>
                                 <td>
                                     <a href="{{ route('order.detail', ['transactionId' => $d->id]) }}" class="btn-small d-block">View</a>
                                 </td>

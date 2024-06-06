@@ -62,21 +62,5 @@ class UserChartController extends Controller
         return redirect('/chart')->with('success', 'Item berhasil dihapus');
     }
 
-    public function cekOngkir(Request $request)
-    {
-        $totalBerat = intval($request->totalBerat);
-        $carts = Cart::where('user_id', Auth::user()->id);
-        $user = Auth::user();
-        $apikey = env('RAJA_ONGKIR_API_KEY');
-        $responseCost = Http::withHeaders([
-            'key' => $apikey
-        ])->post('https://api.rajaongkir.com/starter/cost', [
-            'origin' => 'Yogyakarta',
-            'destination' => $user->city,
-            'weight' => $totalBerat,
-            'courir' => $request->courier
-        ]);
 
-        $ongkir = $responseCost['rajaongkir'];
-    }
 }

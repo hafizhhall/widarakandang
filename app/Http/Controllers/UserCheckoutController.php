@@ -32,6 +32,12 @@ class UserCheckoutController extends Controller
 
     public function show(Request $request, $transactionId)
     {
+        // Mengambil snapToken dari session
+        $snapToken = session('snapToken');
+
+        // Hapus snapToken dari session setelah mengambilnya
+        // session()->forget('snapToken');
+
         $apikey = env('RAJA_ONGKIR_API_KEY');
         $userId = Auth::user()->id;
         // Find the transaction and ensure it belongs to the logged-in user
@@ -65,19 +71,19 @@ class UserCheckoutController extends Controller
         $ongkir = $responseCost['rajaongkir'];
         // dd($ongkir);
         // dd($ongkir);
-        return view('user.order.detail', [
-            'details' => $details,
-            'transaction' => $transaction,
-            'user' => $user,
-            'selectedCity' => $selectedCity,
-            'ongkir' => $ongkir
-        ]);
+
+        return view('user.order.detail', compact('details', 'transaction', 'user', 'selectedCity', 'ongkir', 'snapToken'));
     }
     public function store(Request $request)
     {
+        $apikey = env('RAJA_ONGKIR_API_KEY');
+        // total dari halaman checkout
         $total = intval($request->total);
+        $totalBerat = intval($request->totalBerat);
 
-        $userId = Auth::user()->id;
+        $user = Auth::user();
+        $userId = $user->id;
+        $selectedCity = $user->city;
 
         // Cek apakah ada transaksi yang belum dibayar
         $unpaidTransaction = Transaction::where('user_id', $userId)
@@ -90,14 +96,26 @@ class UserCheckoutController extends Controller
             return redirect('/chart')->with('error', 'Anda memiliki transaksi yang belum dibayar.');
         }
 
+        $responseCost = Http::withHeaders([
+            'key' => $apikey
+        ])->post('https://api.rajaongkir.com/starter/cost', [
+            'origin' => 39,
+            'destination' => $selectedCity,
+            'weight' => $totalBerat,
+            'courier' => 'jne',
+            'costs' => 0
+        ]);
+        $ongkir = $responseCost['rajaongkir']['results'][0]['costs'][0]['cost'][0]['value'];
         $carts = Cart::where('user_id', Auth::user()->id);
         $cartUser = $carts->get();
 
         $transaction = Transaction::create([
             'user_id' => Auth::user()->id,
-            'total' => $total
+            'total' => $total + $ongkir,
+            'ongkir' => $ongkir
         ]);
 
+        // perulangan untuk cart
         foreach ($cartUser as $cart) {
             $transaction->detail()->create([
                 'katalog_id' => $cart->katalog_id,
@@ -105,8 +123,50 @@ class UserCheckoutController extends Controller
                 'sub_total' => $cart->katalog->harga * $cart->qty
             ]);
         }
+
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        // Generate unique order_id
+        // $order_id = $transaction->id;
+        $order_id = $transaction->id . '-' . time();
+        $gross = $total + $ongkir;
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $order_id,
+                'gross_amount' => $gross,
+            ),
+            'customer_details' => array(
+                'name' => $user->name,
+                'phone' => $user->no_telep,
+            ),
+        );
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        // Menyimpan snapToken ke dalam session
+        $request->session()->put('snapToken', $snapToken);
+        // dd($snapToken);
         // Mail::to($carts->first()->user->email)->send(new CheckoutMail($cartUser));
         Cart::where('user_id', Auth::user()->id)->delete();
-        return redirect('/order');
+        return redirect()->route('order.detail', ['transactionId' => $transaction->id]);
+    }
+
+    public function callback(Request $request)
+    {
+        $serverKey = config('midtrans.server_key');
+        $hashed = hash('sha512', $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+
+        if ($hashed == $request->signature_key) {
+            if ($request->transaction_status == 'capture' or $request->transaction_status == 'settlement') {
+                $transaction = Transaction::find($request->order_id);
+                $transaction->update(['status' => 'Lunas']);
+            }
+        }
     }
 }
