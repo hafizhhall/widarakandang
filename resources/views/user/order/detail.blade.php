@@ -1,7 +1,14 @@
 @extends('user.index')
+@push('jsMidtrans')
+    <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
+    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
+@endpush
 @section('menu')
     @php
         $totalBerat = 0;
+        $total = 0;
     @endphp
     <div class="container">
         <h3>Rincian belanjaan anda</h3>
@@ -43,6 +50,7 @@
                         </tr>
                         @php
                             $totalBerat += $detail->katalog->berat * $detail->qty;
+                            $total += $detail->katalog->harga * $detail->qty;
                         @endphp
                     @endforeach
                 </tbody>
@@ -62,7 +70,7 @@
                                 <label for="total">Sub total</label>
                             </div>
                             <div class="col">
-                                <p class="card-text">Rp{{ number_format($transaction->total, 0, ',', '.') }}</p>
+                                <p class="card-text">Rp{{ number_format($total, 0, ',', '.') }}</p>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -81,7 +89,7 @@
                             </div>
                             <div class="col">
                                 <p class="card-text" style="font-weight: bold">
-                                    Rp{{ number_format($transaction->total + $ongkir['results'][0]['costs'][0]['cost'][0]['value'], 0, ',', '.') }}
+                                    Rp{{ number_format($transaction->total, 0, ',', '.')}}
                                 </p>
                             </div>
                         </div>
@@ -152,60 +160,45 @@
         <div class="row">
 
         </div>
-        <div class="row d-flex justify-content-end">
-            <div class="col-md-2">
+        <div class="row">
+            <div class="col-md-3">
                 <a href="/order" class="btn btn-success mt-4">Kembali</a>
             </div>
-            <div class="col-md-2">
-                <a href="#" class="btn btn-primary mt-4">Bayar</a>
+            <div class="col-md-3">
+                <a class="btn btn-success mt-4" id="pay-button">Bayar sekarang</a>
             </div>
+            {{-- <div class="col-md-3">
+                <button class="btn btn-primary" id="pay-button">Bayar sekarnag</button>
+            </div> --}}
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#origin, #destination, #weight').on('change', function() {
-                var origin = $('#origin').val();
-                var destination = $('#destination').val();
-                var weight = $('#weight').val();
 
-                if (origin && destination && weight) {
-                    $.ajax({
-                        url: '/order/{transactionId}/detail',
-                        type: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            origin: origin,
-                            destination: destination,
-                            weight: weight,
-                            courier: 'jne' // Pilihan default atau bisa ditambahkan dropdown untuk kurir
-                        },
-                        success: function(data) {
-                            $('#courier').empty();
-                            $('#courier').append('<option value="">Pilih kurir</option>');
-                            $.each(data.results, function(index, item) {
-                                $.each(item.costs, function(i, cost) {
-                                    var serviceOption = '<option value="' + cost
-                                        .service + '">';
-                                    serviceOption += 'Nama: ' + item.name +
-                                        ', ';
-                                    serviceOption += 'Service: ' + cost
-                                        .service + ', ';
-                                    $.each(cost.cost, function(j, harga) {
-                                        serviceOption += 'Harga: Rp ' +
-                                            new Intl.NumberFormat(
-                                                'id-ID').format(harga
-                                                .value) + ' (est: ' +
-                                            harga.etd + ')';
-                                    });
-                                    serviceOption += '</option>';
-                                    $('#courier').append(serviceOption);
-                                });
-                            });
-                        }
-                    });
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+            window.snap.pay('{{ $snapToken }}', {
+                onSuccess: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment success!");
+                    console.log(result);
+                },
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+                    alert("wating your payment!");
+                    console.log(result);
+                },
+                onError: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment failed!");
+                    console.log(result);
+                },
+                onClose: function() {
+                    /* You may add your own implementation here */
+                    alert('you closed the popup without finishing the payment');
                 }
-            });
+            })
         });
     </script>
 @endsection
