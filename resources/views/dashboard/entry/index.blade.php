@@ -8,6 +8,9 @@
 @endpush
 @section('content')
     <div class="main-content">
+        <div class="title">
+            Data anggrek masuk
+        </div>
         <div class="content-wrapper">
             <div class="col-md-12">
                 <div class="card">

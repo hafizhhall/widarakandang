@@ -17,7 +17,9 @@
             {{ session('error') }}
         </div>
     @endif
-
+    <div class="title">
+        Data anggrek keluar
+    </div>
     <div class="content-wrapper">
         <div class="col-md-12">
             <div class="card">

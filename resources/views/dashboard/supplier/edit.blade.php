@@ -1,6 +1,9 @@
 @extends('dashboard.layouts.main')
 
 @section('content')
+<div class="title">
+    Ubah data supplier anggrek
+</div>
     <div class="main-content">
         <div class="content-wrapper">
             <div class="col-md-12">

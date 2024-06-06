@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardEntryController;
 use App\Http\Controllers\DashboardJenisController;
 use App\Http\Controllers\DashboardOutputController;
 use App\Http\Controllers\DashboardArtikelController;
+use App\Http\Controllers\DashboardJualController;
 use App\Http\Controllers\DashboardKatalogController;
 use App\Http\Controllers\DashboardKategoriController;
 use App\Http\Controllers\DashboardRoleController;
@@ -33,6 +34,8 @@ use App\Http\Controllers\UserSettingController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Dashboard menu penjualan
+Route::resource('/dashboard/penjualan', DashboardJualController::class)->middleware('aksesPetugas');
 // Role Dashboard
 Route::resource('/dashboard/role', DashboardRoleController::class);
 // export excel
