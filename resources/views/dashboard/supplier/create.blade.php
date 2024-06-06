@@ -2,11 +2,14 @@
 
 @section('content')
     <div class="main-content">
+        <div class="title">
+            Tambah data supplier
+        </div>
         <div class="content-wrapper">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Tambah supplier
+                        Isi sesuai kolom
                     </div>
                     <div class="card-body">
                         <form method="post" action="/dashboard/supplier">

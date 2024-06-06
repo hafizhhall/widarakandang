@@ -58,13 +58,13 @@
             </li>
             <li class="">
                 <a href="#" class="main-menu has-dropdown">
-                    <i class="ti-desktop"></i>
+                    <i class="ti-shopping-cart"></i>
                     <span>Master</span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a href="/dashboard/katalog" class="link"><span>Katalog Anggrek</span></a></li>
-                    <li><a href="/dashboard/jenis" class="link"><span>Kategori Anggrek</span></a></li>
-                    <li><a href="/dashboard/supplier" class="link"><span>Supplier</span></a></li>
+                    <li><a href="/dashboard/katalog" class="link"><span>Pesanan masuk</span></a></li>
+                    <li><a href="/dashboard/jenis" class="link"><span>Pesanan terkirim</span></a></li>
+                    <li><a href="/dashboard/penjualan" class="link"><span>Semua transaksi</span></a></li>
                 </ul>
             </li>
             <li class="menu-category ">

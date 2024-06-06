@@ -17,6 +17,9 @@
                 {{ session('error') }}
             </div>
         @endif
+        <div class="title">
+            Data supplier anggrek
+        </div>
         <div class="content-wrapper">
             <div class="row same-height">
                 <div class="col-md-12">

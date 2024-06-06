@@ -113,13 +113,18 @@
                                     </div>
                                     <div class="d-flex border-top">
                                         <small class="w-50 text-center border-end py-2">
-                                            <a class="text-body" href=""><i
+                                            <a class="text-body" href="/katalog/{{ $k->slug }}"><i
                                                     class="fa fa-eye text-primary me-2"></i>Detail</a>
                                         </small>
-                                        <small class="w-50 text-center py-2">
-                                            <a class="text-body" href=""><i
-                                                    class="fa fa-shopping-bag text-primary me-2"></i>Beli</a>
-                                        </small>
+                                        <form action="/chart/store" method="post">
+                                            @csrf
+                                            <small class="w-50 text-center py-2">
+                                                <input type="hidden" name="katalog_id" value="{{ $k->id }}">
+                                                <input type="submit" class="btn btn-primary" value="Add to Cart">
+                                                <a class="text-body" href="" type="submit"><i
+                                                    class="fa fa-shopping-bag text-primary me-2"></i></a>
+                                            </small>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
