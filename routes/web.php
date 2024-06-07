@@ -5,6 +5,7 @@ use App\Models\Katalog;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CetakPdfController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\RegisterController;
@@ -38,7 +39,8 @@ use App\Http\Controllers\UserSettingController;
 Route::resource('/dashboard/penjualan', DashboardJualController::class)->middleware('aksesPetugas');
 // Role Dashboard
 Route::resource('/dashboard/role', DashboardRoleController::class);
-// export excel
+// export excel dan pdf
+Route::get('cetak-invoice', [CetakPdfController::class, 'cetakPdf'])->middleware('auth');
 Route::get('/dashboard/output/excel', [DashboardOutputController::class, 'export_excel'])->middleware('can:read output');
 Route::get('/dashboard/entry/excel', [DashboardEntryController::class, 'export_excel'])->middleware('can:read entry');
 Route::get('/dashboard/entry/pdf', [DashboardEntryController::class, 'export_pdf']);

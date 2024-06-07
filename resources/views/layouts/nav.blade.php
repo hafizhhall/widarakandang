@@ -51,7 +51,7 @@
                         </form>
                         @else
                         <li><a class="dropdown-item" href="/login">login</a></li>
-                        <li><a class="dropdown-item" href="/register">Register</a></li>
+                        <li><a class="dropdown-item" href="/register">register</a></li>
                         @endauth
                     </ul>
                 </div>

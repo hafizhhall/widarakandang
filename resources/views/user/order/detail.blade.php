@@ -14,6 +14,7 @@
         <h3>Rincian belanjaan anda</h3>
         <div class="table-responsive">
             <table class="table w-100" style="width: 100%">
+                <div class="background-image"></div>
                 <thead>
                     <tr>
                         <th scope="col">Products</th>
@@ -172,7 +173,23 @@
             </div> --}}
         </div>
     </div>
-
+    <style>
+        .background-image {
+            position:absolute;
+            top: 7cm;
+            left: 5cm;
+            width: 100%;
+            height: 100%;
+            background: url('/img/belum bayar.png') no-repeat center center;
+            background-size: 50rem;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
     <script type="text/javascript">
         // For example trigger on button clicked, or any time you need
         var payButton = document.getElementById('pay-button');

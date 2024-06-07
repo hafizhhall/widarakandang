@@ -25,6 +25,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Invocie</th>
                                     <th scope="col">Pembeli</th>
                                     <th scope="col">total</th>
                                     <th scope="col">Kirim ke</th>
@@ -36,6 +37,7 @@
                                 @foreach ($transaction as $trx)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $trx->invoice }}</td>
                                         <td>{{ $trx->user->name }}</td>
                                         <td>{{ $trx->total }}</td>
                                         <td>{{ $trx->user->city }}</td>
