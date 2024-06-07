@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Transaction extends Model
 {
@@ -12,7 +13,8 @@ class Transaction extends Model
         'user_id',
         'total',
         'ongkir',
-        'status'
+        'status',
+        'invoice'
     ];
 
     public function detail()
@@ -22,5 +24,18 @@ class Transaction extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($transaction) {
+            $transaction->invoice = self::generateInvoiceNumber();
+        });
+    }
+    private static function generateInvoiceNumber()
+    {
+        return 'INV-' . strtoupper(Str::random(10)). '-WK';
     }
 }

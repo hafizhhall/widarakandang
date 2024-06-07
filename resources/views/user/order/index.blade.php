@@ -12,7 +12,7 @@
                         <thead>
                             <tr>
                                 <th>Order</th>
-                                <th>Date</th>
+                                <th>Invocie</th>
                                 <th>Status</th>
                                 <th>Total</th>
                                 <th>Actions</th>
@@ -22,7 +22,7 @@
                             @foreach ($transaksi as $d)
                             <tr>
                                 <td>{{$loop->iteration }}</td>
-                                <td>{{ $d->created_at }}</td>
+                                <td>{{ $d->invoice }}</td>
                                 <td>{{ $d->status }}</td>
                                 <td>Rp{{ number_format($d->total, 0, ',', '.') }}</td>
                                 <td>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4623dbf8faf295adebaa45d3c5a4f72c",
+    "content-hash": "679eca1995cbfb7eeb35fe5b008fac6a",
     "packages": [
         {
             "name": "brick/math",
@@ -6926,50 +6926,6 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
-        },
-        {
-            "name": "yogameleniawan/search-sort-eloquent",
-            "version": "v1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yogameleniawan/search-sort-eloquent.git",
-                "reference": "c720f8da99c54c6c916554a3893c7f1b2bd654bf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yogameleniawan/search-sort-eloquent/zipball/c720f8da99c54c6c916554a3893c7f1b2bd654bf",
-                "reference": "c720f8da99c54c6c916554a3893c7f1b2bd654bf",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Yogameleniawan\\SearchSortEloquent\\SearchSortServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Yogameleniawan\\SearchSortEloquent\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Yoga Meleniawan Pamungkas",
-                    "email": "64576201+yogameleniawan@users.noreply.github.com"
-                }
-            ],
-            "description": "Searching & Sorting Column Eloquent Model",
-            "support": {
-                "issues": "https://github.com/yogameleniawan/search-sort-eloquent/issues",
-                "source": "https://github.com/yogameleniawan/search-sort-eloquent/tree/v1.2.1"
-            },
-            "time": "2024-05-28T01:37:22+00:00"
         }
     ],
     "packages-dev": [

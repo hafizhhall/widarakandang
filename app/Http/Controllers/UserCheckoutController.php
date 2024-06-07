@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Katalog;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\User;
@@ -115,6 +116,7 @@ class UserCheckoutController extends Controller
             'ongkir' => $ongkir
         ]);
 
+
         // perulangan untuk cart
         foreach ($cartUser as $cart) {
             $transaction->detail()->create([
@@ -122,7 +124,15 @@ class UserCheckoutController extends Controller
                 'qty' => $cart->qty,
                 'sub_total' => $cart->katalog->harga * $cart->qty
             ]);
+
+            // Mengurangi jumlah stok katalog
+            $katalog = Katalog::find($cart->katalog_id);
+            if ($katalog) {
+                $katalog->jumlah -= $cart->qty;
+                $katalog->save();
+            }
         }
+
 
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
