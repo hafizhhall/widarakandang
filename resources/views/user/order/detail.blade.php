@@ -14,7 +14,7 @@
         <h3>Rincian belanjaan anda</h3>
         <div class="table-responsive">
             <table class="table w-100" style="width: 100%">
-                <div class="background-image"></div>
+
                 <thead>
                     <tr>
                         <th scope="col">Products</th>
@@ -38,7 +38,7 @@
                                 <p class="mb-0 mt-4">{{ $detail->katalog->title }}</p>
                             </td>
                             <td>
-                                <p class="mb-0 mt-4">Rp{{ number_format($detail->katalog->harga, 0, ',', '.') }}
+                                <p class="mb-0 mt-4">Rp{{ number_format($detail->harga_anggrek, 0, ',', '.') }}
                                 </p>
                             </td>
                             <td style="text-align: center">
@@ -51,7 +51,7 @@
                         </tr>
                         @php
                             $totalBerat += $detail->katalog->berat * $detail->qty;
-                            $total += $detail->katalog->harga * $detail->qty;
+                            $total += $detail->harga_anggrek * $detail->qty;
                         @endphp
                     @endforeach
                 </tbody>
@@ -80,7 +80,8 @@
                             </div>
                             <div class="col">
                                 <p class="card-text">
-                                    Rp{{ number_format($ongkir['results'][0]['costs'][0]['cost'][0]['value'], 0, ',', '.') }}
+                                    {{-- Rp{{ number_format($ongkir['results'][0]['costs'][0]['cost'][0]['value'], 0, ',', '.') }} --}}
+                                    Rp{{ number_format($transaction->ongkir, 0, ',', '.') }}
                                 </p>
                             </div>
                         </div>
@@ -114,7 +115,7 @@
                                 <label for="total">Dikirim ke</label>
                             </div>
                             <div class="col">
-                                <p class="card-text">{{ $ongkir['destination_details']['city_name'] }}</p>
+                                <p class="card-text">{{ $transaction->city_name }}</p>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -173,23 +174,6 @@
             </div> --}}
         </div>
     </div>
-    <style>
-        .background-image {
-            position:absolute;
-            top: 7cm;
-            left: 5cm;
-            width: 100%;
-            height: 100%;
-            background: url('/img/belum bayar.png') no-repeat center center;
-            background-size: 50rem;
-            opacity: 0.3;
-            z-index: -1;
-        }
-        .content {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
     <script type="text/javascript">
         // For example trigger on button clicked, or any time you need
         var payButton = document.getElementById('pay-button');

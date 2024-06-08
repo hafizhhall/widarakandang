@@ -13,17 +13,16 @@
             <div class="row mt-3">
                 <div class="col-md-6">
                     <label for="city">Asal Kota</label>
-                    @php
-                        $selectedCity = $selectedCity ?? '';
-                    @endphp
+
                     <div class="form-floating">
                         <select name="city" id="city" class="form-select" aria-label="pilih kota asal!">
-                            <option value="" disabled{{ old('city', $selectedCity) ? '' : 'selected' }}>Pilih kota
+                            <option value="">Pilih kota
                                 asal anda</option>
                             @foreach ($cities as $city)
-                                <option value="{{ $city['city_id'] }}">{{ $city['city_name'] }}</option>
+                            <option value="{{ $city['city_id'] }}" data-city-name="{{ $city['city_name'] }}">{{ $city['city_name'] }}</option>
                             @endforeach
                         </select>
+                        <input type="hidden" name="city_name" id="city_name" value="">
                         <label for="floatingSelect">Works with selects</label>
                     </div>
                 </div>
@@ -53,4 +52,11 @@
             <button class="btn btn-primary w-100 py-2" type="submit">Simpan</button>
         </form>
     </main>
+    <script>
+        document.getElementById('city').addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var cityName = selectedOption.getAttribute('data-city-name');
+            document.getElementById('city_name').value = cityName;
+        });
+    </script>
 @endsection
