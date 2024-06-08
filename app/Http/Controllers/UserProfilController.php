@@ -102,7 +102,8 @@ class UserProfilController extends Controller
         $user->update([
             'city' => $request->city,
             'alamat' => $request->alamat,
-            'pos' => $request->pos
+            'pos' => $request->pos,
+            'city_name' => $request->city_name
         ]);
         return redirect('/user');
     }

@@ -61,7 +61,7 @@
                     <label for="no_telep" class="form-label">kota</label>
                 </div>
                 <div class="col-md-3">
-                    <h5>{{ $user->city }}</h5>
+                    <h5>{{ $user->city_name }}</h5>
                 </div>
             </div>
         </form>

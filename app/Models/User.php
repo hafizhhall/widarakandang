@@ -26,7 +26,8 @@ class User extends Authenticatable
         'alamat',
         'jenis_kelamin',
         'pos',
-        'city'
+        'city',
+        'city_name'
     ];
     // protected $guarded = ['id'];
 

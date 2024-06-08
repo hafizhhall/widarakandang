@@ -14,7 +14,8 @@ class Transaction extends Model
         'total',
         'ongkir',
         'status',
-        'invoice'
+        'invoice',
+        'city_name'
     ];
 
     public function detail()

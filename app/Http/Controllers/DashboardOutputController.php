@@ -22,9 +22,9 @@ class DashboardOutputController extends Controller
                 $query->select('id', 'title', 'harga');
             },
             'user' => function($query){
-                $query->select('id', 'name');
+                $query->select('id', 'name', 'role');
             }
-        ])->where('user_id', auth()->user()->id)->get();
+        ])->get();
 
         return view('dashboard.output.index',[
             'produkKeluar' => $produkKeluar

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Katalog;
+use App\Models\Output;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Models\User;
@@ -63,7 +64,7 @@ class UserCheckoutController extends Controller
         $responseCost = Http::withHeaders([
             'key' => $apikey
         ])->post('https://api.rajaongkir.com/starter/cost', [
-            'origin' => 39,
+            'origin' => 501,
             'destination' => $selectedCity,
             'weight' => $beratTotal,
             'courier' => 'jne',
@@ -85,6 +86,7 @@ class UserCheckoutController extends Controller
         $user = Auth::user();
         $userId = $user->id;
         $selectedCity = $user->city;
+        $destination = $user->city_name;
 
         // Cek apakah ada transaksi yang belum dibayar
         $unpaidTransaction = Transaction::where('user_id', $userId)
@@ -100,7 +102,7 @@ class UserCheckoutController extends Controller
         $responseCost = Http::withHeaders([
             'key' => $apikey
         ])->post('https://api.rajaongkir.com/starter/cost', [
-            'origin' => 39,
+            'origin' => 501,
             'destination' => $selectedCity,
             'weight' => $totalBerat,
             'courier' => 'jne',
@@ -113,7 +115,8 @@ class UserCheckoutController extends Controller
         $transaction = Transaction::create([
             'user_id' => Auth::user()->id,
             'total' => $total + $ongkir,
-            'ongkir' => $ongkir
+            'ongkir' => $ongkir,
+            'city_name' => $destination
         ]);
 
 
@@ -122,7 +125,8 @@ class UserCheckoutController extends Controller
             $transaction->detail()->create([
                 'katalog_id' => $cart->katalog_id,
                 'qty' => $cart->qty,
-                'sub_total' => $cart->katalog->harga * $cart->qty
+                'sub_total' => $cart->katalog->harga * $cart->qty,
+                'harga_anggrek' => $cart->katalog->harga
             ]);
 
             // Mengurangi jumlah stok katalog
@@ -131,6 +135,14 @@ class UserCheckoutController extends Controller
                 $katalog->jumlah -= $cart->qty;
                 $katalog->save();
             }
+            Output::create([
+                'katalog_id' => $cart->katalog_id,
+                'user_id' => $userId,
+                'quantity' => $cart->qty,
+                'sub_keluar' => $cart->katalog->harga,
+                'harga_keluar' => $cart->katalog->harga * $cart->qty,
+                'date' => now() // atau sesuaikan dengan format tanggal yang Anda inginkan
+            ]);
         }
 
 

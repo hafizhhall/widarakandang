@@ -14,7 +14,7 @@ class DashboardJualController extends Controller
     {
         $transaction = Transaction::with([
             'user' => function($query){
-                $query->select('id', 'name', 'city');
+                $query->select('id', 'name', 'city_name');
             }
         ])->get();
         return view('dashboard.penjualan.index',[

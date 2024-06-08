@@ -39,28 +39,15 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $trx->invoice }}</td>
                                         <td>{{ $trx->user->name }}</td>
-                                        <td>{{ $trx->total }}</td>
-                                        <td>{{ $trx->user->city }}</td>
-                                        <td class="badge border-0 {{ $trx->status === 'belum dibayar' ? 'bg-danger' : ($trx->status === 'lunas' ? 'bg-success' : 'bg-secondary') }}">
+                                        <td>Rp{{ number_format($trx->total) }}</td>
+                                        <td>{{ $trx->user->city_name }}</td>
+                                        <td class="badge  {{ $trx->status === 'belum dibayar' ? 'bg-danger' : ($trx->status === 'lunas' ? 'bg-success' : 'bg-secondary') }}">
                                             {{ $trx->status }}
                                         </td>
                                         <td>
                                             <a href="/dashboard/artikel/}" class="badge bg-info">
-                                                <i class="ti-eye"></i>
+                                                <i class="ti-eye"></i> lihat
                                             </a>
-                                            <a href="/dashboard/artikel//edit"
-                                                class="badge bg-warning">
-                                                <i class="ti-pencil"></i>
-                                            </a>
-                                            <form action="/dashboard/artikel/" method="post"
-                                                class="d-inline">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="badge bg-danger border-0" data-confirm-delete="true"
-                                                    id="swall-question">
-                                                    <i class="ti-trash"></i>
-                                                </button>
-                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

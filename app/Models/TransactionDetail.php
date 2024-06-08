@@ -12,7 +12,8 @@ class TransactionDetail extends Model
         'transaction_id',
         'katalog_id',
         'qty',
-        'sub_total'
+        'sub_total',
+        'harga_anggrek'
     ];
 
     public function transaction()

@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="form-text mb-2">Kelola data supplier</p>
+                    <p class="form-text mb-2">*status => siapa yang mengeluarkan stok</p>
                     @include('dashboard.output.table')
                 </div>
             </div>
