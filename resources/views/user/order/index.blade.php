@@ -13,7 +13,8 @@
                             <tr>
                                 <th>Order</th>
                                 <th>Invocie</th>
-                                <th>Status</th>
+                                <th>pembayaran</th>
+                                <th>pesanan</th>
                                 <th>Total</th>
                                 <th>Actions</th>
                             </tr>
@@ -23,10 +24,13 @@
                             <tr>
                                 <td>{{$loop->iteration }}</td>
                                 <td>{{ $d->invoice }}</td>
-                                <td>{{ $d->status }}</td>
+                                <td style="text-align: center">
+                                    {{ $d->status }}
+                                </td>
+                                <td>{{ $d->status_pesanan }}</td>
                                 <td>Rp{{ number_format($d->total, 0, ',', '.') }}</td>
                                 <td>
-                                    <a href="{{ route('order.detail', ['transactionId' => $d->id]) }}" class="btn-small d-block">View</a>
+                                    <a href="{{ route('order.detail', ['transactionId' => $d->id]) }}" class="btn-small d-block">Detail pesanan</a>
                                 </td>
                             </tr>
                             @endforeach

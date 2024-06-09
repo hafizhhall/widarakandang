@@ -109,6 +109,10 @@ class UserCheckoutController extends Controller
             'costs' => 0
         ]);
         $ongkir = $responseCost['rajaongkir']['results'][0]['costs'][0]['cost'][0]['value'];
+        $kurir = $responseCost['rajaongkir']['results'][0]['name'];
+        $origin = $responseCost['rajaongkir']['origin_details']['city_name'];
+        $layanan = $responseCost['rajaongkir']['results'][0]['costs'][0]['service'];
+        $estimasi = $responseCost['rajaongkir']['results'][0]['costs'][0]['cost'][0]['etd'];
         $carts = Cart::where('user_id', Auth::user()->id);
         $cartUser = $carts->get();
 
@@ -116,7 +120,12 @@ class UserCheckoutController extends Controller
             'user_id' => Auth::user()->id,
             'total' => $total + $ongkir,
             'ongkir' => $ongkir,
-            'city_name' => $destination
+            'city_name' => $destination,
+            'kurir' => $kurir,
+            'origin' => $origin,
+            'layanan' => $layanan,
+            'estimasi' => $estimasi,
+            'berat' => $totalBerat,
         ]);
 
 

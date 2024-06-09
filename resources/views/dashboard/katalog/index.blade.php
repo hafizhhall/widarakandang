@@ -30,7 +30,7 @@
                         </div>
                         <div class="card-body">
                             <p class="form-text mb-2">Datatables also provide responsive table</p>
-                            <table id="example2" class="table dt-responsive display">
+                            <table id="example2" class="table dt-responsive display table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>

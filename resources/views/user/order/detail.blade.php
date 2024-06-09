@@ -14,7 +14,6 @@
         <h3>Rincian belanjaan anda</h3>
         <div class="table-responsive">
             <table class="table w-100" style="width: 100%">
-
                 <thead>
                     <tr>
                         <th scope="col">Products</th>
@@ -59,13 +58,46 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Alamat detail</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" disabled>{{ $user->alamat }}</textarea>
+                <h4 class="">Status pesanan dan resi</h4>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                      Cek status pesanan
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">{{ $transaction->status_pesanan }}</div>
+                  </div>
                 </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                      Cek resi
+                    </button>
+                  </h2>
+                  <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"></div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                      Alamat detail
+                    </button>
+                  </h2>
+                  <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">{{ $user->alamat }}</div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Rincian pembelian</h5>
+                        <h5 class="card-title">Total pembelian</h5>
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="total">Sub total</label>
@@ -107,7 +139,7 @@
                                 <label for="total">Dikirim dari</label>
                             </div>
                             <div class="col">
-                                <p class="card-text">{{ $ongkir['origin_details']['city_name'] }}</p>
+                                <p class="card-text">{{ $transaction->origin }}</p>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -124,7 +156,7 @@
                             </div>
                             <div class="col">
                                 <p class="card-text">
-                                    {{ $ongkir['results'][0]['name'] }} - {{ $ongkir['results'][0]['code'] }}
+                                    {{ $transaction->kurir }}
                                 </p>
                             </div>
                         </div>
@@ -134,7 +166,7 @@
                             </div>
                             <div class="col">
                                 <p class="card-text">
-                                    {{ $ongkir['results'][0]['costs'][0]['service'] }}
+                                    {{ $transaction->layanan }}
                                 </p>
                             </div>
                         </div>
@@ -143,7 +175,7 @@
                                 <label for="total">Berat paket</label>
                             </div>
                             <div class="col">
-                                <p class="card-text">{{ number_format($ongkir['query']['weight'], 0, ',', '.') }} gr</p>
+                                <p class="card-text">{{ number_format($transaction->berat/1000, 0, ',', '.') }} kg</p>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -151,7 +183,7 @@
                                 <label for="total">Estimasi</label>
                             </div>
                             <div class="col">
-                                <p class="card-text">{{ $ongkir['results'][0]['costs'][0]['cost'][0]['etd'] }} (hari)
+                                <p class="card-text">{{ $transaction->estimasi }} (hari)
                                 </p>
                             </div>
                         </div>
