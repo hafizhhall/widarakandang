@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class DashboardJualController extends Controller
 {
@@ -17,7 +21,7 @@ class DashboardJualController extends Controller
                 $query->select('id', 'name', 'city_name');
             }
         ])->get();
-        return view('dashboard.penjualan.index',[
+        return view('dashboard.transaction.index',[
             'transaction' => $transaction
         ]);
     }
@@ -43,7 +47,12 @@ class DashboardJualController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+
+        $details = TransactionDetail::where('transaction_id', $transaction->id)->get();
+        return view('dashboard.transaction.show', [
+            'transaction' => $transaction,
+            'details' => $details
+        ]);
     }
 
     /**
@@ -51,7 +60,9 @@ class DashboardJualController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        return view('dashboard.transaction.edit',[
+            'transaction' => $transaction
+        ]);
     }
 
     /**
@@ -59,7 +70,18 @@ class DashboardJualController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+
+        $transaction = Transaction::findOrFail($transaction->id);
+        $rules = [
+            'resi' => 'required',
+            'status_pesanan' => 'required'
+        ];
+
+        $validData = $request->validate($rules);
+        DB::transaction(function () use ($transaction, $validData){
+            $transaction->update($validData);
+        });
+        return redirect('/dashboard/transaction')->with('success', 'Berhasil simpan data');
     }
 
     /**

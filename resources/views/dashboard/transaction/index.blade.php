@@ -16,12 +16,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-
                     </div>
                     <div class="card-body">
                         @include('sweetalert::alert')
                         <p class="form-text mb-2"></p>
-                        <table id="example2" class="table dt-responsive display">
+                        <table id="example2" class="table dt-responsive display table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -29,6 +28,7 @@
                                     <th scope="col">Pembeli</th>
                                     <th scope="col">total</th>
                                     <th scope="col">Kirim ke</th>
+                                    <th scope="col">Status pesanan</th>
                                     <th scope="col">status</th>
                                     <th scope="col">action</th>
                                 </tr>
@@ -41,12 +41,16 @@
                                         <td>{{ $trx->user->name }}</td>
                                         <td>Rp{{ number_format($trx->total) }}</td>
                                         <td>{{ $trx->user->city_name }}</td>
+                                        <td>{{ $trx->status_pesanan }}</td>
                                         <td class="badge  {{ $trx->status === 'belum dibayar' ? 'bg-danger' : ($trx->status === 'lunas' ? 'bg-success' : 'bg-secondary') }}">
                                             {{ $trx->status }}
                                         </td>
                                         <td>
-                                            <a href="/dashboard/artikel/}" class="badge bg-info">
-                                                <i class="ti-eye"></i> lihat
+                                            <a href="/dashboard/transaction/{{ $trx->id }}" class="badge bg-info" style="text-decoration: none">
+                                                <i class="ti-eye"></i>
+                                            </a>
+                                            <a href="/dashboard/transaction/{{ $trx->id }}/edit" class="badge bg-info" style="text-decoration: none">
+                                                <i class="ti-pencil-alt"></i>
                                             </a>
                                         </td>
                                     </tr>

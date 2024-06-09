@@ -64,7 +64,7 @@
                 <ul class="sub-menu">
                     <li><a href="/dashboard/katalog" class="link"><span>Pesanan masuk</span></a></li>
                     <li><a href="/dashboard/jenis" class="link"><span>Pesanan terkirim</span></a></li>
-                    <li><a href="/dashboard/penjualan" class="link"><span>Semua transaksi</span></a></li>
+                    <li><a href="/dashboard/transaction" class="link"><span>Semua transaksi</span></a></li>
                 </ul>
             </li>
             <li class="menu-category ">

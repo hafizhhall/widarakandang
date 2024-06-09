@@ -15,7 +15,14 @@ class Transaction extends Model
         'ongkir',
         'status',
         'invoice',
-        'city_name'
+        'city_name',
+        'status_pesanan',
+        'resi',
+        'origin',
+        'kurir',
+        'layanan',
+        'berat',
+        'estimasi'
     ];
 
     public function detail()
