@@ -62,36 +62,40 @@
             </div>
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                      Cek status pesanan
-                    </button>
-                  </h2>
-                  <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">{{ $transaction->status_pesanan }}</div>
-                  </div>
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Cek status pesanan
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">{{ $transaction->status_pesanan }}</div>
+                    </div>
                 </div>
                 <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                      Cek resi
-                    </button>
-                  </h2>
-                  <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body"></div>
-                  </div>
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            Cek resi
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">{{ $transaction->resi }}</div>
+                    </div>
                 </div>
                 <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                      Alamat detail
-                    </button>
-                  </h2>
-                  <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">{{ $user->alamat }}</div>
-                  </div>
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            Alamat detail
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">{{ $user->alamat }}</div>
+                    </div>
                 </div>
-              </div>
+            </div>
         </div>
         <div class="row mt-4">
             <div class="col-md-6">
@@ -123,7 +127,7 @@
                             </div>
                             <div class="col">
                                 <p class="card-text" style="font-weight: bold">
-                                    Rp{{ number_format($transaction->total, 0, ',', '.')}}
+                                    Rp{{ number_format($transaction->total, 0, ',', '.') }}
                                 </p>
                             </div>
                         </div>
@@ -175,7 +179,7 @@
                                 <label for="total">Berat paket</label>
                             </div>
                             <div class="col">
-                                <p class="card-text">{{ number_format($transaction->berat/1000, 0, ',', '.') }} kg</p>
+                                <p class="card-text">{{ number_format($transaction->berat / 1000, 0, ',', '.') }} kg</p>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -194,16 +198,23 @@
         <div class="row">
 
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <a href="/order" class="btn btn-success mt-4">Kembali</a>
+        {{-- <div class="row mt-4">
+            <div class="col">
+                <a class="btn btn-success" id="pay-button">Bayar sekarang</a>
             </div>
-            <div class="col-md-3">
-                <a class="btn btn-success mt-4" id="pay-button">Bayar sekarang</a>
+            <div class="col">
+                <a href="/order" class="btn btn-success">Kembali</a>
             </div>
-            {{-- <div class="col-md-3">
-                <button class="btn btn-primary" id="pay-button">Bayar sekarnag</button>
-            </div> --}}
+            <div class="col">
+                <a href="/order" class="btn btn-success">Kembali</a>
+            </div>
+        </div> --}}
+        <div class="btn-group mt-5">
+            <a class="btn btn-primary" id="pay-button">Bayar sekarang</a>
+            @if ($transaction->status === 'lunas')
+                <a href="{{ url('order/' . $transaction->id . '/generate') }}" class="btn btn-warning">Cetak invoice</a>
+            @endif
+            <a href="/order" class="btn btn-danger">Kembali</a>
         </div>
     </div>
     <script type="text/javascript">

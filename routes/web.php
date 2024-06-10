@@ -46,22 +46,23 @@ Route::get('/dashboard/entry/excel', [DashboardEntryController::class, 'export_e
 Route::get('/dashboard/entry/pdf', [DashboardEntryController::class, 'export_pdf']);
 // user dashboard controller
 // Route::resource('/chart', UserCartController::class)->middleware('auth');
-Route::get('/user', [UserProfilController::class, 'index'])->middleware('auth');
-Route::get('/user/change-password', [UserProfilController::class, 'editPassword'])->middleware('auth')->name('user.change-password');
-Route::post('/user/change-password', [UserProfilController::class, 'processChangePassword'])->middleware('auth');
-Route::get('/user/change-profil', [UserProfilController::class, 'ediPorfil'])->middleware('auth')->name('user.change-profil');
-Route::post('/user/change-profil', [UserProfilController::class, 'processEditProfil'])->middleware('auth');
-Route::get('/user/change-address', [UserProfilController::class, 'addAddress'])->middleware('auth')->name('user.change-address');
-Route::post('/user/change-address', [UserProfilController::class, 'processAddAddress'])->middleware('auth');
-Route::get('/chart', [UserChartController::class, 'index'])->middleware('auth');
+Route::get('/user', [UserProfilController::class, 'index'])->middleware('aksesPengguna');
+Route::get('/user/change-password', [UserProfilController::class, 'editPassword'])->middleware('aksesPengguna')->name('user.change-password');
+Route::post('/user/change-password', [UserProfilController::class, 'processChangePassword'])->middleware('aksesPengguna');
+Route::get('/user/change-profil', [UserProfilController::class, 'ediPorfil'])->middleware('aksesPengguna')->name('user.change-profil');
+Route::post('/user/change-profil', [UserProfilController::class, 'processEditProfil'])->middleware('aksesPengguna');
+Route::get('/user/change-address', [UserProfilController::class, 'addAddress'])->middleware('aksesPengguna')->name('user.change-address');
+Route::post('/user/change-address', [UserProfilController::class, 'processAddAddress'])->middleware('aksesPengguna');
+Route::get('/chart', [UserChartController::class, 'index'])->middleware('aksesPengguna');
 Route::get('/', [UserChartController::class, 'nav'])->middleware('auth');
 Route::post('/chart/{id}', [UserChartController::class, 'store'])->middleware('auth');
 Route::patch('/chart/{id}', [UserChartController::class, 'update'])->middleware('auth');
 Route::delete('/chart/{id}', [UserChartController::class, 'destroy'])->middleware('auth')->name('chart.destroy');
 Route::post('/checkout', [UserCheckoutController::class, 'store']);
-Route::get('/order', [UserCheckoutController::class, 'index']);
-Route::get('/order/{transactionId}/detail', [UserCheckoutController::class, 'show'])->middleware('auth')->name('order.detail');
-Route::get('/order/{transactionId}/ongkir', [UserCheckoutController::class, 'tambahOngkir'])->middleware('auth')->name('order.ongkir');
+Route::get('/order', [UserCheckoutController::class, 'index'])->middleware('aksesPengguna');
+Route::get('/order/{transactionId}/detail', [UserCheckoutController::class, 'show'])->middleware('aksesPengguna')->name('order.detail');
+Route::get('/order/{transactionId}/generate', [UserCheckoutController::class, 'generateInvoice'])->middleware('aksesPengguna');
+Route::get('/order/{transactionId}/ongkir', [UserCheckoutController::class, 'tambahOngkir'])->middleware('aksesPengguna')->name('order.ongkir');
 // Route::post('/order/{transactionId}/detail', [UserCheckoutController::class, 'getCourierServices']);
 // dashboard barang keluar
 Route::resource('/dashboard/output', DashboardOutputController::class)->middleware('aksesPetugas');
