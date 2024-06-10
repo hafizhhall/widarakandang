@@ -30,7 +30,7 @@
                                 <td>{{ $d->status_pesanan }}</td>
                                 <td>Rp{{ number_format($d->total, 0, ',', '.') }}</td>
                                 <td>
-                                    <a href="{{ route('order.detail', ['transactionId' => $d->id]) }}" class="btn-small d-block">Detail pesanan</a>
+                                    <a href="{{ route('order.detail', ['transactionId' => $d->id]) }}" class="btn-small d-block">view</a>
                                 </td>
                             </tr>
                             @endforeach

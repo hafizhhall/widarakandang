@@ -15,7 +15,10 @@ class IsUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        return $next($request);
+        $izinRole = ['pelanggan'];
+        if(in_array(auth()->user()->role, $izinRole)){
+            return $next($request);
+        }
+        return redirect('/');
     }
 }

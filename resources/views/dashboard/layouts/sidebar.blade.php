@@ -98,9 +98,9 @@
             @endcan
 
             <li>
-                <a href="fullcalendar.html" class="link">
-                    <i class="ti-calendar"></i>
-                    <span>Calendar</span>
+                <a href="/" class="link">
+                    <i class="ti-home"></i>
+                    <span>Halaman Home</span>
                 </a>
             </li>
         </ul>

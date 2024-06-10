@@ -14,6 +14,8 @@ use Kavist\RajaOngkir\Facades\RajaOngkir;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class UserCheckoutController extends Controller
 {
@@ -199,5 +201,26 @@ class UserCheckoutController extends Controller
                 $transaction->update(['status' => 'Lunas']);
             }
         }
+    }
+
+    public function generateInvoice(Request $request, $transactionId)
+    {
+        $userId = Auth::user()->id;
+        // Find the transaction and ensure it belongs to the logged-in user
+        $transaction = Transaction::where('id', $transactionId)
+            ->where('user_id', $userId)
+            ->first();
+        if (!$transaction) {
+            // If the transaction doesn't exist or doesn't belong to the user, abort with a 404 error
+            abort(404, 'Transaction not found or you do not have access to view this transaction.');
+        }
+        // Get the details for the transaction
+        $details = TransactionDetail::where('transaction_id', $transactionId)->get();
+        $user = User::find($transaction->user_id);
+
+        $data = ['transaction' => $transaction, 'details' => $details];
+        $pdf = Pdf::loadView('user.order.cetak-invoice', $data);
+        $todayDate = Carbon::now()->format('d-m-Y');
+        return $pdf->download('inoice WK' . $transaction->id . '-' . $todayDate . '.pdf');
     }
 }
