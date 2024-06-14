@@ -38,8 +38,9 @@ use App\Http\Controllers\UserSettingController;
 // Dashboard menu penjualan
 Route::resource('/dashboard/transaction', DashboardJualController::class)->middleware('aksesPetugas');
 // Role Dashboard
-Route::resource('/dashboard/role', DashboardRoleController::class);
+Route::resource('/dashboard/role', DashboardRoleController::class)->middleware('aksesPetugas');
 // export excel dan pdf
+
 Route::get('cetak-invoice', [CetakPdfController::class, 'cetakPdf'])->middleware('auth');
 Route::get('/dashboard/output/excel', [DashboardOutputController::class, 'export_excel'])->middleware('can:read output');
 Route::get('/dashboard/entry/excel', [DashboardEntryController::class, 'export_excel'])->middleware('can:read entry');
@@ -82,6 +83,7 @@ Route::post('/dashboard/jenis/create', [DashboardJenisController::class, 'store'
 Route::delete('/dashboard/jenis/{jenis}', [DashboardJenisController::class, 'destroy'])->name('jenis.destroy');
 // controller dashboard katalog
 Route::get('/dashboard/katalog/checkSlug', [DashboardKatalogController::class, 'checkSlug'])->middleware('aksesPetugas');
+Route::get('/dashboard/katalog/generate', [DashboardKatalogController::class, 'generateLabel']);
 Route::resource('/dashboard/katalog', DashboardKatalogController::class)->middleware('aksesPetugas');
 // Route::get('/dashboard/katalog', [DashboardKatalogController::class, 'index'])->middleware('auth');
 Route::get('/dashboard/artikel/checkSlug', [DashboardArtikelController::class, 'checkSlug'])->middleware('auth');
@@ -106,6 +108,7 @@ Route::group([], function () {
 
     // halaman single post kegiatan artikel
     Route::get('/dartikel/{dartikel:slug}', [HomeController::class, 'show']);
+    Route::get('/blog/dartikel/{dartikel:slug}', [AboutController::class, 'show']);
 
     // Kategori
     Route::get('/blog/{kategori:slug}', [AboutController::class, 'artikel_kategori'])->name('artikel.kategori');

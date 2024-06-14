@@ -27,6 +27,8 @@
                         <div class="card-header">
                             <a href="/dashboard/katalog/create" class="btn btn-primary mb-1"><i class="ti-plus"></i>
                                 Katalog</a>
+                            <a href="/dashboard/katalog/generate" class="btn btn-success mb-1"><i class="ti-printer"></i>
+                                Cetak Label</a>
                         </div>
                         <div class="card-body">
                             <p class="form-text mb-2">Datatables also provide responsive table</p>

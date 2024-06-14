@@ -103,7 +103,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4 border-end">
+                                <div class="col-4">
                                     <div class="row">
                                         <div class="col">
                                             <p style="text-align: center; opacity: 50%;">Ketersediaan</p>

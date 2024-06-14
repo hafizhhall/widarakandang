@@ -3,12 +3,11 @@
 @section('content')
 <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
-        <h1 class="display-3 mb-3 animated slideInDown">Artikel Widarakandang</h1>
+        <h1 class="display-3 mb-3 animated slideInDown">Blog Widarakandang</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a class="text-body" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a class="text-body" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-dark active" aria-current="page">Blog Grid</li>
+                <li class="breadcrumb-item"><a class="text-body" href="/">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-body" href="/blog">blog</a></li>
             </ol>
         </nav>
     </div>
@@ -45,7 +44,7 @@
                         <img class="img-fluid" src="{{ asset('storage/' . $artikels->gambar) }}" alt="">
                         <div class="bg-light p-4">
                             <a class="d-block h5 lh-base mb-4"
-                                href="dartikel/{{ $artikels->slug }}">{{ $artikels->title }}</a>
+                                href="/blog/dartikel/{{ $artikels->slug }}">{{ $artikels->title }}</a>
                             <div class="text-muted border-top pt-4">
                                 <small class="me-3"><i class="fa fa-user text-primary me-2"></i>Admin</small>
                                 <small class="me-3"><i

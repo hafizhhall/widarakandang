@@ -19,34 +19,17 @@ class DashboardEntryController extends Controller
      */
     public function index()
     {
-        $userRole = auth()->user()->role;
-        if($userRole === 'admin') {
-            $produkMasuk = Entry::with([
-                'katalog' => function($query){
-                    $query->select('id', 'title');
-                },
-                'supplier' => function($query){
-                    $query->select('id', 'perusahaan');
-                },
-                'user' => function($query){
-                    $query->select('id', 'name');
-                }
-            ])->where('user_id', auth()->user()->id)->get();
-        }else if($userRole === 'pemilik'){
-            $produkMasuk = Entry::with([
-                'katalog' => function($query){
-                    $query->select('id', 'title');
-                },
-                'supplier' => function($query){
-                    $query->select('id', 'perusahaan');
-                },
-                'user' => function($query){
-                    $query->select('id', 'name');
-                }
-            ])->get();
-        }else{
-            return redirect()->back()->with('error', 'You are not authorized to access this page.');
-        }
+        $produkMasuk = Entry::with([
+            'katalog' => function ($query) {
+                $query->select('id', 'title');
+            },
+            'supplier' => function ($query) {
+                $query->select('id', 'perusahaan');
+            },
+            'user' => function ($query) {
+                $query->select('id', 'name');
+            }
+        ])->get();
         return view('dashboard.entry.index', [
             'produkMasuk' => $produkMasuk,
             'title' => 'entry'
@@ -70,16 +53,16 @@ class DashboardEntryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date' => ['required'],
-            'quantity' => ['required'],
-            'katalog_id' => ['required'],
-            'supplier_id' => ['required']
+            'date' => 'required|date|before_or_equal:today',
+            'quantity' => 'required|min:1|integer',
+            'katalog_id' => 'required|exists:katalogs,id',
+            'supplier_id' => 'required|exists:suppliers,id'
         ]);
-        // $created['user_id'] = auth()->user()->id;
+        $userId = auth()->id();
         $created = Entry::create([
             'katalog_id' => $request->katalog_id,
             'supplier_id' => $request->supplier_id,
-            'user_id' => 1,
+            'user_id' => $userId,
             'date' => $request->date,
             'quantity' => $request->quantity
         ]);
@@ -93,7 +76,7 @@ class DashboardEntryController extends Controller
         Alert::toast('Berhasil tambah data', 'success');
         if ($created && $quantityUpdated) {
             return redirect('/dashboard/entry')->with('success', 'data berhasil ditambahkan');
-        }else{
+        } else {
             return redirect('/dashboard/entry')->with('error', 'Gagal menambahkan data');
         }
     }
@@ -111,10 +94,10 @@ class DashboardEntryController extends Controller
      */
     public function edit(Entry $entry)
     {
-        return view('dashboard.entry.edit',[
+        return view('dashboard.entry.edit', [
             'entry' => $entry,
-            'katalogs' => Katalog::select('id','title')->get(),
-            'suppliers' => Supplier::select('id','perusahaan')->get()
+            'katalogs' => Katalog::select('id', 'title')->get(),
+            'suppliers' => Supplier::select('id', 'perusahaan')->get()
         ]);
     }
 
@@ -126,7 +109,6 @@ class DashboardEntryController extends Controller
         $entry = Entry::findOrFail($entry->id);
         $katalog = Katalog::findOrFail($entry->katalog_id);
         $rules =[
-            'katalog_id' => 'required',
             'supplier_id' => 'required',
             'quantity' => 'required',
             'date' => 'required'
@@ -146,7 +128,7 @@ class DashboardEntryController extends Controller
             // Update the katalog
             $katalog->update(['jumlah' => $updatedKatalogJumlah]);
         });
-
+        Alert::toast('Berhasil ubah data', 'success');
         return redirect('/dashboard/entry')->with('success', 'Data berhasil diubah');
     }
 
@@ -157,7 +139,8 @@ class DashboardEntryController extends Controller
     {
         //
     }
-    function export_excel(Request $request){
+    function export_excel(Request $request)
+    {
         // Ambil data tanggal dari request
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');

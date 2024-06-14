@@ -110,6 +110,10 @@ class UserCheckoutController extends Controller
             'courier' => 'jne',
             'costs' => 0
         ]);
+        if ($responseCost->failed() || !isset($responseCost['rajaongkir']['results']) || empty($responseCost['rajaongkir']['results'])) {
+            Alert::toast('Gagal menghitung ongkir, coba lagi nanti', 'error');
+            return redirect('/chart')->with('error', 'Gagal menghitung ongkir, coba lagi nanti');
+        }
         $ongkir = $responseCost['rajaongkir']['results'][0]['costs'][0]['cost'][0]['value'];
         $kurir = $responseCost['rajaongkir']['results'][0]['name'];
         $origin = $responseCost['rajaongkir']['origin_details']['city_name'];
@@ -155,8 +159,6 @@ class UserCheckoutController extends Controller
                 'date' => now() // atau sesuaikan dengan format tanggal yang Anda inginkan
             ]);
         }
-
-
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).

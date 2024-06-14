@@ -15,6 +15,10 @@ class IsUser
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(!auth()->check() || auth()->user()->role !== 'pelanggan'){
+            abort(403);
+        }
+
         $izinRole = ['pelanggan'];
         if(in_array(auth()->user()->role, $izinRole)){
             return $next($request);

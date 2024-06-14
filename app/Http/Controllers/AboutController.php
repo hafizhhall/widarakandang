@@ -26,4 +26,11 @@ class AboutController extends Controller
         // $artikelall = $kategori->Artikel()->get();
         // return $artikelall;
     }
+    public function show(Artikel $dartikel)
+    {
+        return view('/dartikel', [
+            "title" => "Single Post",
+            "artikel" => $dartikel
+        ]);
+    }
 }

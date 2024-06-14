@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DashboardRoleController extends Controller
 {
@@ -13,7 +16,9 @@ class DashboardRoleController extends Controller
     public function index()
     {
         $this->authorize('read role');
-        return view('dashboard.role.index');
+        $users = User::whereIn('role', ['admin', 'pemilik'])->get();
+
+        return view('dashboard.role.index', compact('users'));
     }
 
     /**
@@ -21,7 +26,7 @@ class DashboardRoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.role.create');
     }
 
     /**
@@ -29,7 +34,20 @@ class DashboardRoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            // 'username' => ['required', 'min:3','max:255','unique:users'],
+            'email' => 'required|email:dns|unique:users',
+            'password' => 'required|min:5|max:255|confirmed',
+            'role' => 'required',
+            'no_telep'=> 'required|max:14',
+        ]);
+        $validatedData['password'] = Hash::make($validatedData['password']);
+
+        User::create($validatedData);
+        // $request->session()->flash('success', 'Akun berhasil dibuat! silahkan login');
+        Alert::success('Success', 'Akun berhasil dibuat! silahkan login');
+        return redirect('/dashboard/role');
     }
 
     /**

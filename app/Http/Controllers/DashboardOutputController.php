@@ -58,9 +58,10 @@ class DashboardOutputController extends Controller
             return redirect('/dashboard/output')->with('error', 'Jumlah anggrek tidak mencukupi');
         }else{
         $harga_keluar = $katalog->harga * $request->quantity;
+        $userId = auth()->id();
             $created = Output::create([
                 'katalog_id' => $request->katalog_id,
-                'user_id' => 1,
+                'user_id' => $userId,
                 'date' => $request->date,
                 'quantity' => $request->quantity,
                 'sub_keluar' => $katalog->harga,

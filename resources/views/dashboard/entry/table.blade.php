@@ -28,9 +28,11 @@
                 <td>{{ number_format($entry->quantity, 0, ',', '.') }}</td>
                 <td>{{ $entry->date }}</td>
                 <td>
+                    @if ($entry->user_id == auth()->id())
                     <a href="/dashboard/entry/{{ $entry->id }}/edit" class="badge bg-warning">
                         <i class="ti-pencil-alt"></i>
                     </a>
+                    @endif
                 </td>
             </tr>
         @endforeach

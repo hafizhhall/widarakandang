@@ -15,9 +15,9 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // if(!auth()->check() || auth()->user()->role !== 'admin'){
-        //     abort(403);
-        // }
+        if(!auth()->check() || !in_array(auth()->user()->role, ['admin', 'pemilik'])){
+            abort(403);
+        }
         $izinRole = ['admin','pemilik'];
         if(in_array(auth()->user()->role, $izinRole)){
             return $next($request);

@@ -78,7 +78,7 @@
                 <div class="col-lg-6">
                     <div class="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s"
                         style="max-width: 500px;">
-                        <h1 class="display-5 mb-3">Katalog Kami</h1>
+                        <h1 class="display-5 mb-3">Katalog Anggrek</h1>
                         <p>Berikut merupakan produk-produk unggulan dari Anggrek Widarakandang</p>
                     </div>
                 </div>
@@ -86,8 +86,7 @@
                     <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
                         @foreach ($jenis as $j)
                             <li class="nav-item me-2">
-                                <a class="btn btn-outline-primary border-2 active" data-bs-toggle="pill"
-                                    href="/jenis/{{ $j->slug }}">{{ $j->name }}</a>
+                                <a class="btn btn-outline-primary border-2"href="/jenis/{{ $j->slug }}">{{ $j->name }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -109,7 +108,6 @@
                                         <a class="d-block h5 mb-2"
                                             href="/katalog/{{ $k->slug }}">{{ $k->title }}</a>
                                         <span class="text-primary me-1">Rp{{ number_format($k->harga, 0, ',', '.') }}</span>
-
                                     </div>
                                     <div class="d-flex border-top">
                                         <small class="w-50 text-center border-end py-2">
@@ -152,7 +150,7 @@
                             <a class="d-block h5 lh-base mb-4"
                                 href="dartikel/{{ $artikels->slug }}">{{ $artikels->title }}</a>
                             <div class="text-muted border-top pt-4">
-                                <small class="me-3"><i class="fa fa-user text-primary me-2"></i>Admin</small>
+                                <small class="me-3"><i class="fa fa-user text-primary me-2"></i>{{ $artikels->user->name }}</small>
                                 <small class="me-3"><i
                                         class="fa fa-calendar text-primary me-2"></i>{{ $artikels->tanggal }}</small>
                             </div>

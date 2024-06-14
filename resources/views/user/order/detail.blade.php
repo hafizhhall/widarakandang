@@ -210,8 +210,9 @@
             </div>
         </div> --}}
         <div class="btn-group mt-5">
-            <a class="btn btn-primary" id="pay-button">Bayar sekarang</a>
-            @if ($transaction->status === 'lunas')
+            @if ($transaction->status === 'belum dibayar')
+                <a class="btn btn-primary" id="pay-button">Bayar sekarang</a>
+            @elseif ($transaction->status === 'lunas')
                 <a href="{{ url('order/' . $transaction->id . '/generate') }}" class="btn btn-warning">Cetak invoice</a>
             @endif
             <a href="/order" class="btn btn-danger">Kembali</a>

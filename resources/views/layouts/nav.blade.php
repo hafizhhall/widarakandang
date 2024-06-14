@@ -26,9 +26,8 @@
                 <a href="/katalog" class="nav-item nav-link">Katalog</a>
                 <a href="#footer" class="nav-item nav-link">Contact Us</a>
             </div>
-            <div class="d-none d-lg-flex ms-2">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <div class="dropdown">
-
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                         <small class="fa fa-user text-body"></small>
                     </a>

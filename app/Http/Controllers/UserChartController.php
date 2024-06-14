@@ -32,7 +32,9 @@ class UserChartController extends Controller
         }
 
         // validasi untuk produk yang sama
-        $duplicate = Cart::where('katalog_id', $request->katalog_id)->first();
+        $duplicate = Cart::where('katalog_id', $request->katalog_id)
+                        ->where('user_id', Auth::user()->id)
+                        ->first();
         if ($duplicate) {
             Alert::toast('Barang sudah tersedia di keranjang', 'error');
             return redirect('/chart')->with('error', 'Barang sudah ada dikeranjang');
