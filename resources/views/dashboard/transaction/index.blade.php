@@ -49,9 +49,11 @@
                                             <a href="/dashboard/transaction/{{ $trx->id }}" class="badge bg-info" style="text-decoration: none">
                                                 <i class="ti-eye"></i>
                                             </a>
+                                            @can('admin')
                                             <a href="/dashboard/transaction/{{ $trx->id }}/edit" class="badge bg-info" style="text-decoration: none">
                                                 <i class="ti-pencil-alt"></i>
                                             </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

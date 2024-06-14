@@ -11,13 +11,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 class Artikel extends Model
 {
     use HasFactory, Sluggable;
-
-    // protected $fillable = [
-    //     'title',
-    //     'gambar',
-    //     'minibody',
-    //     'body'
-    // ];
+    // Memberi proteksi pada kolom 'id' agar tidak dapat diisi secara massal
     protected $guarded = ['id'];
 
     public function kategori(){
@@ -31,10 +25,12 @@ class Artikel extends Model
     public function getTanggalAttribute(){
         return Carbon::parse($this->published_at)->format('Y-m-d');
     }
+    // Override metode getRouteKeyName untuk menggunakan kolom 'slug' sebagai identifier di route
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
+    // Mendefinisikan pengaturan sluggable untuk otomatis mengisi kolom 'slug' berdasarkan kolom 'title'
     public function sluggable(): array
     {
         return [

@@ -18,11 +18,11 @@
                 <td>{{ $out->katalog->title }}</td>
                 <td>{{ number_format($out->quantity, 0, ',', '.') }}</td>
                 <td>{{ number_format($out->sub_keluar, 0, ',', '.') }}</td>
-                <td>Rp{{ number_format($out->harga_keluar, 0, ',', '.') }}</td>
+                <td>{{ number_format($out->harga_keluar, 0, ',', '.') }}</td>
                 <td>{{ $out->user->role }}</td>
                 <td>{{ $out->date }}</td>
                 <td>
-                    @if ($out->user->role !== 'pelanggan')
+                    @if ($out->user_id == auth()->id() && $out->user->role !== 'pelanggan')
                         <a href="/dashboard/output/{{ $out->id }}/edit" class="badge bg-warning">
                             <i class="ti-pencil-alt"></i>
                         </a>

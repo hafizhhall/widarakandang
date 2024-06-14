@@ -14,22 +14,6 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="title" class="form-label rupiah">Nama Anggrek</label>
-                                        <select class="form-select" name="katalog_id">
-                                            <option selected style="opacity: 50%">Pilih Anggrek</option>
-                                            @foreach ($katalogs as $katalog)
-                                                @if (old('katalog_id', $entry->katalog_id) == $katalog->id)
-                                                    <option value="{{ $katalog->id }}" selected>{{ $katalog->title }}
-                                                    </option>
-                                                @else
-                                                    <option value="{{ $katalog->id }}">{{ $katalog->title }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-3">
                                         <label for="perusahaan" class="form-label rupiah">Supplier</label>
                                         <select class="form-select" name="supplier_id">
                                             <option selected style="opacity: 50%">Pilih supplier</option>

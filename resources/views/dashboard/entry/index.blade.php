@@ -17,9 +17,11 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-2">
+                                @can('admin')
                                 <a href="/dashboard/entry/create" class="btn btn-primary"><i class="ti-plus"></i>
                                     Barang
                                     Masuk</a>
+                                @endcan
                             </div>
                             <div class="col-md-5 offset-5">
                                 <form action="{{ url('dashboard/entry/excel') }}" method="GET">

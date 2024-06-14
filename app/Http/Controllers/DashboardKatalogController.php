@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DashboardKatalogController extends Controller
 {
@@ -18,7 +21,7 @@ class DashboardKatalogController extends Controller
      */
     public function index()
     {
-        return view('dashboard.katalog.index',[
+        return view('dashboard.katalog.index', [
             'katalogs' => Katalog::all(),
             'title' => 'katalog'
         ]);
@@ -48,13 +51,13 @@ class DashboardKatalogController extends Controller
             'status' => 'required',
             'jumlah' => 'nullable',
             'harga' => 'required',
-            'body' =>'required',
+            'body' => 'required',
             'perawatan' => 'required',
             'berat' => 'required',
             'gambar' => 'image|file'
         ]);
 
-        if($request->file('gambar')){
+        if ($request->file('gambar')) {
             $validasiData['gambar'] = $request->file('gambar')->store('katalog-gambar');
         }
 
@@ -63,10 +66,8 @@ class DashboardKatalogController extends Controller
         }
 
         $validasiData['excerpt'] = Str::limit(strip_tags($request->body), 200);
-
-
         Katalog::create($validasiData);
-        return redirect('/dashboard/katalog')->with('success','Katalog berhasil ditambahkan');
+        return redirect('/dashboard/katalog')->with('success', 'Katalog berhasil ditambahkan');
     }
 
     /**
@@ -74,7 +75,7 @@ class DashboardKatalogController extends Controller
      */
     public function show(Katalog $katalog)
     {
-        return view('dashboard.katalog.show',[
+        return view('dashboard.katalog.show', [
             'katalog' => $katalog
         ]);
     }
@@ -104,21 +105,21 @@ class DashboardKatalogController extends Controller
             'status' => 'required',
             'jumlah' => 'nullable',
             'harga' => 'required',
-            'body' =>'required',
+            'body' => 'required',
             'perawatan' => 'required',
             'berat' => 'required',
             'gambar' => 'image|file|max:5024'
         ];
 
-        if($request->slug != $katalog->slug){
+        if ($request->slug != $katalog->slug) {
             $rules['slug'] = 'required|unique:katalogs';
         }
 
 
         $validasiData = $request->validate($rules);
 
-        if($request->file('gambar')){
-            if($request->oldGambar){
+        if ($request->file('gambar')) {
+            if ($request->oldGambar) {
                 Storage::delete($request->oldGambar);
             }
             $validasiData['gambar'] = $request->file('gambar')->store('katalog-gambar');
@@ -127,7 +128,7 @@ class DashboardKatalogController extends Controller
         $validasiData['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
         Katalog::where('id', $katalog->id)->update($validasiData);
-        return redirect('/dashboard/katalog')->with('success','Katalog berhasil diubah');
+        return redirect('/dashboard/katalog')->with('success', 'Katalog berhasil diubah');
     }
 
     /**
@@ -135,7 +136,7 @@ class DashboardKatalogController extends Controller
      */
     public function destroy(Katalog $katalog)
     {
-        if($katalog->gambar){
+        if ($katalog->gambar) {
             Storage::delete($katalog->gambar);
         }
 
@@ -143,8 +144,18 @@ class DashboardKatalogController extends Controller
         return redirect('/dashboard/katalog')->with('success', 'Sudah terhapus!!!');
     }
 
-    public function checkSlug(Request $request){
+    public function checkSlug(Request $request)
+    {
         $slug = SlugService::createSlug(Katalog::class, 'slug', $request->title);
         return response()->json(['slug' => $slug]);
+    }
+
+    public function generateLabel(Katalog $katalog)
+    {
+        $katalog = Katalog::select('slug','title','harga')->get();
+        $todayDate = Carbon::now()->format('d-m-Y');
+        $data = ['katalog' =>$katalog, 'todayDate' => $todayDate];
+        $pdf = Pdf::loadView('dashboard.katalog.cetak-label', $data);
+        return $pdf->download('label anggrek'.'-'.$todayDate.'.pdf');
     }
 }

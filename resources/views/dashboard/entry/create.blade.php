@@ -14,7 +14,8 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="title" class="form-label rupiah">Nama Anggrek</label>
-                                        <select class="form-select" name="katalog_id" required>
+                                        <select class="form-select @error('katalog_id')
+                                            is-invalid @enderror" name="katalog_id" required>
                                             <option selected style="opacity: 50%">Pilih Anggrek</option>
                                             @foreach ($katalogs as $katalog)
                                                 @if (old('katalog_id') == $katalog->id)
@@ -25,12 +26,19 @@
                                                 @endif
                                             @endforeach
                                         </select>
+                                        @error('katalog_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="perusahaan" class="form-label rupiah">Supplier</label>
-                                        <select class="form-select" name="supplier_id" required>
+                                        <select class="form-select @error('supplier_id')
+                                            is-invalid
+                                        @enderror" name="supplier_id" required>
                                             <option selected style="opacity: 50%">Pilih supplier</option>
                                             @foreach ($suppliers as $supplier)
                                                 @if (old('supplier_id') == $supplier->id)
@@ -41,6 +49,11 @@
                                                 @endif
                                             @endforeach
                                         </select>
+                                        @error('supplier_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -61,7 +74,7 @@
                                         <label class="text-sm text-gray-600" for="date">Tanggal</label>
                                         <div class="@error('date')  border-red-400  @enderror border-2 p-1">
                                             <input type="date" name="date"
-                                                class="text-sm text-black w-full h-full focus:outline-none" id="date"
+                                                class="text-sm text-black w-full h-full focus:outline-none" id="date" value="{{ old('date') }}"
                                                 type="text">
                                         </div>
                                         @error('date')

@@ -26,7 +26,7 @@
             <li class="menu-category">
                 <span class="text-uppercase">Data Master Anggrek</span>
             </li>
-            @can('read katalog')
+            @can('admin')
             <li class="">
                 <a href="#" class="main-menu has-dropdown">
                     <i class="ti-desktop"></i>
@@ -62,9 +62,7 @@
                     <span>Master</span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a href="/dashboard/katalog" class="link"><span>Pesanan masuk</span></a></li>
-                    <li><a href="/dashboard/jenis" class="link"><span>Pesanan terkirim</span></a></li>
-                    <li><a href="/dashboard/transaction" class="link"><span>Semua transaksi</span></a></li>
+                    <li><a href="/dashboard/transaction" class="link"><span>Transaksi</span></a></li>
                 </ul>
             </li>
             <li class="menu-category ">
