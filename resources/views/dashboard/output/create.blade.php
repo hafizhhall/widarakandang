@@ -14,7 +14,9 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="title" class="form-label rupiah">Nama Anggrek</label>
-                                        <select class="form-select" name="katalog_id">
+                                        <select class="form-select @error('katalog_id')
+                                            is-invalid
+                                        @enderror" name="katalog_id">
                                             <option selected style="opacity: 50%">Pilih Anggrek</option>
                                             @foreach ($katalogs as $katalog)
                                                 @if (old('katalog_id') == $katalog->id)
@@ -25,6 +27,11 @@
                                                 @endif
                                             @endforeach
                                         </select>
+                                        @error('katalog_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-4">

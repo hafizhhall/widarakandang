@@ -36,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('pengelola', function(User $user){
             return $user->role === 'admin' || $user->role === 'pemilik';
         });
+        Gate::define('pemilik', function(User $user){
+            return $user->role === 'pemilik';
+        });
         Gate::define('pelanggan', function(User $user){
             return $user->role === 'pelanggan';
         });
@@ -47,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        // hidupkan ketika ingin menggunakan ngrok
+        // hidupkan ketika ingin menggunakan ngrok atau hosting
         // if(config('app.env') === 'local'){
         //     URL::forceScheme('https');
         // }

@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DashboardJualController extends Controller
 {
@@ -17,11 +21,11 @@ class DashboardJualController extends Controller
     public function index()
     {
         $transaction = Transaction::with([
-            'user' => function($query){
+            'user' => function ($query) {
                 $query->select('id', 'name', 'city_name');
             }
         ])->get();
-        return view('dashboard.transaction.index',[
+        return view('dashboard.transaction.index', [
             'transaction' => $transaction
         ]);
     }
@@ -60,7 +64,7 @@ class DashboardJualController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        return view('dashboard.transaction.edit',[
+        return view('dashboard.transaction.edit', [
             'transaction' => $transaction
         ]);
     }
@@ -73,14 +77,16 @@ class DashboardJualController extends Controller
 
         $transaction = Transaction::findOrFail($transaction->id);
         $rules = [
-            'resi' => 'required',
-            'status_pesanan' => 'required'
+            'status_pesanan' => 'required',
+            'resi' => 'nullable',
+            'status' => 'nullable'
         ];
 
         $validData = $request->validate($rules);
-        DB::transaction(function () use ($transaction, $validData){
+        DB::transaction(function () use ($transaction, $validData) {
             $transaction->update($validData);
         });
+        Alert::toast('Berhasil perbarui transaksi', 'success');
         return redirect('/dashboard/transaction')->with('success', 'Berhasil simpan data');
     }
 
@@ -90,5 +96,25 @@ class DashboardJualController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    public function generateInvoice(Transaction $transaction)
+    {
+        // Eager load relationships to avoid N+1 query problem
+        $transaction->load(['user', 'detail.katalog']);
+
+        // Extract details from the loaded transaction
+        $details = $transaction->detail;
+
+        // Prepare data for the view
+        $data = [
+            'transaction' => $transaction,
+            'details' => $details,
+        ];
+
+        // Generate PDF
+        $pdf = Pdf::loadView('dashboard.transaction.cetak-invoice', $data);
+        $todayDate = Carbon::now()->format('d-m-Y');
+        return $pdf->download('invoice WK' . $transaction->id . '-' . $todayDate . '.pdf');
     }
 }

@@ -37,6 +37,7 @@ use App\Http\Controllers\UserSettingController;
 */
 // Dashboard menu penjualan
 Route::resource('/dashboard/transaction', DashboardJualController::class)->middleware('aksesPetugas');
+Route::get('/dashboard/transaction/{transaction}/generate', [DashboardJualController::class, 'generateInvoice']);
 // Role Dashboard
 Route::resource('/dashboard/role', DashboardRoleController::class)->middleware('aksesPetugas');
 // export excel dan pdf

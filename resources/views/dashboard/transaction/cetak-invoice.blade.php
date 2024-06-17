@@ -152,7 +152,7 @@
                 <td>{{ $transaction->ongkir }}</td>
 
                 <td>Alamat:</td>
-                <td>{{ $transaction->user->alamat }}/td>
+                <td>{{ $transaction->user->alamat  }}</td>
             </tr>
         </tbody>
     </table>
