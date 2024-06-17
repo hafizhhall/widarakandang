@@ -183,8 +183,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn mb-2 icon-left btn-primary "><i
-                                class="ti-printer"></i> Cetak invoice</button>
+                            <a href="{{ url('dashboard/transaction/' . $transaction->id . '/generate') }}" class="btn btn-success"><i class="ti-printer"></i> invoice</a>
                         </div>
                     </div>
                 </div>

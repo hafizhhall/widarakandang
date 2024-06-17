@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('') }}vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
 @endpush
 @section('content')
+@include('sweetalert::alert')
 <div class="main-content">
     <div class="title">
         Seluruh data Transaksi
@@ -42,18 +43,18 @@
                                         <td>Rp{{ number_format($trx->total) }}</td>
                                         <td>{{ $trx->user->city_name }}</td>
                                         <td>{{ $trx->status_pesanan }}</td>
-                                        <td class="badge  {{ $trx->status === 'belum dibayar' ? 'bg-danger' : ($trx->status === 'lunas' ? 'bg-success' : 'bg-secondary') }}">
-                                            {{ $trx->status }}
+                                        <td>
+                                            <span class="badge {{ $trx->status === 'belum dibayar' ? 'bg-danger' : ($trx->status === 'lunas' ? 'bg-success' : 'bg-secondary') }}">
+                                                {{ $trx->status }}
+                                            </span>
                                         </td>
                                         <td>
                                             <a href="/dashboard/transaction/{{ $trx->id }}" class="badge bg-info" style="text-decoration: none">
                                                 <i class="ti-eye"></i>
                                             </a>
-                                            @can('admin')
                                             <a href="/dashboard/transaction/{{ $trx->id }}/edit" class="badge bg-info" style="text-decoration: none">
                                                 <i class="ti-pencil-alt"></i>
                                             </a>
-                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

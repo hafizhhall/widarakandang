@@ -47,9 +47,9 @@ class DashboardOutputController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date' => ['required'],
-            'katalog_id' => ['required'],
-            'quantity' => ['required'],
+            'date' => 'required|date|before_or_equal:today',
+            'katalog_id' => 'required|exists:katalogs,id',
+            'quantity' => 'required|min:1|integer',
             // 'harga_keluar' => ['required']
         ]);
         $katalog = Katalog::findOrFail($request->katalog_id);
