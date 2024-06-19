@@ -1,9 +1,9 @@
 @extends('dashboard.layouts.main')
 @push('css')
-    <link rel="stylesheet" href="{{ asset('') }}vendor/chart.js/Chart.min.css">
-    <link href="{{ asset('') }}vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-    <link href="{{ asset('') }}vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('') }}/vendor/izitoast/css/iziToast.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/chart.js/Chart.min.css') }}">
+    <link href="{{ asset('vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('/vendor/izitoast/css/iziToast.min.css') }}">
 @endpush
 @section('content')
     <div class="main-content">
