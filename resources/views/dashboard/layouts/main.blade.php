@@ -10,10 +10,9 @@
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="{{ asset('') }}vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('') }}vendor/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="{{ asset('') }}vendor/perfect-scrollbar/css/perfect-scrollbar.css">
-
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/themify-icons/themify-icons.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/perfect-scrollbar/css/perfect-scrollbar.css') }}">
     <!-- TRIX EDITOR -->
     <link rel="stylesheet" type="text/css" href="/css/trix.css">
     <script type="text/javascript" src="/js/trix.js"></script>
@@ -24,6 +23,9 @@
     <link rel="stylesheet" href="{{ asset('') }}assets/css/style.min.css">
     <link rel="stylesheet" href="{{ asset('') }}assets/css/bootstrap-override.min.css">
     <link rel="stylesheet" id="theme-color" href="{{ asset('') }}assets/css/dark.min.css">
+
+    {{-- chart --}}
+
     <style>
         trix-toolbar [data-trix-button-group="file-tools"] {
             display: none;
@@ -48,8 +50,8 @@
         <div class="overlay action-toggle">
         </div>
     </div>
-    <script src="{{ asset('') }}vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="{{ asset('') }}vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 
     <!-- js for this page only -->
     @stack('js')
@@ -62,18 +64,20 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous">
     </script>
-    <script src="{{ asset('') }}vendor/jquery/jquery.min.js"></script>
-    <script src="{{ asset('') }}vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('') }}vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="{{ asset('') }}vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="{{ asset('') }}vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-    <script src="{{ asset('') }}vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="{{ asset('') }}assets/js/pages/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/datatables.min.js') }}"></script>
         <!-- ======= -->
         <script src="{{ asset('') }}assets/js/main.min.js"></script>
     <script>
         DataTable.init()
     </script>
+    @yield('javascript')
 </body>
 
 </html>
