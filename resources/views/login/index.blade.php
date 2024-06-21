@@ -29,6 +29,16 @@
                 <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
                 <label for="password">Password</label>
             </div>
+            <div class="form-floating mt-3">
+                {!! captcha_img() !!}
+            </div>
+            <div class="form-floating mt-3">
+                <input type="text" name="captcha" class="form-control @error('captcha') is-invalid @enderror" id="captcha" placeholder="Please Insert Captch">
+                <label for="password">Captcha</label>
+                @error('captcha')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
             <div class="form-check text-start my-2">
             </div>
             <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
