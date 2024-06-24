@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Katalog;
 use App\Models\Output;
@@ -29,7 +30,7 @@ class UserCheckoutController extends Controller
         // Ambil detail transaksi berdasarkan user ID
         return view('user.order.index', [
             // 'carts' => Cart::where('user_id', Auth::user()->id)->get(),
-            'transaksi' => Transaction::where('user_id', Auth::user()->id)->get(),
+            'transaksi' => Transaction::where('user_id', Auth::user()->id)->paginate(5),
             'title' => 'order'
         ]);
     }
@@ -80,6 +81,7 @@ class UserCheckoutController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         $apikey = env('RAJA_ONGKIR_API_KEY');
         // total dari halaman checkout
         $total = intval($request->total);
@@ -87,9 +89,26 @@ class UserCheckoutController extends Controller
 
         $user = Auth::user();
         $userId = $user->id;
-        $selectedCity = $user->city;
-        $destination = $user->city_name;
+        // $selectedCity = $user->city;
+        // $destination = $user->city_name;
 
+        //ambil shipping address
+        $selectedAddressId = $request->input('shipping_address_id');
+        if(!$selectedAddressId){
+            Alert::toast('Silahkan pilih alamat pengiriman', 'error');
+            return redirect('/chart')->with('error','Silahkan pilih alamat pengiriman');
+        }
+        $selectedAddress = Address::find($selectedAddressId);
+        if (!$selectedAddress) {
+            Alert::toast('Alamat pengiriman tidak valid', 'error');
+            return redirect('/chart')->with('error', 'Alamat pengiriman tidak valid.');
+        }
+        $selectedCity = $selectedAddress->city;
+        $destination = $selectedAddress->city_name;
+        $alamat = $selectedAddress->alamat;
+        $name = $selectedAddress->name;
+        $pos = $selectedAddress->pos;
+        $phone = $selectedAddress->phone;
         // Cek apakah ada transaksi yang belum dibayar
         $unpaidTransaction = Transaction::where('user_id', $userId)
             ->where('status', 'belum dibayar') // Sesuaikan dengan status yang Anda gunakan
@@ -132,6 +151,10 @@ class UserCheckoutController extends Controller
             'layanan' => $layanan,
             'estimasi' => $estimasi,
             'berat' => $totalBerat,
+            'alamat' => $alamat,
+            'pos' => $pos,
+            'name' => $name,
+            'phone' => $phone
         ]);
 
 

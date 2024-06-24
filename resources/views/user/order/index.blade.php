@@ -20,22 +20,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($transaksi as $d)
-                            <tr>
-                                <td>{{$loop->iteration }}</td>
-                                <td>{{ $d->invoice }}</td>
-                                <td style="text-align: center">
-                                    {{ $d->status }}
-                                </td>
-                                <td>{{ $d->status_pesanan }}</td>
-                                <td>Rp{{ number_format($d->total, 0, ',', '.') }}</td>
-                                <td>
-                                    <a href="{{ route('order.detail', ['transactionId' => $d->id]) }}" class="btn-small d-block">view</a>
-                                </td>
-                            </tr>
+                            @php
+                                $currentPage = $transaksi->currentPage();
+                                $perPage = $transaksi->perPage();
+                            @endphp
+
+                            @foreach ($transaksi as $index => $d)
+                                <tr>
+                                    <td>{{ ($currentPage - 1) * $perPage + $index + 1 }}</td>
+                                    <td>{{ $d->invoice }}</td>
+                                    <td style="text-align: center">
+                                        {{ $d->status }}
+                                    </td>
+                                    <td>{{ $d->status_pesanan }}</td>
+                                    <td>Rp{{ number_format($d->total, 0, ',', '.') }}</td>
+                                    <td>
+                                        <a href="{{ route('order.detail', ['transactionId' => $d->id]) }}"
+                                            class="btn-small d-block">View</a>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-md-12">
+                        {{ $transaksi->links() }}
+                    </div>
                 </div>
             </div>
         </div>

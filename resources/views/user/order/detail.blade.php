@@ -92,7 +92,7 @@
                     </h2>
                     <div id="flush-collapseThree" class="accordion-collapse collapse"
                         data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">{{ $user->alamat }}</div>
+                        <div class="accordion-body">{{ $transaction->alamat }}</div>
                     </div>
                 </div>
             </div>
