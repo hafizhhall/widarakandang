@@ -22,7 +22,11 @@ class Transaction extends Model
         'kurir',
         'layanan',
         'berat',
-        'estimasi'
+        'estimasi',
+        'alamat',
+        'phone',
+        'pos',
+        'name'
     ];
 
     public function detail()

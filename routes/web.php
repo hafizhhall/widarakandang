@@ -19,6 +19,7 @@ use App\Http\Controllers\DashboardKatalogController;
 use App\Http\Controllers\DashboardKategoriController;
 use App\Http\Controllers\DashboardRoleController;
 use App\Http\Controllers\DashboardSupplierController;
+use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\UserCartController;
 use App\Http\Controllers\UserChartController;
 use App\Http\Controllers\UserCheckoutController;
@@ -48,6 +49,7 @@ Route::get('/dashboard/entry/excel', [DashboardEntryController::class, 'export_e
 Route::get('/dashboard/entry/pdf', [DashboardEntryController::class, 'export_pdf']);
 // user dashboard controller
 // Route::resource('/chart', UserCartController::class)->middleware('auth');
+Route::resource('/user/address', UserAddressController::class)->middleware('aksesPengguna');
 Route::get('/user', [UserProfilController::class, 'index'])->middleware('aksesPengguna');
 Route::get('/user/change-password', [UserProfilController::class, 'editPassword'])->middleware('aksesPengguna')->name('user.change-password');
 Route::post('/user/change-password', [UserProfilController::class, 'processChangePassword'])->middleware('aksesPengguna');
@@ -60,6 +62,7 @@ Route::get('/', [UserChartController::class, 'nav'])->middleware('auth');
 Route::post('/chart/{id}', [UserChartController::class, 'store'])->middleware('auth');
 Route::patch('/chart/{id}', [UserChartController::class, 'update'])->middleware('auth');
 Route::delete('/chart/{id}', [UserChartController::class, 'destroy'])->middleware('auth')->name('chart.destroy');
+Route::post('/web/chart', [UserChartController::class, 'updateShippingAddress'])->name('chart.updateShippingAddress');
 Route::post('/checkout', [UserCheckoutController::class, 'store']);
 Route::get('/order', [UserCheckoutController::class, 'index'])->middleware('aksesPengguna');
 Route::get('/order/{transactionId}/detail', [UserCheckoutController::class, 'show'])->middleware('aksesPengguna')->name('order.detail');

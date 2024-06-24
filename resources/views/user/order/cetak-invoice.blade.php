@@ -131,7 +131,7 @@
                 <td>{{ $transaction->id }}</td>
 
                 <td>Nama lengkap:</td>
-                <td>{{ $transaction->user->name }}</td>
+                <td>{{ $transaction->name }}</td>
             </tr>
             <tr>
                 <td>Status pesanan:</td>
@@ -145,14 +145,14 @@
                 <td>{{ $transaction->created_at }}</td>
 
                 <td>Nomor telepon:</td>
-                <td>{{ $transaction->user->no_telep }}</td>
+                <td>{{ $transaction->phone }}</td>
             </tr>
             <tr>
                 <td>Ongkos kirim: </td>
-                <td>{{ $transaction->ongkir }}</td>
+                <td>Rp{{ number_format($transaction->ongkir, 0, ',', '.') }}</td>
 
                 <td>Alamat:</td>
-                <td>{{ $transaction->user->alamat }}/td>
+                <td>{{ $transaction->alamat }}</td>
             </tr>
         </tbody>
     </table>

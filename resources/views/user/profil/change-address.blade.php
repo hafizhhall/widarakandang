@@ -13,7 +13,6 @@
             <div class="row mt-3">
                 <div class="col-md-6">
                     <label for="city">Asal Kota</label>
-
                     <div class="form-floating">
                         <select name="city" id="city" class="form-select" aria-label="pilih kota asal!">
                             <option value="">Pilih kota

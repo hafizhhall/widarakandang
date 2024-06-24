@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Katalog;
 use Illuminate\Http\Request;
@@ -13,8 +14,14 @@ class UserChartController extends Controller
 {
     public function index()
     {
-        $charts = Cart::where('user_id', Auth::user()->id)->get();
-        return view('user.chart.index', compact('charts'));
+        $apikey = env('RAJA_ONGKIR_API_KEY');
+        $response = Http::withHeaders([
+            'key' => $apikey
+        ])->get('https://api.rajaongkir.com/starter/city');
+        $data['cities'] = $response['rajaongkir']['results'];
+        $data['charts'] = Cart::where('user_id', Auth::user()->id)->get();
+        $data['address'] = Address::where('user_id', Auth::user()->id)->get();
+        return view('user.chart.index', $data);
     }
 
     public function store(Request $request)
@@ -24,7 +31,11 @@ class UserChartController extends Controller
             Alert::toast('Lengkapi profil Anda terlebih dahulu', 'error');
             return redirect('/user')->with('error', 'Anda harus melengkapi profil terlebih dahulu.');
         }
-
+        // Cek apakah `katalog_id` ada di request
+        if (!$request->has('katalog_id')) {
+            Alert::toast('Produk tidak tersedia()', 'error');
+            return redirect('/katalog')->with('error', 'Stok anggrek habis');
+        }
         $katalog = Katalog::find($request->katalog_id);
         if (!$katalog || $katalog->jumlah == 0) {
             Alert::toast('Produk tidak tersedia', 'error');
@@ -33,8 +44,8 @@ class UserChartController extends Controller
 
         // validasi untuk produk yang sama
         $duplicate = Cart::where('katalog_id', $request->katalog_id)
-                        ->where('user_id', Auth::user()->id)
-                        ->first();
+            ->where('user_id', Auth::user()->id)
+            ->first();
         if ($duplicate) {
             Alert::toast('Barang sudah tersedia di keranjang', 'error');
             return redirect('/chart')->with('error', 'Barang sudah ada dikeranjang');
@@ -64,5 +75,37 @@ class UserChartController extends Controller
         return redirect('/chart')->with('success', 'Item berhasil dihapus');
     }
 
+    public function updateShippingAddress(Request $request)
+    {
+        // dd($request->all()); // Tambahkan ini untuk debugging
+        $userId = Auth::id();
 
+        if ($request->shipping_address_id == 'new') {
+            $request->validate([
+                'new_alamat' => 'required',
+                'city' => 'required',
+                'new_pos' => 'required',
+                'new_phone' => 'required',
+                'new_name' => 'required',
+            ]);
+
+            $cityName = $request->input('city_name'); // Ambil nama kota dari input hidden
+
+            $address = Address::create([
+                'user_id' => $userId,
+                'alamat' => $request->new_alamat,
+                'city_name' => $cityName,
+                'city' => $request->city,
+                'pos' => $request->new_pos,
+                'phone' => $request->new_phone,
+                'name' => $request->new_name,
+            ]);
+
+            session(['shipping_address_id' => $address->id]);
+        } else {
+            session(['shipping_address_id' => $request->shipping_address_id]);
+        }
+
+        return redirect('/chart');
+    }
 }

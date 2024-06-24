@@ -6,7 +6,7 @@
         <a href="/order" class="list-group-item list-group-item-action">
             <i class="fas fa-shopping-bag me-3"></i> Orders
         </a>
-        <a href="#" class="list-group-item list-group-item-action">
+        <a href="/user/address" class="list-group-item list-group-item-action">
             <i class="fas fa-map-marked-alt me-3"></i>Address
         </a>
         <a href="/user" class="list-group-item list-group-item-action">

@@ -8,6 +8,16 @@
         h5 {
             font-family: poppins;
         }
+
+        .shipping_address_id {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .shipping_address_id.selected {
+            border: 2px solid #007bff;
+            background-color: #f0f8ff;
+        }
     </style>
     <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
@@ -98,44 +108,102 @@
                                         $totalBerat += $cart->katalog->berat * $cart->qty;
                                     @endphp
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-
-                    </div>
                     <div class="row g-4 justify-content-end mt-5">
-                        <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
-                            <div class="bg-light rounded-3">
-                                <div class="p-4">
-                                    <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <h5 class="mb-0 me-4">Subtotal:</h5>
-                                        <p class="mb-0">Rp{{ number_format($total, 0, ',', '.') }}</p>
-                                    </div>
-                                </div>
-                                <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                                    <h5 class="mb-0 ps-4 me-4">Total</h5>
-                                    <p class="mb-0 pe-4">Rp{{ number_format($total, 0, ',', '.') }}</p>
-                                </div>
-                                <form action="/checkout" method="post">
+                        <div class="col-md-8">
+                            <h5>Pilih alamat pengiriman</h5>
+                            <div class="row">
+                                <form action="{{ route('chart.updateShippingAddress') }}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="totalBerat" value="{{ $totalBerat }}">
-                                    <input type="hidden" name="total" value="{{ $total }}">
-                                    <button
-                                        class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                                        type="submit">Checkout</button>
+                                    @foreach ($address as $alamat)
+                                        <div class="col-lg-6 col-12">
+                                            <div class="card card-body p-6">
+                                                <address>
+                                                    <input class="form-check-input" type="radio"
+                                                        name="shipping_address_id" value="{{ $alamat->id }}"
+                                                        id="address_{{ $alamat->id }}">
+                                                    <label class="form-check-label" for="address_{{ $alamat->id }}">
+                                                        <strong>{{ $alamat->name }}</strong>
+                                                        <br>
+                                                        {{ $alamat->alamat }}
+                                                        <br>
+                                                        {{ $alamat->city_name }}
+                                                        <br>
+                                                        {{ $alamat->pos }}
+                                                        <br>
+                                                        {{ $alamat->phone }}
+                                                    </label>
+                                                </address>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <div class="form-check mt-4 ">
+                                        <input class="form-check-input" type="radio" name="shipping_address_id"
+                                            value="new" id="new_address">
+                                        <label class="form-check-label" for="new_address" style="font-weight: 900">Buat
+                                            alamat
+                                            baru</label>
+                                    </div>
+                                    <div id="new_address_form" style="display: none;">
+                                        <input type="text" name="new_alamat" class="form-control" placeholder="Alamat">
+                                        <div class="form-floating">
+                                            <select name="city" id="city" class="form-select"
+                                                aria-label="pilih kota asal!">
+                                                <option value="">Pilih kota
+                                                    asal anda</option>
+                                                @foreach ($cities as $city)
+                                                    <option value="{{ $city['city_id'] }}"
+                                                        data-city-name="{{ $city['city_name'] }}">{{ $city['city_name'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <input type="hidden" name="city_name" id="city_name" value="">
+                                            <label for="floatingSelect">Works with selects</label>
+                                        </div>
+                                        <input type="text" name="new_pos" class="form-control"placeholder="Kode Pos">
+                                        <input type="text" name="new_phone"class="form-control"
+                                            placeholder="Nomor Telepon">
+                                        <input type="text" name="new_name"class="form-control"
+                                            placeholder="Nama Penerima">
+                                        <div class="col-md-4">
+                                            <button type="submit" class="btn btn-primary mt-3">Simpan Alamat
+                                                Pengiriman</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="bg-light rounded-3">
+                        <div class="p-4">
+                            <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
+                            <div class="d-flex justify-content-between mb-4">
+                                <h5 class="mb-0 me-4">Subtotal:</h5>
+                                <p class="mb-0">Rp{{ number_format($total, 0, ',', '.') }}</p>
+                            </div>
+                        </div>
+                        <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
+                            <h5 class="mb-0 ps-4 me-4">Total</h5>
+                            <p class="mb-0 pe-4">Rp{{ number_format($total, 0, ',', '.') }}</p>
+                        </div>
+                        <form action="/checkout" method="post">
+                            @csrf
+                            <input type="hidden" name="totalBerat" value="{{ $totalBerat }}">
+                            <input type="hidden" name="total" value="{{ $total }}">
+                            <input type="hidden" name="shipping_address_id" id="selected_shipping_address_id">
+                            <button
+                                class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                                type="submit">Checkout</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-@endsection
-@push('js')
+    </div>
+    </div>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             const updateQuantity = function(element, newQty) {
@@ -159,28 +227,52 @@
                 });
             });
 
-            const btnMinus = document.querySelectorAll('.btn-minus');
-            const btnPlus = document.querySelectorAll('.btn-plus');
+            // alamat
+            const newAddressRadio = document.getElementById('new_address');
+            const newAddressForm = document.getElementById('new_address_form');
+            newAddressRadio.addEventListener('change', function() {
+                if (newAddressRadio.checked) {
+                    newAddressForm.style.display = 'block';
+                }
+            });
 
-            Array.from(btnMinus).forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const input = button.nextElementSibling;
-                    let currentQty = parseInt(input.value);
-                    if (currentQty > 1) {
-                        input.value = currentQty - 1;
-                        updateQuantity(input, input.value);
+            const existingAddressRadios = document.querySelectorAll(
+                'input[name="shipping_address_id"]:not(#new_address)');
+            existingAddressRadios.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    if (radio.checked) {
+                        newAddressForm.style.display = 'none';
                     }
                 });
             });
+            // Update hidden city name input when a city is selected
+            const citySelect = document.getElementById('city');
+            const cityNameInput = document.getElementById('city_name');
 
-            Array.from(btnPlus).forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const input = button.previousElementSibling;
-                    let currentQty = parseInt(input.value);
-                    input.value = currentQty + 1;
-                    updateQuantity(input, input.value);
+            citySelect.addEventListener('change', function() {
+                const selectedOption = citySelect.options[citySelect.selectedIndex];
+                cityNameInput.value = selectedOption.dataset.cityName;
+            });
+
+            // Update hidden shipping address id input when a shipping address is selected
+            const shippingAddressRadios = document.querySelectorAll('input[name="shipping_address_id"]');
+            const selectedShippingAddressIdInput = document.getElementById('selected_shipping_address_id');
+
+            shippingAddressRadios.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    if (radio.checked) {
+                        selectedShippingAddressIdInput.value = radio.value;
+                    }
                 });
             });
         });
+
+        document.getElementById('city').addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var cityName = selectedOption.getAttribute('data-city-name');
+            document.getElementById('city_name').value = cityName;
+        });
     </script>
+@endsection
+@push('js')
 @endpush

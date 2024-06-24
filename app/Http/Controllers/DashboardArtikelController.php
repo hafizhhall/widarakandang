@@ -19,9 +19,9 @@ class DashboardArtikelController extends Controller
      */
     public function index()
     {
-        // $title = 'Delete User!';
-        // $text = "Are you sure you want to delete?";
-        // confirmDelete($title, $text);
+        $title = 'Delete Artikel!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         return view('dashboard.artikel.index',[
             'artikels' => Artikel::where('user_id', auth()->user()->id)->get(),
             'title' => 'artikel'
