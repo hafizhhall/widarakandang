@@ -58,7 +58,7 @@
                                                 <p class="fw-bold">Nama penerima</p>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{ $transaction->user->name }}</p>
+                                                <p>{{ $transaction->name }}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -90,7 +90,7 @@
                                                 <p class="fw-bold">Phone</p>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>{{ $transaction->user->no_telep }}</p>
+                                                <p>{{ $transaction->phone}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                             <p class="fw-bold">Alamat detail</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{ $transaction->user->alamat }}</p>
+                                            <p>{{ $transaction->alamat }}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -39,9 +39,9 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $trx->invoice }}</td>
-                                        <td>{{ $trx->user->name }}</td>
+                                        <td>{{ $trx->name }}</td>
                                         <td>Rp{{ number_format($trx->total) }}</td>
-                                        <td>{{ $trx->user->city_name }}</td>
+                                        <td>{{ $trx->city_name }}</td>
                                         <td>{{ $trx->status_pesanan }}</td>
                                         <td>
                                             <span class="badge {{ $trx->status === 'belum dibayar' ? 'bg-danger' : ($trx->status === 'lunas' ? 'bg-success' : 'bg-secondary') }}">
