@@ -76,7 +76,9 @@ class UserCheckoutController extends Controller
         $ongkir = $responseCost['rajaongkir'];
         // dd($ongkir);
         // dd($ongkir);
-
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         return view('user.order.detail', compact('details', 'transaction', 'user', 'selectedCity', 'ongkir', 'snapToken'));
     }
     public function store(Request $request)
@@ -94,6 +96,7 @@ class UserCheckoutController extends Controller
 
         //ambil shipping address
         $selectedAddressId = $request->input('shipping_address_id');
+
         if(!$selectedAddressId){
             Alert::toast('Silahkan pilih alamat pengiriman', 'error');
             return redirect('/chart')->with('error','Silahkan pilih alamat pengiriman');
@@ -119,14 +122,14 @@ class UserCheckoutController extends Controller
             Alert::toast('Anda memiliki transaksi yang belum dibayar', 'error');
             return redirect('/chart')->with('error', 'Anda memiliki transaksi yang belum dibayar.');
         }
-
+        $selectedKurir = $request->input('courier_code');
         $responseCost = Http::withHeaders([
             'key' => $apikey
         ])->post('https://api.rajaongkir.com/starter/cost', [
             'origin' => 501,
             'destination' => $selectedCity,
             'weight' => $totalBerat,
-            'courier' => 'jne',
+            'courier' => $selectedKurir,
             'costs' => 0
         ]);
         if ($responseCost->failed() || !isset($responseCost['rajaongkir']['results']) || empty($responseCost['rajaongkir']['results'])) {
@@ -212,6 +215,9 @@ class UserCheckoutController extends Controller
         // dd($snapToken);
         // Mail::to($carts->first()->user->email)->send(new CheckoutMail($cartUser));
         Cart::where('user_id', Auth::user()->id)->delete();
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         return redirect()->route('order.detail', ['transactionId' => $transaction->id]);
     }
 
@@ -247,5 +253,23 @@ class UserCheckoutController extends Controller
         $pdf = Pdf::loadView('user.order.cetak-invoice', $data);
         $todayDate = Carbon::now()->format('d-m-Y');
         return $pdf->download('inoice WK' . $transaction->id . '-' . $todayDate . '.pdf');
+    }
+
+    public function destroy($transactionId){
+        $userId = Auth::id();
+
+        $transaction = Transaction::where('id', $transactionId)
+                ->where('user_id', $userId)
+                ->first();
+
+        if(!$transaction){
+            abort(404, 'Transaksi tidak ditemukan, anda tidak memiliki akses untuk menghapus data ini');
+        }
+
+        TransactionDetail::where('transaction_id', $transactionId)->delete();
+
+        $transaction->delete();
+        Alert::toast('Transaksi berhasil dihapus', 'success');
+        return redirect()->route('order.index')->with('success', 'Transaksi berhasil dihapus');
     }
 }

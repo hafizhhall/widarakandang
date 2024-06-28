@@ -47,7 +47,7 @@
                                             @method('delete')
                                             @csrf
                                             <button class="badge bg-danger border-0" data-confirm-delete="true"
-                                                id="swall-question">
+                                                id="swall-question" data-confirm-delete="true">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
@@ -60,8 +60,31 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('button[data-confirm-delete]').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = button.closest('form');
+                    Swal.fire({
+                        title: 'Hapus alamat!',
+                        text: "Apakah anda yakin akan menghapus alamat ini?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, hapus!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush

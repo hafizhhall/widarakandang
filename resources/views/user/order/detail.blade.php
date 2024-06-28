@@ -5,6 +5,9 @@
         data-client-key="{{ config('midtrans.client_key') }}"></script>
     <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
 @endpush
+@push('css')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+@endpush
 @section('menu')
     @php
         $totalBerat = 0;
@@ -198,24 +201,20 @@
         <div class="row">
 
         </div>
-        {{-- <div class="row mt-4">
-            <div class="col">
-                <a class="btn btn-success" id="pay-button">Bayar sekarang</a>
-            </div>
-            <div class="col">
-                <a href="/order" class="btn btn-success">Kembali</a>
-            </div>
-            <div class="col">
-                <a href="/order" class="btn btn-success">Kembali</a>
-            </div>
-        </div> --}}
+
         <div class="btn-group mt-5">
             @if ($transaction->status === 'belum dibayar')
                 <a class="btn btn-primary" id="pay-button">Bayar sekarang</a>
+                <form action="{{ route('order.destroy', $transaction->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger" data-confirm-delete="true">Batal</button>
+                </form>
             @elseif ($transaction->status === 'lunas')
                 <a href="{{ url('order/' . $transaction->id . '/generate') }}" class="btn btn-warning">Cetak invoice</a>
             @endif
-            <a href="/order" class="btn btn-danger">Kembali</a>
+
+            <a href="/order" class="btn btn-success">Kembali</a>
         </div>
     </div>
     <script type="text/javascript">
@@ -245,5 +244,30 @@
                 }
             })
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('button[data-confirm-delete]').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = button.closest('form');
+                    Swal.fire({
+                        title: 'Batalkan transaksi!',
+                        text: "Apakah anda yakin akan membatalkan transaksi?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, hapus!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
     </script>
 @endsection
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endpush

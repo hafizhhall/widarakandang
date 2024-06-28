@@ -63,11 +63,13 @@ Route::post('/chart/{id}', [UserChartController::class, 'store'])->middleware('a
 Route::patch('/chart/{id}', [UserChartController::class, 'update'])->middleware('auth');
 Route::delete('/chart/{id}', [UserChartController::class, 'destroy'])->middleware('auth')->name('chart.destroy');
 Route::post('/web/chart', [UserChartController::class, 'updateShippingAddress'])->name('chart.updateShippingAddress');
+// Route::post('/chart/shipping_fee', [UserChartController::class, 'shippingFee'])->name('chart.shipping_fee');
 Route::post('/checkout', [UserCheckoutController::class, 'store']);
-Route::get('/order', [UserCheckoutController::class, 'index'])->middleware('aksesPengguna');
+Route::get('/order', [UserCheckoutController::class, 'index'])->middleware('aksesPengguna')->name('order.index');
 Route::get('/order/{transactionId}/detail', [UserCheckoutController::class, 'show'])->middleware('aksesPengguna')->name('order.detail');
 Route::get('/order/{transactionId}/generate', [UserCheckoutController::class, 'generateInvoice'])->middleware('aksesPengguna');
 Route::get('/order/{transactionId}/ongkir', [UserCheckoutController::class, 'tambahOngkir'])->middleware('aksesPengguna')->name('order.ongkir');
+Route::delete('/order/{transactionId}', [UserCheckoutController::class, 'destroy'])->middleware('aksesPengguna')->name('order.destroy');
 // Route::post('/order/{transactionId}/detail', [UserCheckoutController::class, 'getCourierServices']);
 // dashboard barang keluar
 Route::resource('/dashboard/output', DashboardOutputController::class)->middleware('aksesPetugas');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Katalog;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -82,11 +83,11 @@ class UserChartController extends Controller
 
         if ($request->shipping_address_id == 'new') {
             $request->validate([
-                'new_alamat' => 'required',
+                'new_alamat' => 'required|string|max:225',
                 'city' => 'required',
-                'new_pos' => 'required',
-                'new_phone' => 'required',
-                'new_name' => 'required',
+                'new_pos' => 'required|digits:5',
+                'new_phone' => 'required|regex:/^[0-9]{10,15}$/',
+                'new_name' => 'required|string|max:100',
             ]);
 
             $cityName = $request->input('city_name'); // Ambil nama kota dari input hidden
@@ -105,7 +106,6 @@ class UserChartController extends Controller
         } else {
             session(['shipping_address_id' => $request->shipping_address_id]);
         }
-
         return redirect('/chart');
     }
 }

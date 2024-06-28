@@ -38,7 +38,6 @@
                     $total = 0;
                     $totalBerat = 0;
                 @endphp
-                @include('sweetalert::alert')
                 <div class="container py-5">
                     <div class="table-responsive">
                         <table class="table">
@@ -114,14 +113,15 @@
                     <div class="row g-4 justify-content-end mt-5">
                         <div class="col-md-8">
                             <h5>Pilih alamat pengiriman</h5>
+
                             <div class="row">
                                 <form action="{{ route('chart.updateShippingAddress') }}" method="POST">
                                     @csrf
                                     @foreach ($address as $alamat)
-                                        <div class="col-lg-6 col-12">
-                                            <div class="card card-body p-6">
+                                        <div class="col-md-6 mt-2">
+                                            <div class="card p-3">
                                                 <address>
-                                                    <input class="form-check-input" type="radio"
+                                                    <input class="form-check-input delivery-address" type="radio"
                                                         name="shipping_address_id" value="{{ $alamat->id }}"
                                                         id="address_{{ $alamat->id }}">
                                                     <label class="form-check-label" for="address_{{ $alamat->id }}">
@@ -147,26 +147,74 @@
                                             baru</label>
                                     </div>
                                     <div id="new_address_form" style="display: none;">
-                                        <input type="text" name="new_alamat" class="form-control" placeholder="Alamat">
-                                        <div class="form-floating">
-                                            <select name="city" id="city" class="form-select"
+                                        <div class="mt-4">
+                                            <label for="new_name" class="form-label">Nama Lengkap</label>
+                                            <input type="text"
+                                                name="new_name"class="form-control @error('new_name')
+                                            @enderror"
+                                                placeholder="" value="{{ old('new_name') }}">
+                                            @error('new_name')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2">
+                                            <label for="new_phone" class="form-label">Nomor telepon</label>
+                                            <input type="text"
+                                                name="new_phone"class="form-control @error('new_phone')
+                                                is-invalid
+                                            @enderror"
+                                                placeholder="" value="{{ old('new_phone') }}">
+                                            @error('new_phone')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2">
+                                            <label for="city" class="form-label">Kota atau Kabupaten</label>
+                                            <select name="city" id="city"
+                                                class="form-select @error('city') is-invalid @enderror"
                                                 aria-label="pilih kota asal!">
                                                 <option value="">Pilih kota
                                                     asal anda</option>
                                                 @foreach ($cities as $city)
                                                     <option value="{{ $city['city_id'] }}"
-                                                        data-city-name="{{ $city['city_name'] }}">{{ $city['city_name'] }}
+                                                        data-city-name="{{ $city['city_name'] }}">
+                                                        {{ $city['city_name'] }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                             <input type="hidden" name="city_name" id="city_name" value="">
-                                            <label for="floatingSelect">Works with selects</label>
+                                            @error('city')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                        <input type="text" name="new_pos" class="form-control"placeholder="Kode Pos">
-                                        <input type="text" name="new_phone"class="form-control"
-                                            placeholder="Nomor Telepon">
-                                        <input type="text" name="new_name"class="form-control"
-                                            placeholder="Nama Penerima">
+                                        <div class="mt-2">
+                                            <label for="new_pos" class="form-label">Kode POS</label>
+                                            <input type="text" name="new_pos"
+                                                class="form-control @error('new_pos')
+                                                is-invalid
+                                            @enderror"placeholder=""
+                                                value="{{ old('new_pos') }}">
+                                            @error('new_pos')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2">
+                                            <label for="new_alamat" class="form-label">Alamat lengkap</label>
+                                            <textarea name="new_alamat" id="new_alamat" cols="30" rows="3" class="form-control">@if(old('new_alamat')){{ old('new_alamat') }}@endif</textarea>
+                                            @error('new_alamat')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
                                         <div class="col-md-4">
                                             <button type="submit" class="btn btn-primary mt-3">Simpan Alamat
                                                 Pengiriman</button>
@@ -174,6 +222,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mt-3">
+                                <h5>Pilih kurir pengiriman</h5>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input courier-code" type="radio" name="courier_code" id="courier_jne" value="jne">
+                                    <label for="inlineRadio1" class="form-check-label">JNE</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input courier-code" type="radio" name="courier_code" id="courier_tiki" value="tiki">
+                                    <label for="inlineRadio1" class="form-check-label">TIKI</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input courier-code" type="radio" name="courier_code" id="courier_pos" value="pos">
+                                    <label for="inlineRadio1" class="form-check-label">POS</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="row">
+                        <div class="">
+                            <p>Layanan tersedia</p>
+                            <ul class="list-group list-group-flush available-service" style="display: none">
+
+                            </ul>
+                        </div>
+                    </div> --}}
                 </div>
                 <div class="col-md-4">
                     <div class="bg-light rounded-3">
@@ -193,6 +268,7 @@
                             <input type="hidden" name="totalBerat" value="{{ $totalBerat }}">
                             <input type="hidden" name="total" value="{{ $total }}">
                             <input type="hidden" name="shipping_address_id" id="selected_shipping_address_id">
+                            <input type="hidden" name="courier_code" id="selected_courier_code">
                             <button
                                 class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
                                 type="submit">Checkout</button>
@@ -256,7 +332,9 @@
 
             // Update hidden shipping address id input when a shipping address is selected
             const shippingAddressRadios = document.querySelectorAll('input[name="shipping_address_id"]');
+            const courierRadios = document.querySelectorAll('input[name="courier_code"]');
             const selectedShippingAddressIdInput = document.getElementById('selected_shipping_address_id');
+            const selectedCourierCode = document.getElementById('selected_courier_code');
 
             shippingAddressRadios.forEach(function(radio) {
                 radio.addEventListener('change', function() {
@@ -265,6 +343,35 @@
                     }
                 });
             });
+            courierRadios.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    if (radio.checked) {
+                        selectedCourierCode.value = radio.value;
+                    }
+                });
+            });
+
+            // $('.courier-code').on('click', function() {
+            //     let courier = $(this).val();
+            //     let addressID = $('.delivery-address:checked').val();
+
+            //     $.ajax({
+            //         url: "/chart/shipping_fee",
+            //         method: 'POST',
+            //         data: {
+            //             address_id: addressID,
+            //             courier: courier,
+            //             _token: $('meta[name="csrf-token"]').attr('content')
+            //         },
+            //         success: function(result){
+            //             $('.available-service').show();
+            //             $('.available-service').html(result);
+            //         },
+            //         error: function(e){
+            //             console.log(e);
+            //         }
+            //     });
+            // });
         });
 
         document.getElementById('city').addEventListener('change', function() {
@@ -275,4 +382,9 @@
     </script>
 @endsection
 @push('js')
+    <script>
+        $(function() {
+
+        });
+    </script>
 @endpush
