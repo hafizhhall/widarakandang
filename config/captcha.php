@@ -17,7 +17,7 @@ return [
         'width' => 120,
         'height' => 36,
         'quality' => 90,
-        'math' => true,
+        'math' => false,
     ],
 
     'flat' => [
@@ -44,7 +44,7 @@ return [
         'sensitive' => true,
         'angle' => 12,
         'sharpen' => 10,
-        'blur' => 2,
+        'blur' => 0,
         'invert' => true,
         'contrast' => -5,
     ]

@@ -1,6 +1,7 @@
 @extends('user.index')
 
 @section('menu')
+@include('sweetalert::alert')
     <div class="" id="orders" role="tabpanel" aria-labelledby="orders-tab">
         <div class="card">
             <div class="card-header">

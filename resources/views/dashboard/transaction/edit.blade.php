@@ -22,6 +22,7 @@
                                     <option value="diproses" {{ $transaction->status_pesanan == 'diproses' ? 'selected' : '' }} {{ $transaction->status == 'belum dibayar' ? 'disabled' : '' }}>diproses</option>
                                     <option value="dikirim" {{ $transaction->status_pesanan == 'dikirim' ? 'selected' : '' }} {{ $transaction->status == 'belum dibayar' ? 'disabled' : '' }}>dikirim</option>
                                     <option value="selesai" {{ $transaction->status_pesanan == 'selesai' ? 'selected' : '' }} {{ $transaction->status == 'belum dibayar' ? 'disabled' : '' }}>selesai</option>
+                                    <option value="batal" {{ $transaction->status_pesanan == 'batal' ? 'selected' : '' }}>batal</option>
                                 </select>
                                 @error('status_pesanan')
                                     <div class="invalid-feedback">

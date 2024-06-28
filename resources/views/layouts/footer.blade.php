@@ -26,6 +26,11 @@
                 <a class="btn btn-link" href="">Support</a>
             </div>
             <div class="col-lg-3 col-md-6">
+                <h4 class="text-light mb-4">Jam Operasional</h4>
+                <p><i class="fa fa-clock me-3"> </i>Senin - Kamis : 08.00 - 15.00 WIB</p>
+                <p><i class="fa fa-clock me-3"> </i>Jumat : 13.00 - 17.00 WIB</p>
+                <p><i class="fa fa-clock me-3"> </i>Sabtu : 08.00 - 15.00 WIB</p>
+                <p><i class="fa fa-clock me-3"> </i>Minggu : 08.00 - 15.00 WIB</p>
 
             </div>
         </div>

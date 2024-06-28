@@ -16,7 +16,7 @@ class UserAddressController extends Controller
     public function index()
     {
         $title = 'Hapus Alamat!';
-        $text = "Apakah kamu yakin akan menghapus alamat?";
+        $text = "Apakah kamu yakin akan menghapus alamat ini?";
         confirmDelete($title, $text);
         $data['address'] = Address::where('user_id', Auth::user()->id)->get();
         return view('user.address.index', $data);

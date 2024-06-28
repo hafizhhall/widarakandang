@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     @stack('jsMidtrans')
     <!-- Favicon -->
     <link href="/modal/img/favicon.ico" rel="icon">
@@ -29,6 +30,7 @@
 
     <!-- Template Stylesheet -->
     <link href="/modal/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @stack('css')
 </head>
 
@@ -53,7 +55,7 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <a href="wa.me/6289605007001" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-whatsapp"></i></a>
 
 
     <!-- JavaScript Libraries -->
