@@ -4,10 +4,11 @@
             <div class="position-relative bg-light overflow-hidden">
                 <img class="img-fluid w-100" src="{{ asset('storage/' . $k->gambar) }}" alt="">
                 <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
-                    {{ $k->status }}</div>
+                    {{ $k->status }}
+                </div>
             </div>
             <div class="text-center p-4">
-                <a class="d-block h5 mb-2" href="">{{ $k->title }}</a>
+                <a class="d-block h5 mb-2" href="/katalog/{{ $k->slug }}">{{ $k->title }}</a>
                 <span class="text-primary me-1">Rp{{ number_format($k->harga, 0, ',', '.') }}</span>
             </div>
             <div class="d-flex border-top">
