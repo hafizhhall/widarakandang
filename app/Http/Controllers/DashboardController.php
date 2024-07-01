@@ -22,6 +22,7 @@ class DashboardController extends Controller
         for ($i = 1; $i <= $bulan; $i++) {
             $totalTransaksi = Transaction::whereYear('created_at', $tahun)
                 ->whereMonth('created_at', $i)
+                ->where('status', 'lunas')
                 ->sum('total');
 
             $dataBulan[] = Carbon::create()->month($i)->format('F');
