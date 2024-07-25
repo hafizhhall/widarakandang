@@ -73,6 +73,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary"><i class="bi bi-send-plus-fill"></i> Kirim</button>
+                        <a class="btn btn-danger" href="/dashboard/artikel" role="button">batal</a>
                     </form>
                 </div>
             </div>

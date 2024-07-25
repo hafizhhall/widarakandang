@@ -40,19 +40,21 @@ class UserAddressController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validasiData = $request->validate([
             'name' => 'required|max:100',
             'alamat' => 'required',
             'pos' => 'required',
             'phone' => 'required',
             'city_name' => 'required',
-            'city' => 'required',
+            'city' => 'required'
         ]);
+        // dd($validasiData);
         // $rules['user_id'] = auth()->user()->id;
         $validasiData['user_id'] = auth()->user()->id;
         Alert::toast('Berhasil tambah alamat', 'success');
         Address::create($validasiData);
-        return redirect('/user/address')->with('success', 'Alamat berhasil diubah');
+        return redirect('/user/address')->with('success', 'Alamat berhasil ditambah');
     }
 
     /**

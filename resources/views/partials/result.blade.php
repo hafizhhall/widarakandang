@@ -16,7 +16,6 @@
                     <a class="text-body" href="/katalog/{{ $k->slug }}"><i
                             class="fa fa-eye text-primary me-2"></i>Detail</a>
                 </small>
-                @can('pelanggan')
                 <form action="/chart/store" method="post">
                     @csrf
                     <small class="w-50 text-center py-2">
@@ -26,7 +25,6 @@
                             class="fa fa-shopping-bag text-primary me-2"></i></a>
                     </small>
                 </form>
-                @endcan
             </div>
         </div>
     </div>

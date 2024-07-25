@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="form-text mb-2">*status => siapa yang mengeluarkan stok</p>
+                    <p class="form-text mb-2 text-danger">*status = siapa yang mengeluarkan stok</p>
                     @include('dashboard.output.table')
                 </div>
             </div>
