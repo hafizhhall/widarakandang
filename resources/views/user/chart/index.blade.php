@@ -86,7 +86,6 @@
                                                     </button>
                                                 </div>
                                             </div>
-
                                         </td>
                                         <td>
                                             <p class="mb-0 mt-4">Rp
@@ -208,10 +207,10 @@
                                         <div class="mt-2">
                                             <label for="new_alamat" class="form-label">Alamat lengkap</label>
                                             <textarea name="new_alamat" id="new_alamat" cols="30" rows="3" class="form-control">
-@if (old('new_alamat'))
+                                            @if (old('new_alamat'))
 {{ old('new_alamat') }}
 @endif
-</textarea>
+                                            </textarea>
                                             @error('new_alamat')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -252,7 +251,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-8">
                             <div class="mt-3">
@@ -276,7 +274,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

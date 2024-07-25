@@ -107,6 +107,7 @@ Route::group([], function () {
     Route::get('/blog', [AboutController::class, 'index']);
 
     Route::get('/katalog', [KatalogController::class, 'index']);
+    Route::get('/search', [KatalogController::class, 'search']);
 
     // halaman single post
     Route::get('/katalog/{katalog:slug}', [KatalogController::class, 'show']);

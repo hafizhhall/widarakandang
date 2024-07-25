@@ -97,9 +97,9 @@ class UserCheckoutController extends Controller
         //ambil shipping address
         $selectedAddressId = $request->input('shipping_address_id');
 
-        if(!$selectedAddressId){
+        if (!$selectedAddressId) {
             Alert::toast('Silahkan pilih alamat pengiriman', 'error');
-            return redirect('/chart')->with('error','Silahkan pilih alamat pengiriman');
+            return redirect('/chart')->with('error', 'Silahkan pilih alamat pengiriman');
         }
         $selectedAddress = Address::find($selectedAddressId);
         if (!$selectedAddress) {
@@ -255,17 +255,38 @@ class UserCheckoutController extends Controller
         return $pdf->download('inoice WK' . $transaction->id . '-' . $todayDate . '.pdf');
     }
 
-    public function destroy($transactionId){
+    public function destroy($transactionId)
+    {
         $userId = Auth::id();
 
         $transaction = Transaction::where('id', $transactionId)
-                ->where('user_id', $userId)
-                ->first();
+            ->where('user_id', $userId)
+            ->first();
 
-        if(!$transaction){
+        if (!$transaction) {
             abort(404, 'Transaksi tidak ditemukan, anda tidak memiliki akses untuk menghapus data ini');
         }
 
+        // Dapatkan semua detail transaksi
+        $transactionDetails = TransactionDetail::where('transaction_id', $transactionId)->get();
+
+        // Loop melalui setiap detail transaksi
+        foreach ($transactionDetails as $detail) {
+            // Hapus data dari tabel Output
+            Output::where('katalog_id', $detail->katalog_id)
+                ->where('user_id', $userId)
+                ->where('quantity', $detail->qty)
+                ->where('harga_keluar', $detail->sub_total)
+                ->where('created_at', $detail->created_at)
+                ->delete();
+
+            // Kembalikan jumlah item ke tabel anggrek
+            $anggrek = Katalog::where('id', $detail->katalog_id)->first();
+            if ($anggrek) {
+                $anggrek->jumlah += $detail->qty; // Sesuaikan field jumlah sesuai dengan skema tabel anggrek Anda
+                $anggrek->save();
+            }
+        }
         TransactionDetail::where('transaction_id', $transactionId)->delete();
 
         $transaction->delete();

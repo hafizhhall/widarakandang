@@ -26,7 +26,7 @@
                     <p style="opacity: 50%" class="text-info">{{ $artikel->user->name }}</p>
                     <p style="text-align: justify" class="mt-4">{!! $artikel->body !!}</p>
                     <div class="d-flex flex-row justify-content-end">
-                        <i class="fa fa-calendar me-2"></i>{{ $artikel->tanggal }}
+                        <i class="fa fa-calendar me-2"></i>{{ $artikel->created_at->translatedFormat('d F Y') }}
                     </div>
                 </div>
             </div>

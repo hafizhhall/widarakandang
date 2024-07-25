@@ -28,9 +28,9 @@ class UserChartController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if (empty($user->city) || empty($user->alamat) || empty($user->no_telep) || empty($user->pos)) {
-            Alert::toast('Lengkapi profil Anda terlebih dahulu', 'error');
-            return redirect('/user')->with('error', 'Anda harus melengkapi profil terlebih dahulu.');
+        if ($user->addresses->isEmpty()) {
+            Alert::toast('Lengkapi alamat pengiriman Anda terlebih dahulu', 'error');
+            return redirect('/user/address')->with('error', 'Anda harus melengkapi alamat pengiriman terlebih dahulu.');
         }
         // Cek apakah `katalog_id` ada di request
         if (!$request->has('katalog_id')) {

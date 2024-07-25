@@ -17,7 +17,7 @@ class HomeController extends Controller
             // "artikel" => Artikel::all(),
             "artikel" => Artikel::latest()->take(6)->get(),
             "kategori" => Kategori::all(),
-            "katalog_anggrek" => Katalog::all(),
+            "katalog_anggrek" => Katalog::latest()->take(8)->get(),
             "jenis" => Jenis::all()
         ]);
     }

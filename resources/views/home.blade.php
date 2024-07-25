@@ -130,6 +130,9 @@
                         <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
                         </div>
                     </div>
+                    <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="btn btn-primary rounded-pill py-3 px-5" href="/katalog">Lihat lainya</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,14 +155,14 @@
                             <div class="text-muted border-top pt-4">
                                 <small class="me-3"><i class="fa fa-user text-primary me-2"></i>{{ $artikels->user->name }}</small>
                                 <small class="me-3"><i
-                                        class="fa fa-calendar text-primary me-2"></i>{{ $artikels->tanggal }}</small>
+                                        class="fa fa-calendar text-primary me-2"></i>{{ $artikels->created_at->translatedFormat('d F Y') }}</small>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
             <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                <a class="btn btn-primary rounded-pill py-3 px-5" href="/blog">Read More</a>
+                <a class="btn btn-primary rounded-pill py-3 px-5" href="/blog">Lihat lainya</a>
             </div>
         </div>
     </div>

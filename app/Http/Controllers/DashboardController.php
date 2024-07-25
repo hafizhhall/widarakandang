@@ -46,6 +46,7 @@ class DashboardController extends Controller
         // Menghitung total pendapatan untuk bulan saat ini
         $data['transactionByMonth'] = Transaction::whereMonth('created_at', $currentMonth)
             ->whereYear('created_at', $currentYear)
+            ->where('status', 'lunas')
             ->sum('total');
         $data['entryByMonth'] = Entry::whereMonth('date', $currentMonth)
             ->whereYear('date', $currentYear)

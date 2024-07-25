@@ -1,9 +1,9 @@
 @extends('user.index')
 @section('menu')
     <main class="container py-2 form-signin w-100 m-auto">
-        <form action="/user/address/" method="post">
+        <form action="/user/address" method="post">
             @csrf
-            <h1 class="h3 mb-3 fw-normal" style="font-family: poppins">Ubah alamat pengiriman</h1>
+            <h1 class="h3 mb-3 fw-normal" style="font-family: poppins">Tambah alamat pengiriman</h1>
             @include('sweetalert::alert')
             <div class="row mt-3">
                 <div class="col-md-6">

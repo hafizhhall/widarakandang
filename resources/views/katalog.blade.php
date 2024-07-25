@@ -38,9 +38,9 @@
         </div>
         <div class="row g-0 gx-5 align-items-end">
             <div class="col-lg-3 form-select-lg">
-                <form action="/katalog" id="searchForm">
+                <form action="/search" method="get">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Cari anggrek..." name="search" id="searchInput" value="{{ request('search') }}">
+                        <input type="text" class="form-control" placeholder="Cari anggrek..." name="search" id="searchInput" value="{{ isset($search) ? $search : ''}}">
                         <button class="btn btn-primary" type="submit" id="searchButton">Cari</button>
                     </div>
                 </form>

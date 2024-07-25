@@ -48,7 +48,7 @@
                             <div class="text-muted border-top pt-4">
                                 <small class="me-3"><i class="fa fa-user text-primary me-2"></i>Admin</small>
                                 <small class="me-3"><i
-                                        class="fa fa-calendar text-primary me-2"></i>{{ $artikels->tanggal }}</small>
+                                        class="fa fa-calendar text-primary me-2"></i>{{ $artikels->created_at->translatedFormat('d F Y') }}</small>
                             </div>
                         </div>
                     </div>
